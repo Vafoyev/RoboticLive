@@ -1,0 +1,990 @@
+# frontObjectId katalogi — Urganch shahri
+
+Ushbu hujjat `frontObjects.csv` faylining Knowledge Base uchun Markdown ko'rinishidagi to'liq nusxasidir. Manba faylda 966 ta yozuv va 966 ta noyob ID bor.
+
+## Foydalanish qoidasi
+
+- Har bir qatordagi ID va manzil bitta atomar yozuv hisoblanadi.
+- `frontObjectId` faqat fuqaro aytgan ko'cha nomi, uy/xonadon raqami va katalogdagi aniq yozuv mos kelganda tanlanadi.
+- `qidiruv nomi` lotin yozuvidagi yordamchi ko'rinish; manba qiymati esa o'zgartirilmagan holda saqlangan.
+- Bir xil yoki juda o'xshash manzil bir nechta ID bilan ko'rsatilgan bo'lsa, agent ID tanlamaydi. Qo'shimcha mo'ljal yoki obyekt ma'lumotini so'raydi.
+- Katalogda yozuv topilmasa, ID taxmin qilinmaydi va webhook chaqirilmaydi.
+- Quyidagi ID'lar fuqaroga aytilmaydi; ular faqat webhook payload'ining ichki qiymatidir.
+
+## Takroriy manzillar
+
+Katalogda 39 ta normallashtirilgan manzil guruhi (81 ta yozuv) bir nechta ID bilan chiqdi. Bunday holatda faqat manzilga qarab tanlash mumkin emas.
+
+## Kanonik yozuvlar
+
+- ID `47521`; manba manzil: `Ўзб.Овози,23`; qidiruv nomi: `O'zb.Ovozi,23`
+- ID `47522`; manba manzil: `П.Махмуд,3/2`; qidiruv nomi: `P.Maxmud,3/2`
+- ID `47523`; manba manzil: `П.Махмуд,2`; qidiruv nomi: `P.Maxmud,2`
+- ID `47914`; manba manzil: `Ободлик,9`; qidiruv nomi: `Obodlik,9`
+- ID `47324`; manba manzil: `Гурлан,3`; qidiruv nomi: `Gurlan,3`
+- ID `47293`; manba manzil: `6-daxa 11 uy`; qidiruv nomi: `6-daxa 11 uy`
+- ID `47321`; manba manzil: `Ал-Хоразмий,21`; qidiruv nomi: `Al-Xorazmiy,21`
+- ID `47194`; manba manzil: `Зарбулоқ,43`; qidiruv nomi: `Zarbuloq,43`
+- ID `47570`; manba manzil: `Шерозий,29/1`; qidiruv nomi: `Sheroziy,29/1`
+- ID `47173`; manba manzil: `Наманган,16`; qidiruv nomi: `Namangan,16`
+- ID `47165`; manba manzil: `Зарбулоқ,33`; qidiruv nomi: `Zarbuloq,33`
+- ID `47933`; manba manzil: `Ободлик,9Д`; qidiruv nomi: `Obodlik,9D`
+- ID `47166`; manba manzil: `Зарбулоқ,34`; qidiruv nomi: `Zarbuloq,34`
+- ID `47641`; manba manzil: `А.Темур,40А`; qidiruv nomi: `A.Temur,40A`
+- ID `48060`; manba manzil: `А,Темур 40Б`; qidiruv nomi: `A,Temur 40B`
+- ID `47269`; manba manzil: `Amudaryo ko'chasi 9D`; qidiruv nomi: `Amudaryo ko'chasi 9D`
+- ID `47234`; manba manzil: `Хонқа,37`; qidiruv nomi: `Xonqa,37`
+- ID `47479`; manba manzil: `Ал-Хоразмий,100`; qidiruv nomi: `Al-Xorazmiy,100`
+- ID `47314`; manba manzil: `Ал-Хоразмий,24А`; qidiruv nomi: `Al-Xorazmiy,24A`
+- ID `47692`; manba manzil: `Жайхун,1/4А`; qidiruv nomi: `Jayxun,1/4A`
+- ID `47482`; manba manzil: `Гурлан 27`; qidiruv nomi: `Gurlan 27`
+- ID `47398`; manba manzil: `А.Темур 157`; qidiruv nomi: `A.Temur 157`
+- ID `47379`; manba manzil: `Гурлан кўчаси 25`; qidiruv nomi: `Gurlan ko'chasi 25`
+- ID `48015`; manba manzil: `Бухоро 16`; qidiruv nomi: `Buxoro 16`
+- ID `47384`; manba manzil: `А.Темур 147`; qidiruv nomi: `A.Temur 147`
+- ID `47230`; manba manzil: `Наманган,48`; qidiruv nomi: `Namangan,48`
+- ID `47339`; manba manzil: `Гурлан,9`; qidiruv nomi: `Gurlan,9`
+- ID `47281`; manba manzil: `Гурлан кўчаси 35`; qidiruv nomi: `Gurlan ko'chasi 35`
+- ID `47724`; manba manzil: `Ал-Хоразмий,50`; qidiruv nomi: `Al-Xorazmiy,50`
+- ID `47606`; manba manzil: `Шерозий,4`; qidiruv nomi: `Sheroziy,4`
+- ID `47611`; manba manzil: `Шерозий,5`; qidiruv nomi: `Sheroziy,5`
+- ID `47565`; manba manzil: `П.Махмуд,15`; qidiruv nomi: `P.Maxmud,15`; **DUPLIKAT ID'lar:** `47565`, `47614`, `47879`
+- ID `47250`; manba manzil: `Гурлан кўчаси 43`; qidiruv nomi: `Gurlan ko'chasi 43`
+- ID `47614`; manba manzil: `П.Махмуд,15`; qidiruv nomi: `P.Maxmud,15`; **DUPLIKAT ID'lar:** `47565`, `47614`, `47879`
+- ID `47800`; manba manzil: `Ёшлик,18`; qidiruv nomi: `Yoshlik,18`; **DUPLIKAT ID'lar:** `47800`, `48094`
+- ID `47717`; manba manzil: `П.Махмуд,11`; qidiruv nomi: `P.Maxmud,11`; **DUPLIKAT ID'lar:** `47717`, `47612`
+- ID `47358`; manba manzil: `V.Fayazov 29/8 uy`; qidiruv nomi: `V.Fayazov 29/8 uy`
+- ID `47193`; manba manzil: `Зарбулоқ,37`; qidiruv nomi: `Zarbuloq,37`
+- ID `47351`; manba manzil: `V.Fayazov 29/4 uy`; qidiruv nomi: `V.Fayazov 29/4 uy`
+- ID `47365`; manba manzil: `V.Fayazov 29/15 uy`; qidiruv nomi: `V.Fayazov 29/15 uy`
+- ID `47152`; manba manzil: `Зарбулоқ,27`; qidiruv nomi: `Zarbuloq,27`
+- ID `47154`; manba manzil: `Зарбулоқ,29`; qidiruv nomi: `Zarbuloq,29`
+- ID `47142`; manba manzil: `Зарбулоқ,25`; qidiruv nomi: `Zarbuloq,25`
+- ID `47161`; manba manzil: `Зарбулоқ,55`; qidiruv nomi: `Zarbuloq,55`
+- ID `47811`; manba manzil: `Ёшлик,26/2А`; qidiruv nomi: `Yoshlik,26/2A`
+- ID `47150`; manba manzil: `Зарбулоқ,57`; qidiruv nomi: `Zarbuloq,57`
+- ID `47658`; manba manzil: `Тинчлик,2Г`; qidiruv nomi: `Tinchlik,2G`
+- ID `47686`; manba manzil: `Жайхун,11/1`; qidiruv nomi: `Jayxun,11/1`
+- ID `47554`; manba manzil: `Жайхун,42`; qidiruv nomi: `Jayxun,42`
+- ID `47801`; manba manzil: `Ёшлик,18А`; qidiruv nomi: `Yoshlik,18A`
+- ID `47634`; manba manzil: `Янгиариқ,13/1`; qidiruv nomi: `Yangiariq,13/1`
+- ID `47695`; manba manzil: `Ю.Бобожонов,13`; qidiruv nomi: `Yu.Bobojonov,13`
+- ID `47376`; manba manzil: `V.Fayazov 29/25 uy`; qidiruv nomi: `V.Fayazov 29/25 uy`
+- ID `47354`; manba manzil: `V.Fayazov 29/1 uy`; qidiruv nomi: `V.Fayazov 29/1 uy`
+- ID `47144`; manba manzil: `Фаёзов,29/2`; qidiruv nomi: `Fayozov,29/2`
+- ID `47201`; manba manzil: `Зарбулоқ,10/2`; qidiruv nomi: `Zarbuloq,10/2`
+- ID `47203`; manba manzil: `Зарбулоқ,10/4`; qidiruv nomi: `Zarbuloq,10/4`
+- ID `47977`; manba manzil: `навруз 2А`; qidiruv nomi: `navruz 2A`
+- ID `47257`; manba manzil: `Гурлан кўчаси 51`; qidiruv nomi: `Gurlan ko'chasi 51`
+- ID `47399`; manba manzil: `Гурлан кучаси 23`; qidiruv nomi: `Gurlan kuchasi 23`
+- ID `47148`; manba manzil: `Наманган,47`; qidiruv nomi: `Namangan,47`
+- ID `47786`; manba manzil: `Термиз,24`; qidiruv nomi: `Termiz,24`
+- ID `47396`; manba manzil: `А.Темур 153`; qidiruv nomi: `A.Temur 153`
+- ID `47221`; manba manzil: `П.Махмуд,59`; qidiruv nomi: `P.Maxmud,59`; **DUPLIKAT ID'lar:** `47221`, `47484`
+- ID `47284`; manba manzil: `Гурлан кўчаси 39`; qidiruv nomi: `Gurlan ko'chasi 39`
+- ID `47163`; manba manzil: `Зарбулоқ,59`; qidiruv nomi: `Zarbuloq,59`
+- ID `47623`; manba manzil: `Янгиариқ,21`; qidiruv nomi: `Yangiariq,21`
+- ID `47976`; manba manzil: `навруз 4`; qidiruv nomi: `navruz 4`
+- ID `47787`; manba manzil: `Ғалаба,3А`; qidiruv nomi: `G'alaba,3A`
+- ID `47626`; manba manzil: `Янгиариқ,7А`; qidiruv nomi: `Yangiariq,7A`
+- ID `47628`; manba manzil: `Янгиариқ,7/2`; qidiruv nomi: `Yangiariq,7/2`
+- ID `47791`; manba manzil: `Ёшлик,1Б`; qidiruv nomi: `Yoshlik,1B`
+- ID `47630`; manba manzil: `Янгиариқ,5А`; qidiruv nomi: `Yangiariq,5A`
+- ID `47295`; manba manzil: `6-daxa 13 uy`; qidiruv nomi: `6-daxa 13 uy`
+- ID `47863`; manba manzil: `Бўстон,14/2`; qidiruv nomi: `Bo'ston,14/2`
+- ID `47935`; manba manzil: `Buxoro34A`; qidiruv nomi: `Buxoro34A`
+- ID `47887`; manba manzil: `141/1`; qidiruv nomi: `141/1`
+- ID `47313`; manba manzil: `Ал-Хоразмий,24`; qidiruv nomi: `Al-Xorazmiy,24`
+- ID `47666`; manba manzil: `Тинчлик,2Б`; qidiruv nomi: `Tinchlik,2B`; **DUPLIKAT ID'lar:** `47666`, `48086`
+- ID `47213`; manba manzil: `Зарбулоқ,13`; qidiruv nomi: `Zarbuloq,13`
+- ID `47778`; manba manzil: `Термиз,15/1А`; qidiruv nomi: `Termiz,15/1A`
+- ID `47620`; manba manzil: `Янгиариқ,15`; qidiruv nomi: `Yangiariq,15`
+- ID `47561`; manba manzil: `Жайхун,38`; qidiruv nomi: `Jayxun,38`
+- ID `47562`; manba manzil: `Жайхун,44`; qidiruv nomi: `Jayxun,44`
+- ID `47195`; manba manzil: `Зарбулоқ,42`; qidiruv nomi: `Zarbuloq,42`
+- ID `47449`; manba manzil: `Гужумзор,31/4`; qidiruv nomi: `Gujumzor,31/4`
+- ID `48017`; manba manzil: `Гурлан 19/1`; qidiruv nomi: `Gurlan 19/1`
+- ID `47563`; manba manzil: `Улуғбек,89`; qidiruv nomi: `Ulug'bek,89`
+- ID `47814`; manba manzil: `Мустақиллик,1/2`; qidiruv nomi: `Mustaqillik,1/2`
+- ID `47590`; manba manzil: `П.Махмуд,28`; qidiruv nomi: `P.Maxmud,28`
+- ID `47588`; manba manzil: `Ал-Хоразмий,65`; qidiruv nomi: `Al-Xorazmiy,65`
+- ID `47719`; manba manzil: `Ўзб.Овози,33А`; qidiruv nomi: `O'zb.Ovozi,33A`
+- ID `47792`; manba manzil: `Термиз,25/3В`; qidiruv nomi: `Termiz,25/3V`
+- ID `47721`; manba manzil: `Ю.Бобожонов,1`; qidiruv nomi: `Yu.Bobojonov,1`
+- ID `47141`; manba manzil: `Зарбулоқ,9/2`; qidiruv nomi: `Zarbuloq,9/2`
+- ID `47149`; manba manzil: `Зарбулоқ,24`; qidiruv nomi: `Zarbuloq,24`
+- ID `47675`; manba manzil: `Ж.Мангуберди,10`; qidiruv nomi: `J.Manguberdi,10`
+- ID `47793`; manba manzil: `Хонқа,28А`; qidiruv nomi: `Xonqa,28A`
+- ID `47794`; manba manzil: `Т.Йўлчи,3`; qidiruv nomi: `T.Yo'lchi,3`
+- ID `47908`; manba manzil: `Ободлик,24`; qidiruv nomi: `Obodlik,24`
+- ID `47678`; manba manzil: `Жайхун,5/7`; qidiruv nomi: `Jayxun,5/7`
+- ID `47677`; manba manzil: `Жайхун,9`; qidiruv nomi: `Jayxun,9`
+- ID `47633`; manba manzil: `Янгиариқ,11/3`; qidiruv nomi: `Yangiariq,11/3`
+- ID `47430`; manba manzil: `Xonqa,115`; qidiruv nomi: `Xonqa,115`
+- ID `47552`; manba manzil: `Навоий,79`; qidiruv nomi: `Navoiy,79`
+- ID `47432`; manba manzil: `Gujumzor,60`; qidiruv nomi: `Gujumzor,60`
+- ID `47940`; manba manzil: `Самарканд 118`; qidiruv nomi: `Samarkand 118`
+- ID `47700`; manba manzil: `П.Махмуд,21А`; qidiruv nomi: `P.Maxmud,21A`
+- ID `47701`; manba manzil: `Ал-Хоразмий,48А`; qidiruv nomi: `Al-Xorazmiy,48A`
+- ID `47373`; manba manzil: `V.Fayazov 29/22 uy`; qidiruv nomi: `V.Fayazov 29/22 uy`; **DUPLIKAT ID'lar:** `47373`, `47372`
+- ID `47364`; manba manzil: `V.Fayazov 29/14 uy`; qidiruv nomi: `V.Fayazov 29/14 uy`
+- ID `47359`; manba manzil: `V.Fayazov 29/9 uy`; qidiruv nomi: `V.Fayazov 29/9 uy`
+- ID `47363`; manba manzil: `V.Fayazov 29/13 uy`; qidiruv nomi: `V.Fayazov 29/13 uy`
+- ID `47367`; manba manzil: `V.Fayazov 29/17 uy`; qidiruv nomi: `V.Fayazov 29/17 uy`
+- ID `47202`; manba manzil: `Зарбулоқ,10/3`; qidiruv nomi: `Zarbuloq,10/3`
+- ID `47205`; manba manzil: `Зарбулоқ,10/6`; qidiruv nomi: `Zarbuloq,10/6`
+- ID `47637`; manba manzil: `Хонқа,28Б`; qidiruv nomi: `Xonqa,28B`
+- ID `47214`; manba manzil: `Зарбулоқ,14`; qidiruv nomi: `Zarbuloq,14`
+- ID `47233`; manba manzil: `4 Даха 17/1`; qidiruv nomi: `4 Daxa 17/1`
+- ID `47638`; manba manzil: `Истиқбол,80`; qidiruv nomi: `Istiqbol,80`
+- ID `47640`; manba manzil: `Истиқбол,84`; qidiruv nomi: `Istiqbol,84`
+- ID `47208`; manba manzil: `Зарбулоқ,10`; qidiruv nomi: `Zarbuloq,10`
+- ID `47723`; manba manzil: `П.Махмуд,7`; qidiruv nomi: `P.Maxmud,7`; **DUPLIKAT ID'lar:** `47723`, `47602`
+- ID `47687`; manba manzil: `Жайхун,5`; qidiruv nomi: `Jayxun,5`
+- ID `47312`; manba manzil: `Ал-Хоразмий,22`; qidiruv nomi: `Al-Xorazmiy,22`
+- ID `47246`; manba manzil: `Бухоро кўчаси 15а`; qidiruv nomi: `Buxoro ko'chasi 15a`
+- ID `47813`; manba manzil: `Ал-Хоразмий,2Д`; qidiruv nomi: `Al-Xorazmiy,2D`
+- ID `47689`; manba manzil: `Ал-Беруний,194`; qidiruv nomi: `Al-Beruniy,194`
+- ID `47690`; manba manzil: `Ал-Беруний,194А`; qidiruv nomi: `Al-Beruniy,194A`
+- ID `47691`; manba manzil: `Жайхун,1/4`; qidiruv nomi: `Jayxun,1/4`
+- ID `47323`; manba manzil: `Гурлан,1`; qidiruv nomi: `Gurlan,1`
+- ID `47276`; manba manzil: `Гурлан кўчаси 27`; qidiruv nomi: `Gurlan ko'chasi 27`
+- ID `47282`; manba manzil: `Гурлан кўчаси 37`; qidiruv nomi: `Gurlan ko'chasi 37`
+- ID `47253`; manba manzil: `Гурлан кўчаси 47`; qidiruv nomi: `Gurlan ko'chasi 47`
+- ID `47381`; manba manzil: `Наманган кўчаси 35`; qidiruv nomi: `Namangan ko'chasi 35`
+- ID `47272`; manba manzil: `Гурлан кўчаси 17`; qidiruv nomi: `Gurlan ko'chasi 17`
+- ID `47261`; manba manzil: `Гурлан кўчаси 59`; qidiruv nomi: `Gurlan ko'chasi 59`
+- ID `47271`; manba manzil: `Гурлан кўчаси 15`; qidiruv nomi: `Gurlan ko'chasi 15`
+- ID `47395`; manba manzil: `А.Темур 151`; qidiruv nomi: `A.Temur 151`
+- ID `47476`; manba manzil: `Наманган,3`; qidiruv nomi: `Namangan,3`
+- ID `47340`; manba manzil: `Гурлан,11`; qidiruv nomi: `Gurlan,11`
+- ID `47279`; manba manzil: `Гурлан кўчаси 31`; qidiruv nomi: `Gurlan ko'chasi 31`
+- ID `47454`; manba manzil: `Гужумзор,49Б`; qidiruv nomi: `Gujumzor,49B`
+- ID `47239`; manba manzil: `Наманган,7/7`; qidiruv nomi: `Namangan,7/7`
+- ID `47226`; manba manzil: `Хонқа,27`; qidiruv nomi: `Xonqa,27`
+- ID `47444`; manba manzil: `Н.Кубро,124`; qidiruv nomi: `N.Kubro,124`
+- ID `47394`; manba manzil: `А.Темур 149А`; qidiruv nomi: `A.Temur 149A`
+- ID `47451`; manba manzil: `Н.Кубро,66`; qidiruv nomi: `N.Kubro,66`
+- ID `47455`; manba manzil: `Гужумзор,12`; qidiruv nomi: `Gujumzor,12`
+- ID `47220`; manba manzil: `П.Махмуд,46А`; qidiruv nomi: `P.Maxmud,46A`
+- ID `47243`; manba manzil: `Бухоро кўчаси 13А`; qidiruv nomi: `Buxoro ko'chasi 13A`
+- ID `47474`; manba manzil: `А.Баходирхон,60/1`; qidiruv nomi: `A.Baxodirxon,60/1`
+- ID `47475`; manba manzil: `И.Каримов,144`; qidiruv nomi: `I.Karimov,144`
+- ID `47433`; manba manzil: `Гужумзор,41/2`; qidiruv nomi: `Gujumzor,41/2`
+- ID `47435`; manba manzil: `Гужумзор,39А`; qidiruv nomi: `Gujumzor,39A`
+- ID `47436`; manba manzil: `Гужумзор,49А`; qidiruv nomi: `Gujumzor,49A`
+- ID `47440`; manba manzil: `Гужумзор,22`; qidiruv nomi: `Gujumzor,22`
+- ID `47684`; manba manzil: `Ал-Беруний,8`; qidiruv nomi: `Al-Beruniy,8`
+- ID `47569`; manba manzil: `П.Махмуд,6`; qidiruv nomi: `P.Maxmud,6`
+- ID `47550`; manba manzil: `Навоий,102`; qidiruv nomi: `Navoiy,102`
+- ID `47556`; manba manzil: `Улугбек,87`; qidiruv nomi: `Ulugbek,87`
+- ID `47557`; manba manzil: `Жайхун,36`; qidiruv nomi: `Jayxun,36`
+- ID `47558`; manba manzil: `Навоий,87`; qidiruv nomi: `Navoiy,87`
+- ID `47583`; manba manzil: `Ал-Хоразмий,75`; qidiruv nomi: `Al-Xorazmiy,75`
+- ID `47559`; manba manzil: `Навоий,85`; qidiruv nomi: `Navoiy,85`
+- ID `47815`; manba manzil: `Мустақиллик,1/1`; qidiruv nomi: `Mustaqillik,1/1`
+- ID `47460`; manba manzil: `Гужумзор,41`; qidiruv nomi: `Gujumzor,41`
+- ID `47462`; manba manzil: `Гужумзор,31/2`; qidiruv nomi: `Gujumzor,31/2`
+- ID `47464`; manba manzil: `Тошкент,12/1`; qidiruv nomi: `Toshkent,12/1`
+- ID `47466`; manba manzil: `Тошкент,12/3`; qidiruv nomi: `Toshkent,12/3`
+- ID `47489`; manba manzil: `Ж.Мангуберди,12`; qidiruv nomi: `J.Manguberdi,12`
+- ID `47512`; manba manzil: `П.Махмуд,2А`; qidiruv nomi: `P.Maxmud,2A`
+- ID `47493`; manba manzil: `А.Баходирхон,43`; qidiruv nomi: `A.Baxodirxon,43`
+- ID `47495`; manba manzil: `Ўзб.Овози,3`; qidiruv nomi: `O'zb.Ovozi,3`
+- ID `47497`; manba manzil: `А.Баходирхон,43/1`; qidiruv nomi: `A.Baxodirxon,43/1`
+- ID `47514`; manba manzil: `И.Каримов,69`; qidiruv nomi: `I.Karimov,69`
+- ID `47499`; manba manzil: `Ғ.Ғулом,11`; qidiruv nomi: `G'.G'ulom,11`
+- ID `47825`; manba manzil: `Хонқа,62/5`; qidiruv nomi: `Xonqa,62/5`
+- ID `47500`; manba manzil: `Ғ.Ғулом,5А`; qidiruv nomi: `G'.G'ulom,5A`
+- ID `47511`; manba manzil: `И.Каримов,140`; qidiruv nomi: `I.Karimov,140`
+- ID `47827`; manba manzil: `Бўстон,11`; qidiruv nomi: `Bo'ston,11`
+- ID `47518`; manba manzil: `Ал-Беруний,9`; qidiruv nomi: `Al-Beruniy,9`
+- ID `47502`; manba manzil: `Ж.Мангуберди,6`; qidiruv nomi: `J.Manguberdi,6`
+- ID `47505`; manba manzil: `Ғ.Ғулом,19`; qidiruv nomi: `G'.G'ulom,19`
+- ID `47520`; manba manzil: `Ўзб.Овози,25А`; qidiruv nomi: `O'zb.Ovozi,25A`
+- ID `47509`; manba manzil: `Ғ.Ғулом,15А`; qidiruv nomi: `G'.G'ulom,15A`
+- ID `47832`; manba manzil: `Хонқа,58`; qidiruv nomi: `Xonqa,58`
+- ID `47545`; manba manzil: `А.Баходирхон,111Б`; qidiruv nomi: `A.Baxodirxon,111B`
+- ID `47833`; manba manzil: `Хонқа,62/2`; qidiruv nomi: `Xonqa,62/2`
+- ID `48062`; manba manzil: `Истиклол 50`; qidiruv nomi: `Istiklol 50`
+- ID `47547`; manba manzil: `Ал-Хоразмий,58`; qidiruv nomi: `Al-Xorazmiy,58`
+- ID `47835`; manba manzil: `Ал-Хоразмий,6`; qidiruv nomi: `Al-Xorazmiy,6`
+- ID `47836`; manba manzil: `Ал-Хоразмий,16`; qidiruv nomi: `Al-Xorazmiy,16`
+- ID `47922`; manba manzil: `Ободлик,32`; qidiruv nomi: `Obodlik,32`
+- ID `48004`; manba manzil: `А.Баходирхон,111А`; qidiruv nomi: `A.Baxodirxon,111A`
+- ID `47531`; manba manzil: `Ал-Беруний,19`; qidiruv nomi: `Al-Beruniy,19`
+- ID `47528`; manba manzil: `Ал-Беруний,17`; qidiruv nomi: `Al-Beruniy,17`
+- ID `47530`; manba manzil: `Ал-Беруний,23`; qidiruv nomi: `Al-Beruniy,23`
+- ID `47839`; manba manzil: `Ал-Хоразмий,10`; qidiruv nomi: `Al-Xorazmiy,10`
+- ID `47841`; manba manzil: `Ал-Хоразмий,14`; qidiruv nomi: `Al-Xorazmiy,14`
+- ID `47842`; manba manzil: `Ал-Хоразмий,18`; qidiruv nomi: `Al-Xorazmiy,18`
+- ID `47534`; manba manzil: `Ал-Беруний,7`; qidiruv nomi: `Al-Beruniy,7`
+- ID `47847`; manba manzil: `Хонқа,62/6`; qidiruv nomi: `Xonqa,62/6`
+- ID `47400`; manba manzil: `Гурлан кўчаси 19`; qidiruv nomi: `Gurlan ko'chasi 19`
+- ID `47849`; manba manzil: `А.Баходирхон,1/1`; qidiruv nomi: `A.Baxodirxon,1/1`; **DUPLIKAT ID'lar:** `47849`, `48091`
+- ID `47539`; manba manzil: `Ал-Беруний,17Д`; qidiruv nomi: `Al-Beruniy,17D`
+- ID `47540`; manba manzil: `Ал-Беруний,5`; qidiruv nomi: `Al-Beruniy,5`
+- ID `47541`; manba manzil: `Ўзб.Овози,29Д`; qidiruv nomi: `O'zb.Ovozi,29D`
+- ID `47854`; manba manzil: `Хонқа,50`; qidiruv nomi: `Xonqa,50`
+- ID `47857`; manba manzil: `Наманган,6`; qidiruv nomi: `Namangan,6`
+- ID `47859`; manba manzil: `Наманган,2`; qidiruv nomi: `Namangan,2`
+- ID `47238`; manba manzil: `Хонқа,19`; qidiruv nomi: `Xonqa,19`
+- ID `47861`; manba manzil: `Ал-Хоразмий,4`; qidiruv nomi: `Al-Xorazmiy,4`
+- ID `47864`; manba manzil: `Хонқа,68`; qidiruv nomi: `Xonqa,68`
+- ID `47865`; manba manzil: `Ёшлик,29`; qidiruv nomi: `Yoshlik,29`
+- ID `47730`; manba manzil: `Хонқа,44`; qidiruv nomi: `Xonqa,44`
+- ID `47734`; manba manzil: `Ал-Хоразмий,13`; qidiruv nomi: `Al-Xorazmiy,13`
+- ID `47644`; manba manzil: `Самарқанд,104`; qidiruv nomi: `Samarqand,104`
+- ID `47645`; manba manzil: `Самарқанд,106`; qidiruv nomi: `Samarqand,106`
+- ID `47646`; manba manzil: `Самарқанд,100`; qidiruv nomi: `Samarqand,100`
+- ID `47477`; manba manzil: `Наманган,25/1`; qidiruv nomi: `Namangan,25/1`
+- ID `47651`; manba manzil: `Ал-Хоразмий,81`; qidiruv nomi: `Al-Xorazmiy,81`
+- ID `47320`; manba manzil: `Ал-Хоразмий,23/1`; qidiruv nomi: `Al-Xorazmiy,23/1`
+- ID `47647`; manba manzil: `Самарқанд,91`; qidiruv nomi: `Samarqand,91`
+- ID `47740`; manba manzil: `Термиз,21/2`; qidiruv nomi: `Termiz,21/2`
+- ID `47649`; manba manzil: `Ал-Хоразмий,79Д`; qidiruv nomi: `Al-Xorazmiy,79D`
+- ID `47185`; manba manzil: `Наманган,39`; qidiruv nomi: `Namangan,39`
+- ID `47147`; manba manzil: `Наманган,45`; qidiruv nomi: `Namangan,45`
+- ID `47176`; manba manzil: `Наманган,20`; qidiruv nomi: `Namangan,20`
+- ID `47316`; manba manzil: `Хонқа,35`; qidiruv nomi: `Xonqa,35`
+- ID `47746`; manba manzil: `Хонқа,36/3`; qidiruv nomi: `Xonqa,36/3`
+- ID `47249`; manba manzil: `Гурлан кўчаси 41`; qidiruv nomi: `Gurlan ko'chasi 41`
+- ID `47653`; manba manzil: `А.Баходирхон,214`; qidiruv nomi: `A.Baxodirxon,214`
+- ID `47660`; manba manzil: `Тинчлик,2А`; qidiruv nomi: `Tinchlik,2A`
+- ID `47820`; manba manzil: `Наманган,45/1`; qidiruv nomi: `Namangan,45/1`; **DUPLIKAT ID'lar:** `47820`, `48031`
+- ID `47171`; manba manzil: `Наманган,14`; qidiruv nomi: `Namangan,14`
+- ID `47655`; manba manzil: `А.Баходирхон,218`; qidiruv nomi: `A.Baxodirxon,218`
+- ID `47656`; manba manzil: `Самарқанд,38`; qidiruv nomi: `Samarqand,38`
+- ID `47657`; manba manzil: `Тинчлик,2В`; qidiruv nomi: `Tinchlik,2V`
+- ID `47756`; manba manzil: `Ғалаба,2`; qidiruv nomi: `G'alaba,2`
+- ID `47758`; manba manzil: `Ғалаба,4`; qidiruv nomi: `G'alaba,4`
+- ID `47661`; manba manzil: `А.Баходирхон,212Б`; qidiruv nomi: `A.Baxodirxon,212B`
+- ID `47224`; manba manzil: `Дўстлик,25`; qidiruv nomi: `Do'stlik,25`
+- ID `47237`; manba manzil: `Наманган,7/5`; qidiruv nomi: `Namangan,7/5`
+- ID `47383`; manba manzil: `А.Темур 145`; qidiruv nomi: `A.Temur 145`
+- ID `47760`; manba manzil: `Ғалаба,7`; qidiruv nomi: `G'alaba,7`
+- ID `47308`; manba manzil: `А.Баходирхон,37`; qidiruv nomi: `A.Baxodirxon,37`; **DUPLIKAT ID'lar:** `47308`, `47410`
+- ID `47762`; manba manzil: `Ғалаба,8`; qidiruv nomi: `G'alaba,8`
+- ID `47763`; manba manzil: `Ғалаба,14`; qidiruv nomi: `G'alaba,14`
+- ID `47668`; manba manzil: `Махтумқули,80/2`; qidiruv nomi: `Maxtumquli,80/2`
+- ID `47765`; manba manzil: `Ғалаба,10`; qidiruv nomi: `G'alaba,10`
+- ID `47907`; manba manzil: `Ободлик,19`; qidiruv nomi: `Obodlik,19`
+- ID `47725`; manba manzil: `Ал-Хоразмий,52`; qidiruv nomi: `Al-Xorazmiy,52`
+- ID `47158`; manba manzil: `Зарбулоқ,52`; qidiruv nomi: `Zarbuloq,52`
+- ID `47191`; manba manzil: `Наманган,53`; qidiruv nomi: `Namangan,53`
+- ID `47169`; manba manzil: `Наманган,12`; qidiruv nomi: `Namangan,12`
+- ID `47236`; manba manzil: `Наманган,7/11`; qidiruv nomi: `Namangan,7/11`
+- ID `47671`; manba manzil: `А.Баходирхон,216/1`; qidiruv nomi: `A.Baxodirxon,216/1`
+- ID `47768`; manba manzil: `Ғалаба,1`; qidiruv nomi: `G'alaba,1`
+- ID `47782`; manba manzil: `Хонқа,28`; qidiruv nomi: `Xonqa,28`
+- ID `47228`; manba manzil: `Хонқа,31`; qidiruv nomi: `Xonqa,31`
+- ID `47309`; manba manzil: `Наманган,7/6`; qidiruv nomi: `Namangan,7/6`
+- ID `47771`; manba manzil: `Термиз,9/2`; qidiruv nomi: `Termiz,9/2`
+- ID `47353`; manba manzil: `A.Bahodirxon 201 uy`; qidiruv nomi: `A.Bahodirxon 201 uy`; **DUPLIKAT ID'lar:** `47353`, `47346`
+- ID `47769`; manba manzil: `Ал-Хоразмий,2/2`; qidiruv nomi: `Al-Xorazmiy,2/2`
+- ID `47348`; manba manzil: `A.Bahodirxon 205 uy`; qidiruv nomi: `A.Bahodirxon 205 uy`
+- ID `47893`; manba manzil: `Ободлик,34`; qidiruv nomi: `Obodlik,34`
+- ID `47775`; manba manzil: `Ал-Хоразмий,5`; qidiruv nomi: `Al-Xorazmiy,5`
+- ID `47240`; manba manzil: `Гурлан кўчаси 69`; qidiruv nomi: `Gurlan ko'chasi 69`
+- ID `47168`; manba manzil: `Наманган,10`; qidiruv nomi: `Namangan,10`
+- ID `47777`; manba manzil: `Ал-Хоразмий,9`; qidiruv nomi: `Al-Xorazmiy,9`
+- ID `47779`; manba manzil: `Термиз,22`; qidiruv nomi: `Termiz,22`
+- ID `47780`; manba manzil: `Ғалаба,1/2`; qidiruv nomi: `G'alaba,1/2`
+- ID `47783`; manba manzil: `Ғалаба,21Б`; qidiruv nomi: `G'alaba,21B`
+- ID `47784`; manba manzil: `Ёшлик,30/2`; qidiruv nomi: `Yoshlik,30/2`; **DUPLIKAT ID'lar:** `47784`, `47622`
+- ID `47571`; manba manzil: `Тараққиёт,37`; qidiruv nomi: `Taraqqiyot,37`
+- ID `47810`; manba manzil: `Ёшлик,26В`; qidiruv nomi: `Yoshlik,26V`; **DUPLIKAT ID'lar:** `47810`, `47980`, `47981`
+- ID `47685`; manba manzil: `Жайхун,1`; qidiruv nomi: `Jayxun,1`
+- ID `47693`; manba manzil: `Жайхун,1/4Б`; qidiruv nomi: `Jayxun,1/4B`
+- ID `47572`; manba manzil: `Шерозий,29`; qidiruv nomi: `Sheroziy,29`
+- ID `47722`; manba manzil: `П.Махмуд,15/1`; qidiruv nomi: `P.Maxmud,15/1`
+- ID `47447`; manba manzil: `Гужумзор,17/5`; qidiruv nomi: `Gujumzor,17/5`
+- ID `47273`; manba manzil: `Гурлан кўчаси 21`; qidiruv nomi: `Gurlan ko'chasi 21`
+- ID `47428`; manba manzil: `Gujumzor,3/2A`; qidiruv nomi: `Gujumzor,3/2A`; **DUPLIKAT ID'lar:** `47428`, `47881`
+- ID `47882`; manba manzil: `Т.Малик,1/45`; qidiruv nomi: `T.Malik,1/45`; **DUPLIKAT ID'lar:** `47882`, `48056`
+- ID `47593`; manba manzil: `Ўзбекистон,29`; qidiruv nomi: `O'zbekiston,29`
+- ID `47729`; manba manzil: `Ю.Бобожонов,15`; qidiruv nomi: `Yu.Bobojonov,15`
+- ID `47564`; manba manzil: `П.Махмуд,9`; qidiruv nomi: `P.Maxmud,9`; **DUPLIKAT ID'lar:** `47564`, `47878`, `47592`
+- ID `47595`; manba manzil: `П.Махмуд,2/5`; qidiruv nomi: `P.Maxmud,2/5`
+- ID `47596`; manba manzil: `Ал-Хоразмий,33`; qidiruv nomi: `Al-Xorazmiy,33`
+- ID `47600`; manba manzil: `Нукус,1`; qidiruv nomi: `Nukus,1`
+- ID `47602`; manba manzil: `П.Махмуд,7`; qidiruv nomi: `P.Maxmud,7`; **DUPLIKAT ID'lar:** `47723`, `47602`
+- ID `47604`; manba manzil: `П.Махмуд,2/8`; qidiruv nomi: `P.Maxmud,2/8`
+- ID `47605`; manba manzil: `Нукус,1А`; qidiruv nomi: `Nukus,1A`
+- ID `47697`; manba manzil: `П.Махмуд,31`; qidiruv nomi: `P.Maxmud,31`
+- ID `47702`; manba manzil: `П.Махмуд,27А`; qidiruv nomi: `P.Maxmud,27A`
+- ID `47704`; manba manzil: `П.Махмуд,21`; qidiruv nomi: `P.Maxmud,21`
+- ID `47706`; manba manzil: `Тараққиёт,7А`; qidiruv nomi: `Taraqqiyot,7A`
+- ID `47708`; manba manzil: `Ал-Хоразмий,46А`; qidiruv nomi: `Al-Xorazmiy,46A`
+- ID `47711`; manba manzil: `П.Махмуд,19А`; qidiruv nomi: `P.Maxmud,19A`
+- ID `47713`; manba manzil: `Ю.Бобожонов,3`; qidiruv nomi: `Yu.Bobojonov,3`
+- ID `47878`; manba manzil: `П.Махмуд,9`; qidiruv nomi: `P.Maxmud,9`; **DUPLIKAT ID'lar:** `47564`, `47878`, `47592`
+- ID `47900`; manba manzil: `Ободлик,11`; qidiruv nomi: `Obodlik,11`
+- ID `47899`; manba manzil: `Ободлик,4`; qidiruv nomi: `Obodlik,4`
+- ID `47909`; manba manzil: `Ободлик,26`; qidiruv nomi: `Obodlik,26`
+- ID `47915`; manba manzil: `Ободлик,17`; qidiruv nomi: `Obodlik,17`
+- ID `47928`; manba manzil: `Ободлик,23/1`; qidiruv nomi: `Obodlik,23/1`
+- ID `47929`; manba manzil: `П.Махмуд,228Г`; qidiruv nomi: `P.Maxmud,228G`
+- ID `47930`; manba manzil: `П.Махмуд,228Д`; qidiruv nomi: `P.Maxmud,228D`
+- ID `47917`; manba manzil: `Ободлик,8`; qidiruv nomi: `Obodlik,8`
+- ID `47286`; manba manzil: `6-daxa 7 uy`; qidiruv nomi: `6-daxa 7 uy`
+- ID `47349`; manba manzil: `A.Bahodirxon 205A uy`; qidiruv nomi: `A.Bahodirxon 205A uy`
+- ID `47197`; manba manzil: `Зарбулоқ,7`; qidiruv nomi: `Zarbuloq,7`
+- ID `47890`; manba manzil: `Ободлик,20`; qidiruv nomi: `Obodlik,20`
+- ID `47374`; manba manzil: `V.Fayazov 29/23 uy`; qidiruv nomi: `V.Fayazov 29/23 uy`
+- ID `47275`; manba manzil: `6-daxa 2 uy`; qidiruv nomi: `6-daxa 2 uy`
+- ID `47151`; manba manzil: `Зарбулоқ,26`; qidiruv nomi: `Zarbuloq,26`
+- ID `47212`; manba manzil: `Зарбулоқ,12/3`; qidiruv nomi: `Zarbuloq,12/3`
+- ID `47938`; manba manzil: `P.Maxmud1/4`; qidiruv nomi: `P.Maxmud1/4`
+- ID `47921`; manba manzil: `Ободлик,15`; qidiruv nomi: `Obodlik,15`
+- ID `47263`; manba manzil: `Amudaryo ko'chasi 9B`; qidiruv nomi: `Amudaryo ko'chasi 9B`
+- ID `47770`; manba manzil: `Ғалаба,9`; qidiruv nomi: `G'alaba,9`
+- ID `47615`; manba manzil: `Янгиариқ,9/1`; qidiruv nomi: `Yangiariq,9/1`
+- ID `47289`; manba manzil: `Ж.Мангуберди кўчаси 46/3`; qidiruv nomi: `J.Manguberdi ko'chasi 46/3`
+- ID `47443`; manba manzil: `Гужумзор,31/1`; qidiruv nomi: `Gujumzor,31/1`
+- ID `47448`; manba manzil: `Гужумзор,7/27`; qidiruv nomi: `Gujumzor,7/27`
+- ID `47776`; manba manzil: `Ал-Хоразмий,7`; qidiruv nomi: `Al-Xorazmiy,7`
+- ID `47450`; manba manzil: `Гужумзор,41/4`; qidiruv nomi: `Gujumzor,41/4`
+- ID `47280`; manba manzil: `Гурлан кўчаси 33`; qidiruv nomi: `Gurlan ko'chasi 33`
+- ID `47252`; manba manzil: `Гурлан кўчаси 45`; qidiruv nomi: `Gurlan ko'chasi 45`
+- ID `47772`; manba manzil: `Ғалаба,15`; qidiruv nomi: `G'alaba,15`
+- ID `47200`; manba manzil: `Зарбулоқ,10/1`; qidiruv nomi: `Zarbuloq,10/1`
+- ID `47848`; manba manzil: `Бўстон,14`; qidiruv nomi: `Bo'ston,14`
+- ID `47951`; manba manzil: `Мустақиллик,29/5А`; qidiruv nomi: `Mustaqillik,29/5A`
+- ID `47919`; manba manzil: `Ободлик,27`; qidiruv nomi: `Obodlik,27`
+- ID `47480`; manba manzil: `Ал-Хоразмий,100Д`; qidiruv nomi: `Al-Xorazmiy,100D`
+- ID `47322`; manba manzil: `Ал-Хоразмий,20`; qidiruv nomi: `Al-Xorazmiy,20`
+- ID `47248`; manba manzil: `Бухоро кўчаси 71`; qidiruv nomi: `Buxoro ko'chasi 71`
+- ID `47456`; manba manzil: `Гужумзор,49/3`; qidiruv nomi: `Gujumzor,49/3`
+- ID `47486`; manba manzil: `Ж.Мангуберди,16/2`; qidiruv nomi: `J.Manguberdi,16/2`
+- ID `47397`; manba manzil: `А.Темур 155`; qidiruv nomi: `A.Temur 155`
+- ID `47225`; manba manzil: `Дўстлик,27`; qidiruv nomi: `Do'stlik,27`
+- ID `47452`; manba manzil: `Н.Кубро,128`; qidiruv nomi: `N.Kubro,128`
+- ID `47473`; manba manzil: `А.Баходирхон,60А`; qidiruv nomi: `A.Baxodirxon,60A`
+- ID `47457`; manba manzil: `Н.Кубро,7/11А`; qidiruv nomi: `N.Kubro,7/11A`
+- ID `47441`; manba manzil: `Н.Кубро,126`; qidiruv nomi: `N.Kubro,126`
+- ID `47344`; manba manzil: `Гурлан,9/1`; qidiruv nomi: `Gurlan,9/1`
+- ID `47434`; manba manzil: `Гужумзор,41/1`; qidiruv nomi: `Gujumzor,41/1`
+- ID `47437`; manba manzil: `Гужумзор,33`; qidiruv nomi: `Gujumzor,33`
+- ID `47219`; manba manzil: `П.Махмуд,46`; qidiruv nomi: `P.Maxmud,46`
+- ID `47438`; manba manzil: `Гужумзор,39`; qidiruv nomi: `Gujumzor,39`
+- ID `47442`; manba manzil: `Гужумзор,31А`; qidiruv nomi: `Gujumzor,31A`
+- ID `47579`; manba manzil: `Ю.Бобожонов,35`; qidiruv nomi: `Yu.Bobojonov,35`
+- ID `47580`; manba manzil: `Тараққиёт,27`; qidiruv nomi: `Taraqqiyot,27`
+- ID `47581`; manba manzil: `Ю.Бобожонов,33`; qidiruv nomi: `Yu.Bobojonov,33`
+- ID `47582`; manba manzil: `П.Махмуд,22`; qidiruv nomi: `P.Maxmud,22`; **DUPLIKAT ID'lar:** `47582`, `47524`
+- ID `47439`; manba manzil: `Гужумзор,7/25`; qidiruv nomi: `Gujumzor,7/25`
+- ID `47458`; manba manzil: `Гужумзор,31`; qidiruv nomi: `Gujumzor,31`
+- ID `47302`; manba manzil: `P.Maxmud 40 uy`; qidiruv nomi: `P.Maxmud 40 uy`
+- ID `47808`; manba manzil: `Ал-Хоразмий,2А`; qidiruv nomi: `Al-Xorazmiy,2A`
+- ID `47576`; manba manzil: `П.Махмуд,8`; qidiruv nomi: `P.Maxmud,8`
+- ID `47260`; manba manzil: `Amudaryo ko'chasi 9A`; qidiruv nomi: `Amudaryo ko'chasi 9A`
+- ID `47283`; manba manzil: `6-daxa 4 uy`; qidiruv nomi: `6-daxa 4 uy`
+- ID `47266`; manba manzil: `Amudaryo ko'chasi 9G`; qidiruv nomi: `Amudaryo ko'chasi 9G`
+- ID `47584`; manba manzil: `Ал-Хоразмий,73`; qidiruv nomi: `Al-Xorazmiy,73`
+- ID `47560`; manba manzil: `Навоий,81`; qidiruv nomi: `Navoiy,81`
+- ID `47459`; manba manzil: `Н.Кубро,122`; qidiruv nomi: `N.Kubro,122`
+- ID `47461`; manba manzil: `Н.Кубро,68/8`; qidiruv nomi: `N.Kubro,68/8`
+- ID `47616`; manba manzil: `Янгиариқ,9`; qidiruv nomi: `Yangiariq,9`
+- ID `47617`; manba manzil: `Янгиариқ,7/1`; qidiruv nomi: `Yangiariq,7/1`
+- ID `47184`; manba manzil: `Наманган,38`; qidiruv nomi: `Namangan,38`
+- ID `47492`; manba manzil: `А.Баходирхон,43/3`; qidiruv nomi: `A.Baxodirxon,43/3`
+- ID `47463`; manba manzil: `Н.Кубро,68/9`; qidiruv nomi: `N.Kubro,68/9`
+- ID `47465`; manba manzil: `Тошкент,12/2`; qidiruv nomi: `Toshkent,12/2`
+- ID `47488`; manba manzil: `Ўзб.Овози,5`; qidiruv nomi: `O'zb.Ovozi,5`
+- ID `47490`; manba manzil: `Ўзб.Овози,6`; qidiruv nomi: `O'zb.Ovozi,6`
+- ID `47513`; manba manzil: `Ал-Беруний,3`; qidiruv nomi: `Al-Beruniy,3`
+- ID `47487`; manba manzil: `Ғ.Ғулом,17`; qidiruv nomi: `G'.G'ulom,17`
+- ID `47491`; manba manzil: `Ғ.Ғулом,5Б`; qidiruv nomi: `G'.G'ulom,5B`
+- ID `47494`; manba manzil: `Ғ.Ғулом,7`; qidiruv nomi: `G'.G'ulom,7`
+- ID `47894`; manba manzil: `Ободлик,14`; qidiruv nomi: `Obodlik,14`
+- ID `47901`; manba manzil: `Ободлик,35`; qidiruv nomi: `Obodlik,35`
+- ID `47956`; manba manzil: `Истиқбол,54`; qidiruv nomi: `Istiqbol,54`
+- ID `47905`; manba manzil: `Ободлик,2`; qidiruv nomi: `Obodlik,2`
+- ID `47303`; manba manzil: `Ёғду,6`; qidiruv nomi: `Yog'du,6`
+- ID `47256`; manba manzil: `I.Karimov ko'chasi 98/3`; qidiruv nomi: `I.Karimov ko'chasi 98/3`
+- ID `47517`; manba manzil: `Ал-Беруний,25`; qidiruv nomi: `Al-Beruniy,25`
+- ID `47824`; manba manzil: `Хонқа,1/1`; qidiruv nomi: `Xonqa,1/1`
+- ID `47524`; manba manzil: `П.Махмуд,22`; qidiruv nomi: `P.Maxmud,22`; **DUPLIKAT ID'lar:** `47582`, `47524`
+- ID `47231`; manba manzil: `Наманган,50`; qidiruv nomi: `Namangan,50`
+- ID `47229`; manba manzil: `Хонқа,33`; qidiruv nomi: `Xonqa,33`
+- ID `47519`; manba manzil: `Ал-Беруний,13А`; qidiruv nomi: `Al-Beruniy,13A`
+- ID `47510`; manba manzil: `Ғ.Ғулом,6`; qidiruv nomi: `G'.G'ulom,6`
+- ID `47251`; manba manzil: `I.Karimov ko'chasi 98/1`; qidiruv nomi: `I.Karimov ko'chasi 98/1`
+- ID `47254`; manba manzil: `I.Karimov ko'chasi 98/2`; qidiruv nomi: `I.Karimov ko'chasi 98/2`
+- ID `47159`; manba manzil: `Зарбулоқ,31`; qidiruv nomi: `Zarbuloq,31`
+- ID `47389`; manba manzil: `I.Karimov 100/3`; qidiruv nomi: `I.Karimov 100/3`
+- ID `47391`; manba manzil: `I.Karimov 104`; qidiruv nomi: `I.Karimov 104`
+- ID `48021`; manba manzil: `Бухоро 28в`; qidiruv nomi: `Buxoro 28v`
+- ID `47496`; manba manzil: `Ж.Мангуберди,8`; qidiruv nomi: `J.Manguberdi,8`
+- ID `47330`; manba manzil: `Ёғду,1`; qidiruv nomi: `Yog'du,1`
+- ID `47328`; manba manzil: `Ёғду,4`; qidiruv nomi: `Yog'du,4`
+- ID `47962`; manba manzil: `И.Каримов,37/1`; qidiruv nomi: `I.Karimov,37/1`
+- ID `47498`; manba manzil: `Ғ.Ғулом,13`; qidiruv nomi: `G'.G'ulom,13`
+- ID `47515`; manba manzil: `Ал-Беруний,25А`; qidiruv nomi: `Al-Beruniy,25A`
+- ID `47516`; manba manzil: `П.Махмуд,3/1`; qidiruv nomi: `P.Maxmud,3/1`
+- ID `47826`; manba manzil: `Хонқа,68/1`; qidiruv nomi: `Xonqa,68/1`; **DUPLIKAT ID'lar:** `47826`, `48090`
+- ID `47501`; manba manzil: `А.Баходирхон,43/2`; qidiruv nomi: `A.Baxodirxon,43/2`
+- ID `47278`; manba manzil: `6-daxa 3 uy`; qidiruv nomi: `6-daxa 3 uy`
+- ID `47337`; manba manzil: `Ёғду,14`; qidiruv nomi: `Yog'du,14`
+- ID `47888`; manba manzil: `Надмес,1`; qidiruv nomi: `Nadmes,1`
+- ID `47828`; manba manzil: `Хонқа,62/7`; qidiruv nomi: `Xonqa,62/7`
+- ID `47504`; manba manzil: `Ўзб.Овози,3А`; qidiruv nomi: `O'zb.Ovozi,3A`
+- ID `47506`; manba manzil: `Ўзб.Овози,9`; qidiruv nomi: `O'zb.Ovozi,9`
+- ID `47829`; manba manzil: `Ёшлик,21`; qidiruv nomi: `Yoshlik,21`
+- ID `47334`; manba manzil: `Ёғду,10`; qidiruv nomi: `Yog'du,10`
+- ID `47964`; manba manzil: `Ёғду,10Д`; qidiruv nomi: `Yog'du,10D`
+- ID `47503`; manba manzil: `Ғ.Ғулом,5`; qidiruv nomi: `G'.G'ulom,5`
+- ID `47507`; manba manzil: `А.Баходирхон,43/4`; qidiruv nomi: `A.Baxodirxon,43/4`
+- ID `47508`; manba manzil: `Ўзб.Овози,1`; qidiruv nomi: `O'zb.Ovozi,1`
+- ID `47326`; manba manzil: `Гурлан,7`; qidiruv nomi: `Gurlan,7`
+- ID `47831`; manba manzil: `Хонқа,62/1`; qidiruv nomi: `Xonqa,62/1`
+- ID `47910`; manba manzil: `Ободлик,25`; qidiruv nomi: `Obodlik,25`
+- ID `47834`; manba manzil: `Хонқа,62/3`; qidiruv nomi: `Xonqa,62/3`
+- ID `47906`; manba manzil: `Ободлик,31`; qidiruv nomi: `Obodlik,31`
+- ID `47546`; manba manzil: `Ал-Хоразмий,60`; qidiruv nomi: `Al-Xorazmiy,60`
+- ID `47525`; manba manzil: `П.Махмуд,18`; qidiruv nomi: `P.Maxmud,18`
+- ID `47526`; manba manzil: `Ўзб.Овози,31`; qidiruv nomi: `O'zb.Ovozi,31`
+- ID `47529`; manba manzil: `Ал-Беруний,15А`; qidiruv nomi: `Al-Beruniy,15A`
+- ID `47532`; manba manzil: `Ўзб.Овози,25`; qidiruv nomi: `O'zb.Ovozi,25`
+- ID `47538`; manba manzil: `П.Махмуд,3Б`; qidiruv nomi: `P.Maxmud,3B`
+- ID `47974`; manba manzil: `Хонқа,57`; qidiruv nomi: `Xonqa,57`; **DUPLIKAT ID'lar:** `47974`, `47973`
+- ID `47157`; manba manzil: `Фаёзов,29/3`; qidiruv nomi: `Fayozov,29/3`
+- ID `47548`; manba manzil: `Ал-Хоразмий,62`; qidiruv nomi: `Al-Xorazmiy,62`
+- ID `47427`; manba manzil: `Xonqa,57/1`; qidiruv nomi: `Xonqa,57/1`
+- ID `47423`; manba manzil: `A.Bahodirxon,19`; qidiruv nomi: `A.Bahodirxon,19`
+- ID `47192`; manba manzil: `Зарбулоқ,35`; qidiruv nomi: `Zarbuloq,35`
+- ID `47549`; manba manzil: `Ўзб.Овози,29А`; qidiruv nomi: `O'zb.Ovozi,29A`
+- ID `47924`; manba manzil: `Ободлик,22А`; qidiruv nomi: `Obodlik,22A`
+- ID `47609`; manba manzil: `Феруз,1`; qidiruv nomi: `Feruz,1`
+- ID `47837`; manba manzil: `Бўстон,16`; qidiruv nomi: `Bo'ston,16`
+- ID `47838`; manba manzil: `Ал-Хоразмий,6А`; qidiruv nomi: `Al-Xorazmiy,6A`
+- ID `47881`; manba manzil: `Гужумзор,3/2А`; qidiruv nomi: `Gujumzor,3/2A`; **DUPLIKAT ID'lar:** `47428`, `47881`
+- ID `47840`; manba manzil: `Бўстон,12`; qidiruv nomi: `Bo'ston,12`
+- ID `47533`; manba manzil: `Ал-Беруний,15`; qidiruv nomi: `Al-Beruniy,15`
+- ID `47845`; manba manzil: `Хонқа,60`; qidiruv nomi: `Xonqa,60`
+- ID `47277`; manba manzil: `Гурлан кўчаси 29`; qidiruv nomi: `Gurlan ko'chasi 29`
+- ID `47468`; manba manzil: `Тошкент,12А`; qidiruv nomi: `Toshkent,12A`
+- ID `47181`; manba manzil: `Наманган,32`; qidiruv nomi: `Namangan,32`
+- ID `47844`; manba manzil: `Ал-Хоразмий,8`; qidiruv nomi: `Al-Xorazmiy,8`
+- ID `47223`; manba manzil: `Дўстлик,23`; qidiruv nomi: `Do'stlik,23`
+- ID `47873`; manba manzil: `Туркистон,1/5`; qidiruv nomi: `Turkiston,1/5`
+- ID `47470`; manba manzil: `Н.Кубро,68/9А`; qidiruv nomi: `N.Kubro,68/9A`
+- ID `47846`; manba manzil: `Хонқа,68А`; qidiruv nomi: `Xonqa,68A`
+- ID `47535`; manba manzil: `П.Махмуд,3Г`; qidiruv nomi: `P.Maxmud,3G`
+- ID `47445`; manba manzil: `Гужумзор,41/3`; qidiruv nomi: `Gujumzor,41/3`
+- ID `47146`; manba manzil: `Наманган,43`; qidiruv nomi: `Namangan,43`
+- ID `47189`; manba manzil: `Наманган,49`; qidiruv nomi: `Namangan,49`
+- ID `47536`; manba manzil: `П.Махмуд,20`; qidiruv nomi: `P.Maxmud,20`
+- ID `47852`; manba manzil: `Бўстон,14/1`; qidiruv nomi: `Bo'ston,14/1`
+- ID `47853`; manba manzil: `Хонқа,52`; qidiruv nomi: `Xonqa,52`
+- ID `47850`; manba manzil: `Хонқа,62/10`; qidiruv nomi: `Xonqa,62/10`
+- ID `47188`; manba manzil: `Наманган,52`; qidiruv nomi: `Namangan,52`
+- ID `47856`; manba manzil: `Наманган,8`; qidiruv nomi: `Namangan,8`
+- ID `47874`; manba manzil: `Бунёдкор,1/1Е`; qidiruv nomi: `Bunyodkor,1/1E`
+- ID `47855`; manba manzil: `Хонқа,48`; qidiruv nomi: `Xonqa,48`
+- ID `47860`; manba manzil: `Ал-Хоразмий,2`; qidiruv nomi: `Al-Xorazmiy,2`
+- ID `47975`; manba manzil: `Г.Гулом 15`; qidiruv nomi: `G.Gulom 15`
+- ID `47982`; manba manzil: `Ж.Мангуберди,8А`; qidiruv nomi: `J.Manguberdi,8A`
+- ID `47985`; manba manzil: `А.Беруний 15/1`; qidiruv nomi: `A.Beruniy 15/1`
+- ID `47875`; manba manzil: `Хонқа,145/6`; qidiruv nomi: `Xonqa,145/6`
+- ID `47858`; manba manzil: `Наманган,4`; qidiruv nomi: `Namangan,4`
+- ID `47738`; manba manzil: `Термиз,9`; qidiruv nomi: `Termiz,9`
+- ID `47544`; manba manzil: `Ўзб.Овози,29Е`; qidiruv nomi: `O'zb.Ovozi,29E`
+- ID `47866`; manba manzil: `Ал-Хоразмий,17`; qidiruv nomi: `Al-Xorazmiy,17`; **DUPLIKAT ID'lar:** `47866`, `48088`
+- ID `47643`; manba manzil: `А.Баходирхон,116`; qidiruv nomi: `A.Baxodirxon,116`
+- ID `47736`; manba manzil: `Хонқа,42`; qidiruv nomi: `Xonqa,42`
+- ID `47862`; manba manzil: `Ал-Хоразмий,8А`; qidiruv nomi: `Al-Xorazmiy,8A`
+- ID `47542`; manba manzil: `Ал-Беруний,13Д`; qidiruv nomi: `Al-Beruniy,13D`
+- ID `47731`; manba manzil: `Ғалаба,20`; qidiruv nomi: `G'alaba,20`
+- ID `48037`; manba manzil: `Наманган 15 А`; qidiruv nomi: `Namangan 15 A`
+- ID `47648`; manba manzil: `Самарқанд,93`; qidiruv nomi: `Samarqand,93`
+- ID `47735`; manba manzil: `Хонқа,38Б`; qidiruv nomi: `Xonqa,38B`
+- ID `47175`; manba manzil: `Наманган,18`; qidiruv nomi: `Namangan,18`
+- ID `47912`; manba manzil: `Ободлик,6`; qidiruv nomi: `Obodlik,6`
+- ID `47739`; manba manzil: `Термиз,31А`; qidiruv nomi: `Termiz,31A`
+- ID `47741`; manba manzil: `Термиз,23/1`; qidiruv nomi: `Termiz,23/1`
+- ID `47650`; manba manzil: `Ал-Хоразмий,79`; qidiruv nomi: `Al-Xorazmiy,79`
+- ID `47652`; manba manzil: `Ал-Хоразмий,89`; qidiruv nomi: `Al-Xorazmiy,89`
+- ID `47174`; manba manzil: `Наманган,17`; qidiruv nomi: `Namangan,17`
+- ID `47742`; manba manzil: `Хонқа,38А`; qidiruv nomi: `Xonqa,38A`
+- ID `47310`; manba manzil: `А.Баходирхон,35`; qidiruv nomi: `A.Baxodirxon,35`
+- ID `47744`; manba manzil: `Термиз,33А`; qidiruv nomi: `Termiz,33A`
+- ID `47748`; manba manzil: `Ал-Хоразмий,1`; qidiruv nomi: `Al-Xorazmiy,1`
+- ID `48028`; manba manzil: `Наманган 45г`; qidiruv nomi: `Namangan 45g`
+- ID `47868`; manba manzil: `Хонқа,145/2`; qidiruv nomi: `Xonqa,145/2`
+- ID `47743`; manba manzil: `Термиз,3`; qidiruv nomi: `Termiz,3`
+- ID `47747`; manba manzil: `Ғалаба,17`; qidiruv nomi: `G'alaba,17`
+- ID `47750`; manba manzil: `Ал-Хоразмий,15`; qidiruv nomi: `Al-Xorazmiy,15`
+- ID `47190`; manba manzil: `Наманган,42`; qidiruv nomi: `Namangan,42`
+- ID `47659`; manba manzil: `Дўстлик,8`; qidiruv nomi: `Do'stlik,8`
+- ID `47993`; manba manzil: `Ал-Хоразмий 21/ 6`; qidiruv nomi: `Al-Xorazmiy 21/ 6`
+- ID `47877`; manba manzil: `Хонқа,145/3`; qidiruv nomi: `Xonqa,145/3`
+- ID `47654`; manba manzil: `А.Баходирхон,212`; qidiruv nomi: `A.Baxodirxon,212`
+- ID `47751`; manba manzil: `Термиз,15`; qidiruv nomi: `Termiz,15`
+- ID `47752`; manba manzil: `Ал-Хоразмий,3`; qidiruv nomi: `Al-Xorazmiy,3`
+- ID `47754`; manba manzil: `Ғалаба,5/1`; qidiruv nomi: `G'alaba,5/1`
+- ID `47755`; manba manzil: `Термиз,15/1`; qidiruv nomi: `Termiz,15/1`
+- ID `47757`; manba manzil: `Ёшлик,28`; qidiruv nomi: `Yoshlik,28`
+- ID `47319`; manba manzil: `Ал-Хоразмий,23`; qidiruv nomi: `Al-Xorazmiy,23`
+- ID `48003`; manba manzil: `6 Даха 1`; qidiruv nomi: `6 Daxa 1`
+- ID `48008`; manba manzil: `Тинчлик,29/1`; qidiruv nomi: `Tinchlik,29/1`
+- ID `48012`; manba manzil: `Бахтли оилалар 2В`; qidiruv nomi: `Baxtli oilalar 2V`
+- ID `47781`; manba manzil: `Хонқа,30`; qidiruv nomi: `Xonqa,30`
+- ID `48010`; manba manzil: `6 Даха 18/7`; qidiruv nomi: `6 Daxa 18/7`
+- ID `47749`; manba manzil: `Термиз,1`; qidiruv nomi: `Termiz,1`
+- ID `47178`; manba manzil: `Наманган,24`; qidiruv nomi: `Namangan,24`
+- ID `47180`; manba manzil: `Наманган,30`; qidiruv nomi: `Namangan,30`
+- ID `47662`; manba manzil: `А.Баходирхон,216`; qidiruv nomi: `A.Baxodirxon,216`
+- ID `47664`; manba manzil: `А.Баходирхон,220`; qidiruv nomi: `A.Baxodirxon,220`
+- ID `47665`; manba manzil: `Тинчлик,3`; qidiruv nomi: `Tinchlik,3`
+- ID `47759`; manba manzil: `Ғалаба,6`; qidiruv nomi: `G'alaba,6`
+- ID `47663`; manba manzil: `А.Баходирхон,212А`; qidiruv nomi: `A.Baxodirxon,212A`
+- ID `47315`; manba manzil: `Ал-Хоразмий,24Б`; qidiruv nomi: `Al-Xorazmiy,24B`
+- ID `47764`; manba manzil: `Ғалаба,12`; qidiruv nomi: `G'alaba,12`
+- ID `47766`; manba manzil: `Ғалаба,13`; qidiruv nomi: `G'alaba,13`
+- ID `47670`; manba manzil: `Самарқанд,38Б`; qidiruv nomi: `Samarqand,38B`
+- ID `47607`; manba manzil: `П.Махмуд,13`; qidiruv nomi: `P.Maxmud,13`; **DUPLIKAT ID'lar:** `47607`, `47709`
+- ID `47610`; manba manzil: `Ўзбекистон,31А`; qidiruv nomi: `O'zbekiston,31A`
+- ID `47613`; manba manzil: `П.Махмуд,19`; qidiruv nomi: `P.Maxmud,19`; **DUPLIKAT ID'lar:** `47613`, `47716`
+- ID `47183`; manba manzil: `Наманган,37`; qidiruv nomi: `Namangan,37`
+- ID `47179`; manba manzil: `Наманган,28`; qidiruv nomi: `Namangan,28`
+- ID `47182`; manba manzil: `Наманган,34`; qidiruv nomi: `Namangan,34`
+- ID `47667`; manba manzil: `Тинчлик,33`; qidiruv nomi: `Tinchlik,33`
+- ID `47186`; manba manzil: `Наманган,40`; qidiruv nomi: `Namangan,40`
+- ID `47669`; manba manzil: `Махтумқули,80/3`; qidiruv nomi: `Maxtumquli,80/3`
+- ID `47673`; manba manzil: `А.Баходирхон,212Д`; qidiruv nomi: `A.Baxodirxon,212D`
+- ID `47694`; manba manzil: `П.Махмуд,23`; qidiruv nomi: `P.Maxmud,23`
+- ID `47718`; manba manzil: `Ю.Бобожонов,21`; qidiruv nomi: `Yu.Bobojonov,21`
+- ID `47720`; manba manzil: `Ю.Бобожонов,5`; qidiruv nomi: `Yu.Bobojonov,5`
+- ID `47726`; manba manzil: `П.Махмуд,1`; qidiruv nomi: `P.Maxmud,1`
+- ID `47728`; manba manzil: `П.Махмуд,9А`; qidiruv nomi: `P.Maxmud,9A`
+- ID `47672`; manba manzil: `А.Баходирхон,216/4`; qidiruv nomi: `A.Baxodirxon,216/4`
+- ID `48038`; manba manzil: `Зарбулок 14/1`; qidiruv nomi: `Zarbulok 14/1`
+- ID `47727`; manba manzil: `П.Махмуд,29`; qidiruv nomi: `P.Maxmud,29`
+- ID `47886`; manba manzil: `Ал-Хоразмий,102`; qidiruv nomi: `Al-Xorazmiy,102`
+- ID `47385`; manba manzil: `I.Karimov 51`; qidiruv nomi: `I.Karimov 51`; **DUPLIKAT ID'lar:** `47385`, `47967`
+- ID `47478`; manba manzil: `Наманган,5`; qidiruv nomi: `Namangan,5`
+- ID `47170`; manba manzil: `Наманган,12А`; qidiruv nomi: `Namangan,12A`
+- ID `47674`; manba manzil: `А.Баходирхон,220/2`; qidiruv nomi: `A.Baxodirxon,220/2`
+- ID `47619`; manba manzil: `Янгиариқ,11`; qidiruv nomi: `Yangiariq,11`
+- ID `47911`; manba manzil: `Ободлик,10`; qidiruv nomi: `Obodlik,10`
+- ID `47898`; manba manzil: `Ободлик,1`; qidiruv nomi: `Obodlik,1`
+- ID `47265`; manba manzil: `Amudaryo ko'chasi 9V`; qidiruv nomi: `Amudaryo ko'chasi 9V`
+- ID `47869`; manba manzil: `Хонқа,145/4`; qidiruv nomi: `Xonqa,145/4`
+- ID `47215`; manba manzil: `Зарбулоқ,15`; qidiruv nomi: `Zarbuloq,15`
+- ID `47597`; manba manzil: `Ўзбекистон,28`; qidiruv nomi: `O'zbekiston,28`
+- ID `47164`; manba manzil: `Зарбулоқ,32`; qidiruv nomi: `Zarbuloq,32`
+- ID `47307`; manba manzil: `Наманган,7/12`; qidiruv nomi: `Namangan,7/12`
+- ID `47210`; manba manzil: `Зарбулоқ,12/1`; qidiruv nomi: `Zarbuloq,12/1`
+- ID `47317`; manba manzil: `Ал-Хоразмий,19`; qidiruv nomi: `Al-Xorazmiy,19`
+- ID `47222`; manba manzil: `П.Махмуд,344`; qidiruv nomi: `P.Maxmud,344`
+- ID `47889`; manba manzil: `Ободлик,12`; qidiruv nomi: `Obodlik,12`
+- ID `47821`; manba manzil: `Хонқа,36В`; qidiruv nomi: `Xonqa,36V`
+- ID `47232`; manba manzil: `Наманган,51`; qidiruv nomi: `Namangan,51`
+- ID `47895`; manba manzil: `Ободлик,7`; qidiruv nomi: `Obodlik,7`
+- ID `47897`; manba manzil: `Ободлик,5`; qidiruv nomi: `Obodlik,5`
+- ID `47199`; manba manzil: `Зарбулоқ,1`; qidiruv nomi: `Zarbuloq,1`
+- ID `47903`; manba manzil: `Ободлик,18`; qidiruv nomi: `Obodlik,18`
+- ID `47216`; manba manzil: `Зарбулоқ,17/2`; qidiruv nomi: `Zarbuloq,17/2`; **DUPLIKAT ID'lar:** `47216`, `48087`
+- ID `47891`; manba manzil: `П.Махмуд,228А`; qidiruv nomi: `P.Maxmud,228A`; **DUPLIKAT ID'lar:** `47891`, `48040`
+- ID `48074`; manba manzil: `Ободлик 9А`; qidiruv nomi: `Obodlik 9A`
+- ID `48018`; manba manzil: `А.Темур 151/1`; qidiruv nomi: `A.Temur 151/1`
+- ID `47809`; manba manzil: `Ёшлик,26Б`; qidiruv nomi: `Yoshlik,26B`
+- ID `47145`; manba manzil: `Зарбулоқ,36`; qidiruv nomi: `Zarbuloq,36`
+- ID `47453`; manba manzil: `Гужумзор,33А`; qidiruv nomi: `Gujumzor,33A`
+- ID `48013`; manba manzil: `Гурлан 11А`; qidiruv nomi: `Gurlan 11A`
+- ID `47206`; manba manzil: `Зарбулоқ,2`; qidiruv nomi: `Zarbuloq,2`
+- ID `47676`; manba manzil: `Жайхун,5/3`; qidiruv nomi: `Jayxun,5/3`
+- ID `47285`; manba manzil: `6-daxa 5 uy`; qidiruv nomi: `6-daxa 5 uy`
+- ID `48019`; manba manzil: `Бухоро 28Е`; qidiruv nomi: `Buxoro 28E`
+- ID `47160`; manba manzil: `Ободлик,16`; qidiruv nomi: `Obodlik,16`; **DUPLIKAT ID'lar:** `47160`, `47913`
+- ID `47679`; manba manzil: `Жайхун,34`; qidiruv nomi: `Jayxun,34`
+- ID `47262`; manba manzil: `Гурлан кўчаси 61`; qidiruv nomi: `Gurlan ko'chasi 61`
+- ID `47347`; manba manzil: `A.Bahodirxon 203 uy`; qidiruv nomi: `A.Bahodirxon 203 uy`
+- ID `47918`; manba manzil: `Ободлик,29`; qidiruv nomi: `Obodlik,29`
+- ID `47567`; manba manzil: `Шерозий,18`; qidiruv nomi: `Sheroziy,18`
+- ID `47639`; manba manzil: `Истиқбол,82`; qidiruv nomi: `Istiqbol,82`
+- ID `48075`; manba manzil: `Фаязов 8`; qidiruv nomi: `Fayazov 8`
+- ID `47817`; manba manzil: `Аэропорт,1`; qidiruv nomi: `Aeroport,1`
+- ID `47812`; manba manzil: `Ёшлик,18/3В`; qidiruv nomi: `Yoshlik,18/3V`
+- ID `47822`; manba manzil: `Хонқа,54`; qidiruv nomi: `Xonqa,54`
+- ID `47867`; manba manzil: `Ёшлик,18Ф`; qidiruv nomi: `Yoshlik,18F`; **DUPLIKAT ID'lar:** `47867`, `48095`
+- ID `47767`; manba manzil: `Ғалаба,11`; qidiruv nomi: `G'alaba,11`
+- ID `47327`; manba manzil: `Ёғду,13`; qidiruv nomi: `Yog'du,13`
+- ID `47296`; manba manzil: `6-daxa 18/1`; qidiruv nomi: `6-daxa 18/1`
+- ID `47896`; manba manzil: `Ободлик,21`; qidiruv nomi: `Obodlik,21`
+- ID `47851`; manba manzil: `Хонқа,56`; qidiruv nomi: `Xonqa,56`
+- ID `47871`; manba manzil: `Туркистон,1/3`; qidiruv nomi: `Turkiston,1/3`
+- ID `47578`; manba manzil: `Шерозий,16`; qidiruv nomi: `Sheroziy,16`
+- ID `47555`; manba manzil: `Жайхун,46`; qidiruv nomi: `Jayxun,46`
+- ID `47370`; manba manzil: `V.Fayazov 29/20 uy`; qidiruv nomi: `V.Fayazov 29/20 uy`
+- ID `47680`; manba manzil: `Жайхун,5/1`; qidiruv nomi: `Jayxun,5/1`
+- ID `47904`; manba manzil: `Ободлик,28`; qidiruv nomi: `Obodlik,28`
+- ID `47635`; manba manzil: `Янгиариқ,7Б`; qidiruv nomi: `Yangiariq,7B`
+- ID `47681`; manba manzil: `Ал-Беруний,190`; qidiruv nomi: `Al-Beruniy,190`
+- ID `47371`; manba manzil: `V.Fayazov 29/21 uy`; qidiruv nomi: `V.Fayazov 29/21 uy`
+- ID `47785`; manba manzil: `Ёшлик,30/1`; qidiruv nomi: `Yoshlik,30/1`
+- ID `47622`; manba manzil: `Ёшлик,30/2`; qidiruv nomi: `Yoshlik,30/2`; **DUPLIKAT ID'lar:** `47784`, `47622`
+- ID `47485`; manba manzil: `V.Fayazov 34`; qidiruv nomi: `V.Fayazov 34`
+- ID `47352`; manba manzil: `V.Fayazov 29/5 uy`; qidiruv nomi: `V.Fayazov 29/5 uy`
+- ID `47156`; manba manzil: `Хамжихатлик,10/71`; qidiruv nomi: `Xamjixatlik,10/71`
+- ID `47299`; manba manzil: `6-daxa 18/4 uy`; qidiruv nomi: `6-daxa 18/4 uy`; **DUPLIKAT ID'lar:** `47299`, `47300`
+- ID `47360`; manba manzil: `V.Fayazov 29/10 uy`; qidiruv nomi: `V.Fayazov 29/10 uy`
+- ID `47368`; manba manzil: `V.Fayazov 29/18 uy`; qidiruv nomi: `V.Fayazov 29/18 uy`
+- ID `47802`; manba manzil: `Ёшлик,26`; qidiruv nomi: `Yoshlik,26`
+- ID `47204`; manba manzil: `Зарбулоқ,10/5`; qidiruv nomi: `Zarbuloq,10/5`
+- ID `47774`; manba manzil: `Ёшлик,11`; qidiruv nomi: `Yoshlik,11`
+- ID `47636`; manba manzil: `Янгиариқ,7В`; qidiruv nomi: `Yangiariq,7V`
+- ID `47242`; manba manzil: `Бухоро кўчаси 28`; qidiruv nomi: `Buxoro ko'chasi 28`
+- ID `47401`; manba manzil: `Гурлан 71`; qidiruv nomi: `Gurlan 71`
+- ID `47306`; manba manzil: `А.Баходирхон,33`; qidiruv nomi: `A.Baxodirxon,33`; **DUPLIKAT ID'lar:** `47306`, `48078`
+- ID `47187`; manba manzil: `Наманган,41`; qidiruv nomi: `Namangan,41`
+- ID `47318`; manba manzil: `Наманган,7/13`; qidiruv nomi: `Namangan,7/13`
+- ID `47876`; manba manzil: `Хонқа,145/5`; qidiruv nomi: `Xonqa,145/5`
+- ID `47245`; manba manzil: `Бухоро кўчаси 16А`; qidiruv nomi: `Buxoro ko'chasi 16A`
+- ID `47291`; manba manzil: `Ж.Мангуберди кўчаси 342`; qidiruv nomi: `J.Manguberdi ko'chasi 342`
+- ID `47805`; manba manzil: `Ёшлик,18/3Б`; qidiruv nomi: `Yoshlik,18/3B`
+- ID `47624`; manba manzil: `Янгиариқ,23`; qidiruv nomi: `Yangiariq,23`
+- ID `47625`; manba manzil: `Янгиариқ,19`; qidiruv nomi: `Yangiariq,19`
+- ID `47788`; manba manzil: `Ғалаба,21`; qidiruv nomi: `G'alaba,21`
+- ID `47789`; manba manzil: `Ғалаба,3Б`; qidiruv nomi: `G'alaba,3B`
+- ID `47627`; manba manzil: `Янгиариқ,7`; qidiruv nomi: `Yangiariq,7`
+- ID `47790`; manba manzil: `Ғалаба,21А`; qidiruv nomi: `G'alaba,21A`
+- ID `47629`; manba manzil: `Янгиариқ,9Б`; qidiruv nomi: `Yangiariq,9B`
+- ID `47301`; manba manzil: `P.Maxmud 38 uy`; qidiruv nomi: `P.Maxmud 38 uy`
+- ID `47631`; manba manzil: `Янгиариқ,7/3`; qidiruv nomi: `Yangiariq,7/3`
+- ID `47632`; manba manzil: `Янгиариқ,11/2`; qidiruv nomi: `Yangiariq,11/2`
+- ID `47823`; manba manzil: `Хонқа,62/4`; qidiruv nomi: `Xonqa,62/4`
+- ID `47745`; manba manzil: `Ал-Хоразмий,11`; qidiruv nomi: `Al-Xorazmiy,11`
+- ID `47830`; manba manzil: `Ал-Хоразмий,12`; qidiruv nomi: `Al-Xorazmiy,12`
+- ID `47527`; manba manzil: `И.Каримов,83`; qidiruv nomi: `I.Karimov,83`
+- ID `47537`; manba manzil: `Ал-Беруний,19А`; qidiruv nomi: `Al-Beruniy,19A`
+- ID `47543`; manba manzil: `Ал-Беруний,13Б`; qidiruv nomi: `Al-Beruniy,13B`
+- ID `47737`; manba manzil: `Хонқа,36/4`; qidiruv nomi: `Xonqa,36/4`
+- ID `47991`; manba manzil: `Галаба 3В`; qidiruv nomi: `Galaba 3V`
+- ID `47753`; manba manzil: `Ғалаба,6А`; qidiruv nomi: `G'alaba,6A`
+- ID `47773`; manba manzil: `Ёшлик,2`; qidiruv nomi: `Yoshlik,2`
+- ID `47270`; manba manzil: `Amudaryo ko'chasi  1/1`; qidiruv nomi: `Amudaryo ko'chasi  1/1`
+- ID `47153`; manba manzil: `Зарбулоқ,28`; qidiruv nomi: `Zarbuloq,28`
+- ID `47761`; manba manzil: `Ғалаба,3`; qidiruv nomi: `G'alaba,3`
+- ID `47923`; manba manzil: `Ободлик,30`; qidiruv nomi: `Obodlik,30`
+- ID `47446`; manba manzil: `Гужумзор,41А`; qidiruv nomi: `Gujumzor,41A`
+- ID `47198`; manba manzil: `Зарбулоқ,5`; qidiruv nomi: `Zarbuloq,5`
+- ID `47218`; manba manzil: `Зарбулоқ,6`; qidiruv nomi: `Zarbuloq,6`
+- ID `47585`; manba manzil: `Ю.Бобожонов,39`; qidiruv nomi: `Yu.Bobojonov,39`
+- ID `47586`; manba manzil: `Ал-Хоразмий,67`; qidiruv nomi: `Al-Xorazmiy,67`
+- ID `47553`; manba manzil: `Навоий,83`; qidiruv nomi: `Navoiy,83`
+- ID `47587`; manba manzil: `Ал-Хоразмий,77`; qidiruv nomi: `Al-Xorazmiy,77`
+- ID `47589`; manba manzil: `Ю.Бобожонов,41`; qidiruv nomi: `Yu.Bobojonov,41`
+- ID `47592`; manba manzil: `П.Махмуд,9`; qidiruv nomi: `P.Maxmud,9`; **DUPLIKAT ID'lar:** `47564`, `47878`, `47592`
+- ID `47795`; manba manzil: `Т.Йўлчи,1`; qidiruv nomi: `T.Yo'lchi,1`
+- ID `47798`; manba manzil: `Т.Йўлчи,22`; qidiruv nomi: `T.Yo'lchi,22`
+- ID `47796`; manba manzil: `Т.Йўлчи,14`; qidiruv nomi: `T.Yo'lchi,14`
+- ID `47357`; manba manzil: `V.Fayazov 29/7 uy`; qidiruv nomi: `V.Fayazov 29/7 uy`
+- ID `47992`; manba manzil: `Хонка 17`; qidiruv nomi: `Xonka 17`
+- ID `47361`; manba manzil: `V.Fayazov 29/11 uy`; qidiruv nomi: `V.Fayazov 29/11 uy`
+- ID `47369`; manba manzil: `V.Fayazov 29/19 uy`; qidiruv nomi: `V.Fayazov 29/19 uy`
+- ID `47211`; manba manzil: `Зарбулоқ,12/2`; qidiruv nomi: `Zarbuloq,12/2`
+- ID `47799`; manba manzil: `Т.Йўлчи,24А`; qidiruv nomi: `T.Yo'lchi,24A`
+- ID `47566`; manba manzil: `А.Баходирхон,189`; qidiruv nomi: `A.Baxodirxon,189`
+- ID `47551`; manba manzil: `Жайхун,40`; qidiruv nomi: `Jayxun,40`
+- ID `47575`; manba manzil: `Ю.Бобожонов,12`; qidiruv nomi: `Yu.Bobojonov,12`
+- ID `47431`; manba manzil: `Xonqa,113`; qidiruv nomi: `Xonqa,113`
+- ID `47577`; manba manzil: `Шерозий,31`; qidiruv nomi: `Sheroziy,31`
+- ID `47797`; manba manzil: `Т.Йўлчи,26`; qidiruv nomi: `T.Yo'lchi,26`
+- ID `47377`; manba manzil: `V.Fayazov 29/26 uy`; qidiruv nomi: `V.Fayazov 29/26 uy`
+- ID `47356`; manba manzil: `V.Fayazov 29/6 uy`; qidiruv nomi: `V.Fayazov 29/6 uy`
+- ID `47366`; manba manzil: `V.Fayazov 29/16 uy`; qidiruv nomi: `V.Fayazov 29/16 uy`
+- ID `47803`; manba manzil: `Т.Йўлчи,28`; qidiruv nomi: `T.Yo'lchi,28`
+- ID `47682`; manba manzil: `Жайхун,3`; qidiruv nomi: `Jayxun,3`
+- ID `47804`; manba manzil: `Бўстон,3А`; qidiruv nomi: `Bo'ston,3A`
+- ID `47806`; manba manzil: `Бўстон,1`; qidiruv nomi: `Bo'ston,1`
+- ID `47683`; manba manzil: `Жайхун,7`; qidiruv nomi: `Jayxun,7`
+- ID `47380`; manba manzil: `4-daxa 16 uy`; qidiruv nomi: `4-daxa 16 uy`
+- ID `47807`; manba manzil: `Ёшлик,26А`; qidiruv nomi: `Yoshlik,26A`
+- ID `47688`; manba manzil: `И.Каримов,330`; qidiruv nomi: `I.Karimov,330`
+- ID `47298`; manba manzil: `6-daxa 18/3 uy`; qidiruv nomi: `6-daxa 18/3 uy`
+- ID `47209`; manba manzil: `Зарбулоқ,11`; qidiruv nomi: `Zarbuloq,11`
+- ID `47255`; manba manzil: `Гурлан кўчаси 49`; qidiruv nomi: `Gurlan ko'chasi 49`
+- ID `47568`; manba manzil: `П.Махмуд,24`; qidiruv nomi: `P.Maxmud,24`
+- ID `47594`; manba manzil: `Ўзбекистон,29/1`; qidiruv nomi: `O'zbekiston,29/1`
+- ID `47618`; manba manzil: `Янгиариқ,5`; qidiruv nomi: `Yangiariq,5`
+- ID `47294`; manba manzil: `6-daxa 12 uy`; qidiruv nomi: `6-daxa 12 uy`
+- ID `47290`; manba manzil: `6-daxa 8A`; qidiruv nomi: `6-daxa 8A`
+- ID `47599`; manba manzil: `Ўзбекистон,27`; qidiruv nomi: `O'zbekiston,27`
+- ID `47621`; manba manzil: `Янгиариқ,17`; qidiruv nomi: `Yangiariq,17`
+- ID `47345`; manba manzil: `P.Maxmud 42 uy`; qidiruv nomi: `P.Maxmud 42 uy`
+- ID `47481`; manba manzil: `Ал-Хоразмий,98`; qidiruv nomi: `Al-Xorazmiy,98`
+- ID `47885`; manba manzil: `Ал-Хоразмий,98А`; qidiruv nomi: `Al-Xorazmiy,98A`
+- ID `47292`; manba manzil: `6-daxa 10 uy`; qidiruv nomi: `6-daxa 10 uy`
+- ID `47601`; manba manzil: `П.Махмуд,2/3`; qidiruv nomi: `P.Maxmud,2/3`
+- ID `47608`; manba manzil: `П.Махмуд,26`; qidiruv nomi: `P.Maxmud,26`; **DUPLIKAT ID'lar:** `47608`, `47574`
+- ID `47300`; manba manzil: `6-daxa 18/4 uy`; qidiruv nomi: `6-daxa 18/4 uy`; **DUPLIKAT ID'lar:** `47299`, `47300`
+- ID `47573`; manba manzil: `А.Баходирхон  пр. 3,5`; qidiruv nomi: `A.Baxodirxon  pr. 3,5`
+- ID `47574`; manba manzil: `П.Махмуд,26`; qidiruv nomi: `P.Maxmud,26`; **DUPLIKAT ID'lar:** `47608`, `47574`
+- ID `47994`; manba manzil: `Ёшлик 2 30`; qidiruv nomi: `Yoshlik 2 30`
+- ID `47715`; manba manzil: `П.Махмуд,5`; qidiruv nomi: `P.Maxmud,5`
+- ID `47591`; manba manzil: `Шерозий,8`; qidiruv nomi: `Sheroziy,8`
+- ID `47872`; manba manzil: `Хонқа,145/6А`; qidiruv nomi: `Xonqa,145/6A`
+- ID `47603`; manba manzil: `Шерозий,6А`; qidiruv nomi: `Sheroziy,6A`
+- ID `47716`; manba manzil: `П.Махмуд,19`; qidiruv nomi: `P.Maxmud,19`; **DUPLIKAT ID'lar:** `47613`, `47716`
+- ID `47696`; manba manzil: `П.Махмуд,25`; qidiruv nomi: `P.Maxmud,25`
+- ID `47598`; manba manzil: `И.Каримов,59`; qidiruv nomi: `I.Karimov,59`
+- ID `47698`; manba manzil: `П.Махмуд,17`; qidiruv nomi: `P.Maxmud,17`
+- ID `47699`; manba manzil: `П.Махмуд,23А`; qidiruv nomi: `P.Maxmud,23A`
+- ID `47880`; manba manzil: `Ю.Бобожонов,7А`; qidiruv nomi: `Yu.Bobojonov,7A`
+- ID `47703`; manba manzil: `Ю.Бобожонов,7`; qidiruv nomi: `Yu.Bobojonov,7`
+- ID `47705`; manba manzil: `Ал-Хоразмий,40`; qidiruv nomi: `Al-Xorazmiy,40`
+- ID `47707`; manba manzil: `Ю.Бобожонов,19`; qidiruv nomi: `Yu.Bobojonov,19`
+- ID `47709`; manba manzil: `П.Махмуд,13`; qidiruv nomi: `P.Maxmud,13`; **DUPLIKAT ID'lar:** `47607`, `47709`
+- ID `47710`; manba manzil: `Ю.Бобожонов,17`; qidiruv nomi: `Yu.Bobojonov,17`
+- ID `47712`; manba manzil: `П.Махмуд,27`; qidiruv nomi: `P.Maxmud,27`
+- ID `47714`; manba manzil: `П.Махмуд,25А`; qidiruv nomi: `P.Maxmud,25A`
+- ID `47879`; manba manzil: `П.Махмуд,15`; qidiruv nomi: `P.Maxmud,15`; **DUPLIKAT ID'lar:** `47565`, `47614`, `47879`
+- ID `47471`; manba manzil: `Гужумзор,31/5`; qidiruv nomi: `Gujumzor,31/5`
+- ID `47892`; manba manzil: `Ободлик,23`; qidiruv nomi: `Obodlik,23`
+- ID `47926`; manba manzil: `Ободлик,9/1`; qidiruv nomi: `Obodlik,9/1`
+- ID `47932`; manba manzil: `П.Махмуд,228Ф`; qidiruv nomi: `P.Maxmud,228F`
+- ID `47931`; manba manzil: `Фаёзов,26`; qidiruv nomi: `Fayozov,26`
+- ID `47927`; manba manzil: `П.Махмуд,228Б`; qidiruv nomi: `P.Maxmud,228B`
+- ID `47925`; manba manzil: `Ободлик,22`; qidiruv nomi: `Obodlik,22`
+- ID `47916`; manba manzil: `Ободлик,33`; qidiruv nomi: `Obodlik,33`
+- ID `47920`; manba manzil: `Ободлик,13`; qidiruv nomi: `Obodlik,13`
+- ID `47304`; manba manzil: `P.Mahmud 346`; qidiruv nomi: `P.Mahmud 346`
+- ID `47155`; manba manzil: `Зарбулоқ,30`; qidiruv nomi: `Zarbuloq,30`
+- ID `47288`; manba manzil: `6-daxa 8 uy`; qidiruv nomi: `6-daxa 8 uy`
+- ID `47172`; manba manzil: `Наманган,15`; qidiruv nomi: `Namangan,15`
+- ID `47207`; manba manzil: `Зарбулоқ,9/1`; qidiruv nomi: `Zarbuloq,9/1`
+- ID `47268`; manba manzil: `Гурлан кўчаси 13`; qidiruv nomi: `Gurlan ko'chasi 13`
+- ID `47297`; manba manzil: `6-daxa 18/2 uy`; qidiruv nomi: `6-daxa 18/2 uy`
+- ID `47325`; manba manzil: `Гурлан,5`; qidiruv nomi: `Gurlan,5`
+- ID `47227`; manba manzil: `Хонқа,21`; qidiruv nomi: `Xonqa,21`
+- ID `47948`; manba manzil: `Ёғду,7`; qidiruv nomi: `Yog'du,7`
+- ID `47952`; manba manzil: `Ёғду,9`; qidiruv nomi: `Yog'du,9`; **DUPLIKAT ID'lar:** `47952`, `47329`
+- ID `47953`; manba manzil: `Ёғду,5`; qidiruv nomi: `Yog'du,5`
+- ID `47336`; manba manzil: `Ёғду,10Б`; qidiruv nomi: `Yog'du,10B`
+- ID `47387`; manba manzil: `I.Karimov 100/1`; qidiruv nomi: `I.Karimov 100/1`; **DUPLIKAT ID'lar:** `47387`, `47954`
+- ID `47939`; manba manzil: `I.Karimov 43`; qidiruv nomi: `I.Karimov 43`
+- ID `47954`; manba manzil: `И.Каримов,100/1`; qidiruv nomi: `I.Karimov,100/1`; **DUPLIKAT ID'lar:** `47387`, `47954`
+- ID `47342`; manba manzil: `Истиқлол,9`; qidiruv nomi: `Istiqlol,9`
+- ID `47305`; manba manzil: `Ёғду,11`; qidiruv nomi: `Yog'du,11`
+- ID `47955`; manba manzil: `И.Каримов,6`; qidiruv nomi: `I.Karimov,6`
+- ID `47332`; manba manzil: `Ёғду,15`; qidiruv nomi: `Yog'du,15`
+- ID `47343`; manba manzil: `Истиқлол,1`; qidiruv nomi: `Istiqlol,1`
+- ID `47390`; manba manzil: `I.Karimov 102`; qidiruv nomi: `I.Karimov 102`
+- ID `47957`; manba manzil: `Истиқлол,50`; qidiruv nomi: `Istiqlol,50`
+- ID `47958`; manba manzil: `Истиқбол,19/1`; qidiruv nomi: `Istiqbol,19/1`
+- ID `47960`; manba manzil: `Ёғду,12`; qidiruv nomi: `Yog'du,12`
+- ID `47965`; manba manzil: `И.Каримов,53`; qidiruv nomi: `I.Karimov,53`
+- ID `47393`; manba manzil: `I.Karimov 39`; qidiruv nomi: `I.Karimov 39`
+- ID `47959`; manba manzil: `И.Каримов,104А`; qidiruv nomi: `I.Karimov,104A`
+- ID `47333`; manba manzil: `Ёғду,8`; qidiruv nomi: `Yog'du,8`
+- ID `47961`; manba manzil: `Ёғду,6/1`; qidiruv nomi: `Yog'du,6/1`
+- ID `47963`; manba manzil: `Ёғду,12А`; qidiruv nomi: `Yog'du,12A`
+- ID `47335`; manba manzil: `Ёғду,10А`; qidiruv nomi: `Yog'du,10A`
+- ID `47338`; manba manzil: `Ёғду,16`; qidiruv nomi: `Yog'du,16`
+- ID `47966`; manba manzil: `И.Каримов,55`; qidiruv nomi: `I.Karimov,55`; **DUPLIKAT ID'lar:** `47966`, `47947`
+- ID `47968`; manba manzil: `К.Отаниёзов,61/1`; qidiruv nomi: `K.Otaniyozov,61/1`
+- ID `47162`; manba manzil: `Зарбулоқ,53/3`; qidiruv nomi: `Zarbuloq,53/3`
+- ID `47972`; manba manzil: `Зарбулоқ,55/4`; qidiruv nomi: `Zarbuloq,55/4`; **DUPLIKAT ID'lar:** `47972`, `47971`
+- ID `47970`; manba manzil: `Гурлан,111А`; qidiruv nomi: `Gurlan,111A`
+- ID `47424`; manba manzil: `A.Bahodirxon,35A`; qidiruv nomi: `A.Bahodirxon,35A`
+- ID `47362`; manba manzil: `V.Fayazov 29/12 uy`; qidiruv nomi: `V.Fayazov 29/12 uy`
+- ID `47426`; manba manzil: `Xonqa,29`; qidiruv nomi: `Xonqa,29`
+- ID `47467`; manba manzil: `Тошкент,12/4`; qidiruv nomi: `Toshkent,12/4`
+- ID `47469`; manba manzil: `Гужумзор,31В`; qidiruv nomi: `Gujumzor,31V`
+- ID `47267`; manba manzil: `А.Темур 149`; qidiruv nomi: `A.Temur 149`
+- ID `47167`; manba manzil: `Наманган,36`; qidiruv nomi: `Namangan,36`
+- ID `47287`; manba manzil: `Ж.Мангуберди кўчаси 46/4`; qidiruv nomi: `J.Manguberdi ko'chasi 46/4`
+- ID `47247`; manba manzil: `Бухоро кўчаси 77`; qidiruv nomi: `Buxoro ko'chasi 77`
+- ID `47472`; manba manzil: `Н.Кубро,70/1В`; qidiruv nomi: `N.Kubro,70/1V`
+- ID `48077`; manba manzil: `П.Махмуд,3А`; qidiruv nomi: `P.Maxmud,3A`; **DUPLIKAT ID'lar:** `48077`, `47942`
+- ID `48078`; manba manzil: `А.Баходирхон,33`; qidiruv nomi: `A.Baxodirxon,33`; **DUPLIKAT ID'lar:** `47306`, `48078`
+- ID `47883`; manba manzil: `Наманган,3/1`; qidiruv nomi: `Namangan,3/1`
+- ID `48036`; manba manzil: `А Баходирхон 33/1`; qidiruv nomi: `A Baxodirxon 33/1`
+- ID `48034`; manba manzil: `Наманган 47/1`; qidiruv nomi: `Namangan 47/1`
+- ID `48033`; manba manzil: `Наманган 55`; qidiruv nomi: `Namangan 55`
+- ID `48030`; manba manzil: `Наманган 32а`; qidiruv nomi: `Namangan 32a`
+- ID `48032`; manba manzil: `Наманган 55в`; qidiruv nomi: `Namangan 55v`
+- ID `48029`; manba manzil: `Наманган 45д`; qidiruv nomi: `Namangan 45d`
+- ID `48026`; manba manzil: `Намангон 35/4`; qidiruv nomi: `Namangon 35/4`
+- ID `48025`; manba manzil: `Намангон 14д`; qidiruv nomi: `Namangon 14d`
+- ID `47884`; manba manzil: `Хонқа,25`; qidiruv nomi: `Xonqa,25`
+- ID `48079`; manba manzil: `Гурлан,53`; qidiruv nomi: `Gurlan,53`
+- ID `47483`; manba manzil: `Гурлан 11/10`; qidiruv nomi: `Gurlan 11/10`
+- ID `48020`; manba manzil: `Гурлан 41/2`; qidiruv nomi: `Gurlan 41/2`
+- ID `48081`; manba manzil: `Ал-Хоразмий,108`; qidiruv nomi: `Al-Xorazmiy,108`; **DUPLIKAT ID'lar:** `48081`, `47732`
+- ID `47998`; manba manzil: `6 Даха 6`; qidiruv nomi: `6 Daxa 6`
+- ID `48007`; manba manzil: `Бахтли оилалар 18/5`; qidiruv nomi: `Baxtli oilalar 18/5`
+- ID `48009`; manba manzil: `6 Даха 18/6`; qidiruv nomi: `6 Daxa 18/6`
+- ID `48083`; manba manzil: `Янгиариқ,11/1`; qidiruv nomi: `Yangiariq,11/1`
+- ID `47819`; manba manzil: `Гурлан,40`; qidiruv nomi: `Gurlan,40`
+- ID `48082`; manba manzil: `Бахтли оилалар,13`; qidiruv nomi: `Baxtli oilalar,13`
+- ID `48011`; manba manzil: `Бахтли оилалар 9`; qidiruv nomi: `Baxtli oilalar 9`
+- ID `48014`; manba manzil: `Buxoro 13`; qidiruv nomi: `Buxoro 13`
+- ID `47378`; manba manzil: `Baynalminal 26 uy`; qidiruv nomi: `Baynalminal 26 uy`
+- ID `47816`; manba manzil: `Аэропорт,2`; qidiruv nomi: `Aeroport,2`
+- ID `47818`; manba manzil: `Ал-Хоразмий,202`; qidiruv nomi: `Al-Xorazmiy,202`
+- ID `47843`; manba manzil: `Бўстон,5`; qidiruv nomi: `Bo'ston,5`
+- ID `47870`; manba manzil: `Туркистон,1/1`; qidiruv nomi: `Turkiston,1/1`
+- ID `47375`; manba manzil: `V.Fayazov 29/24 uy`; qidiruv nomi: `V.Fayazov 29/24 uy`
+- ID `47902`; manba manzil: `Ободлик,3`; qidiruv nomi: `Obodlik,3`
+- ID `47217`; manba manzil: `Зарбулоқ,17/3`; qidiruv nomi: `Zarbuloq,17/3`
+- ID `47967`; manba manzil: `И.Каримов,51`; qidiruv nomi: `I.Karimov,51`; **DUPLIKAT ID'lar:** `47385`, `47967`
+- ID `47235`; manba manzil: `Наманган,54`; qidiruv nomi: `Namangan,54`
+- ID `47244`; manba manzil: `Бухоро кўчаси 14А`; qidiruv nomi: `Buxoro ko'chasi 14A`
+- ID `48092`; manba manzil: `Саёт,3`; qidiruv nomi: `Sayot,3`
+- ID `41855`; manba manzil: `23 uy 5- qavatli uy`; qidiruv nomi: `23 uy 5- qavatli uy`
+- ID `47995`; manba manzil: `Янгиарик 13`; qidiruv nomi: `Yangiarik 13`
+- ID `41858`; manba manzil: `27 uy 5 qavatli`; qidiruv nomi: `27 uy 5 qavatli`
+- ID `41893`; manba manzil: `12A`; qidiruv nomi: `12A`
+- ID `48005`; manba manzil: `Бахтли оилалар 18/3`; qidiruv nomi: `Baxtli oilalar 18/3`
+- ID `48006`; manba manzil: `Бахтли оилалар 2А`; qidiruv nomi: `Baxtli oilalar 2A`
+- ID `48052`; manba manzil: `Н, Кубро 7/25`; qidiruv nomi: `N, Kubro 7/25`
+- ID `48053`; manba manzil: `Г, Гаипов 39`; qidiruv nomi: `G, Gaipov 39`
+- ID `48054`; manba manzil: `Г, Гаипов 41/1`; qidiruv nomi: `G, Gaipov 41/1`
+- ID `48055`; manba manzil: `Г, Гаипов 41/2`; qidiruv nomi: `G, Gaipov 41/2`
+- ID `48056`; manba manzil: `Т, Малик 1/45`; qidiruv nomi: `T, Malik 1/45`; **DUPLIKAT ID'lar:** `47882`, `48056`
+- ID `48057`; manba manzil: `Янгиобод Хонка 145/9`; qidiruv nomi: `Yangiobod Xonka 145/9`
+- ID `48058`; manba manzil: `Жинговуз Жайхун шамоли 38 А`; qidiruv nomi: `Jingovuz Jayxun shamoli 38 A`
+- ID `48059`; manba manzil: `Жайхун 46F`; qidiruv nomi: `Jayxun 46F`
+- ID `48061`; manba manzil: `А,Темур 40 /А`; qidiruv nomi: `A,Temur 40 /A`
+- ID `48063`; manba manzil: `Истиклол 54`; qidiruv nomi: `Istiklol 54`
+- ID `48064`; manba manzil: `А ,Герман 6`; qidiruv nomi: `A ,German 6`
+- ID `48094`; manba manzil: `Ёшлик,18`; qidiruv nomi: `Yoshlik,18`; **DUPLIKAT ID'lar:** `47800`, `48094`
+- ID `48095`; manba manzil: `Ёшлик,18Ф`; qidiruv nomi: `Yoshlik,18F`; **DUPLIKAT ID'lar:** `47867`, `48095`
+- ID `47996`; manba manzil: `Янгиарик 15`; qidiruv nomi: `Yangiarik 15`
+- ID `48096`; manba manzil: `Ulug'bek ko'chasi 14/1`; qidiruv nomi: `Ulug'bek ko'chasi 14/1`
+- ID `48097`; manba manzil: `Ulug'bek ko'chasi 14`; qidiruv nomi: `Ulug'bek ko'chasi 14`
+- ID `48098`; manba manzil: `I.Karimov ko'chasi 100`; qidiruv nomi: `I.Karimov ko'chasi 100`
+- ID `48099`; manba manzil: `M.Ulug'bek 14A`; qidiruv nomi: `M.Ulug'bek 14A`
+- ID `47997`; manba manzil: `Янгиарик 11/1`; qidiruv nomi: `Yangiarik 11/1`
+- ID `47143`; manba manzil: `Фаёзов,29/1`; qidiruv nomi: `Fayozov,29/1`
+- ID `48048`; manba manzil: `Г, Гаипов 41/4`; qidiruv nomi: `G, Gaipov 41/4`
+- ID `47177`; manba manzil: `Наманган,22`; qidiruv nomi: `Namangan,22`
+- ID `47196`; manba manzil: `Зарбулоқ,8`; qidiruv nomi: `Zarbuloq,8`
+- ID `47999`; manba manzil: `Бахтли оилалар 8А`; qidiruv nomi: `Baxtli oilalar 8A`
+- ID `48000`; manba manzil: `Бахтли оилалар 3`; qidiruv nomi: `Baxtli oilalar 3`
+- ID `41860`; manba manzil: `25 uy 5 qavatli`; qidiruv nomi: `25 uy 5 qavatli`
+- ID `41857`; manba manzil: `25A uy, 5 qavatli`; qidiruv nomi: `25A uy, 5 qavatli`
+- ID `47241`; manba manzil: `Гурлан кўчаси 71`; qidiruv nomi: `Gurlan ko'chasi 71`
+- ID `48001`; manba manzil: `Бахтли оилалар 18/4`; qidiruv nomi: `Baxtli oilalar 18/4`
+- ID `41856`; manba manzil: `25A 5-qavatli uy`; qidiruv nomi: `25A 5-qavatli uy`
+- ID `41853`; manba manzil: `5 qavatli uy`; qidiruv nomi: `5 qavatli uy`
+- ID `48002`; manba manzil: `Бахтли оилалар 10`; qidiruv nomi: `Baxtli oilalar 10`
+- ID `47258`; manba manzil: `I.Karimov ko'chasi 98/4`; qidiruv nomi: `I.Karimov ko'chasi 98/4`
+- ID `47259`; manba manzil: `Гурлан кўчаси 53`; qidiruv nomi: `Gurlan ko'chasi 53`
+- ID `47264`; manba manzil: `Гурлан кўчаси 119`; qidiruv nomi: `Gurlan ko'chasi 119`
+- ID `47274`; manba manzil: `Гурлан кўчаси 28`; qidiruv nomi: `Gurlan ko'chasi 28`
+- ID `48016`; manba manzil: `А.Темур 141/1`; qidiruv nomi: `A.Temur 141/1`
+- ID `47311`; manba manzil: `А.Баходирхон,35А`; qidiruv nomi: `A.Baxodirxon,35A`
+- ID `47329`; manba manzil: `Ёғду,9`; qidiruv nomi: `Yog'du,9`; **DUPLIKAT ID'lar:** `47952`, `47329`
+- ID `47331`; manba manzil: `Ёғду,3`; qidiruv nomi: `Yog'du,3`
+- ID `48022`; manba manzil: `Зарбулок 8`; qidiruv nomi: `Zarbulok 8`
+- ID `47341`; manba manzil: `Гурлан,17А`; qidiruv nomi: `Gurlan,17A`
+- ID `47346`; manba manzil: `A.Bahodirxon 201 uy`; qidiruv nomi: `A.Bahodirxon 201 uy`; **DUPLIKAT ID'lar:** `47353`, `47346`
+- ID `47350`; manba manzil: `V.Fayazov 29/2 uy`; qidiruv nomi: `V.Fayazov 29/2 uy`
+- ID `47355`; manba manzil: `V.Fayazov 29/3 uy`; qidiruv nomi: `V.Fayazov 29/3 uy`
+- ID `47372`; manba manzil: `V.Fayazov 29/22 uy`; qidiruv nomi: `V.Fayazov 29/22 uy`; **DUPLIKAT ID'lar:** `47373`, `47372`
+- ID `47382`; manba manzil: `Наманган кўчаси 35/1`; qidiruv nomi: `Namangan ko'chasi 35/1`
+- ID `48023`; manba manzil: `Хонка 36/4`; qidiruv nomi: `Xonka 36/4`
+- ID `47386`; manba manzil: `I.Karimov 51А`; qidiruv nomi: `I.Karimov 51A`
+- ID `47388`; manba manzil: `I.Karimov 100/2`; qidiruv nomi: `I.Karimov 100/2`
+- ID `47392`; manba manzil: `I.Karimov 44`; qidiruv nomi: `I.Karimov 44`
+- ID `47402`; manba manzil: `П,Махмуд 342`; qidiruv nomi: `P,Maxmud 342`
+- ID `47403`; manba manzil: `Гурлан 42`; qidiruv nomi: `Gurlan 42`
+- ID `47405`; manba manzil: `П,Махмуд 38`; qidiruv nomi: `P,Maxmud 38`
+- ID `47406`; manba manzil: `ПМахмуд 40`; qidiruv nomi: `PMaxmud 40`
+- ID `47407`; manba manzil: `ПМахмуд 42`; qidiruv nomi: `PMaxmud 42`
+- ID `47409`; manba manzil: `Гурлан кўчаси 11`; qidiruv nomi: `Gurlan ko'chasi 11`
+- ID `47410`; manba manzil: `А.Баходирхон 37`; qidiruv nomi: `A.Baxodirxon 37`; **DUPLIKAT ID'lar:** `47308`, `47410`
+- ID `47411`; manba manzil: `П.Махмуд 4/1`; qidiruv nomi: `P.Maxmud 4/1`; **DUPLIKAT ID'lar:** `47411`, `47934`
+- ID `47418`; manba manzil: `NULL`; qidiruv nomi: `NULL`
+- ID `47422`; manba manzil: `A.Bahodirxon,1/1`; qidiruv nomi: `A.Bahodirxon,1/1`
+- ID `47425`; manba manzil: `Xonqa,51`; qidiruv nomi: `Xonqa,51`; **DUPLIKAT ID'lar:** `47425`, `47419`
+- ID `47484`; manba manzil: `П.Махмуд 59`; qidiruv nomi: `P.Maxmud 59`; **DUPLIKAT ID'lar:** `47221`, `47484`
+- ID `48024`; manba manzil: `Ёшлик 31А`; qidiruv nomi: `Yoshlik 31A`
+- ID `48027`; manba manzil: `Наманган 51А`; qidiruv nomi: `Namangan 51A`
+- ID `48031`; manba manzil: `Наманган 45/1`; qidiruv nomi: `Namangan 45/1`; **DUPLIKAT ID'lar:** `47820`, `48031`
+- ID `48035`; manba manzil: `Ал-Хоразмий 24В`; qidiruv nomi: `Al-Xorazmiy 24V`
+- ID `48049`; manba manzil: `Р, Гаипов 31/1`; qidiruv nomi: `R, Gaipov 31/1`
+- ID `47612`; manba manzil: `П.Махмуд,11`; qidiruv nomi: `P.Maxmud,11`; **DUPLIKAT ID'lar:** `47717`, `47612`
+- ID `47642`; manba manzil: `А.Темур,40В`; qidiruv nomi: `A.Temur,40V`
+- ID `48039`; manba manzil: `пр. Жаннатмакон 10, дом 71`; qidiruv nomi: `pr. Jannatmakon 10, dom 71`
+- ID `47732`; manba manzil: `Ал-Хоразмий,108`; qidiruv nomi: `Al-Xorazmiy,108`; **DUPLIKAT ID'lar:** `48081`, `47732`
+- ID `47733`; manba manzil: `Наврўз,2А`; qidiruv nomi: `Navro'z,2A`
+- ID `47413`; manba manzil: `Baynalminalchi 24A`; qidiruv nomi: `Baynalminalchi 24A`
+- ID `47416`; manba manzil: `K.Otaniyozov 61/1-uy`; qidiruv nomi: `K.Otaniyozov 61/1-uy`
+- ID `47415`; manba manzil: `K.Otaniyozov 61-uy`; qidiruv nomi: `K.Otaniyozov 61-uy`
+- ID `47414`; manba manzil: `Baynalminalchi 20`; qidiruv nomi: `Baynalminalchi 20`
+- ID `47412`; manba manzil: `Jannatmakon 10/67`; qidiruv nomi: `Jannatmakon 10/67`
+- ID `47404`; manba manzil: `А.Герман 100/2`; qidiruv nomi: `A.German 100/2`
+- ID `47408`; manba manzil: `П,Махмуд 48`; qidiruv nomi: `P,Maxmud 48`
+- ID `48040`; manba manzil: `П.Махмуд,228А`; qidiruv nomi: `P.Maxmud,228A`; **DUPLIKAT ID'lar:** `47891`, `48040`
+- ID `48041`; manba manzil: `Р, Гаипов 31/2`; qidiruv nomi: `R, Gaipov 31/2`
+- ID `48042`; manba manzil: `Г, Гаипов 41`; qidiruv nomi: `G, Gaipov 41`
+- ID `48043`; manba manzil: `Р, Гаипов 60`; qidiruv nomi: `R, Gaipov 60`
+- ID `48044`; manba manzil: `Г, Гаипов 31`; qidiruv nomi: `G, Gaipov 31`
+- ID `48045`; manba manzil: `Г, Гаипов 49/3`; qidiruv nomi: `G, Gaipov 49/3`
+- ID `48046`; manba manzil: `Р, Гаипов 12`; qidiruv nomi: `R, Gaipov 12`
+- ID `48047`; manba manzil: `Гужумзор 49 В`; qidiruv nomi: `Gujumzor 49 V`
+- ID `47429`; manba manzil: `Xonqa,115A`; qidiruv nomi: `Xonqa,115A`
+- ID `47988`; manba manzil: `Ханка 28В`; qidiruv nomi: `Xanka 28V`
+- ID `47989`; manba manzil: `Ёшлик 1В`; qidiruv nomi: `Yoshlik 1V`
+- ID `47990`; manba manzil: `Хонка 36В`; qidiruv nomi: `Xonka 36V`
+- ID `47417`; manba manzil: `Istiqlol,12/1-uy`; qidiruv nomi: `Istiqlol,12/1-uy`
+- ID `47420`; manba manzil: `Firdavsiy,67`; qidiruv nomi: `Firdavsiy,67`
+- ID `47419`; manba manzil: `Xonqa,51`; qidiruv nomi: `Xonqa,51`; **DUPLIKAT ID'lar:** `47425`, `47419`
+- ID `47421`; manba manzil: `Xonqa,61A`; qidiruv nomi: `Xonqa,61A`
+- ID `47913`; manba manzil: `Ободлик,16`; qidiruv nomi: `Obodlik,16`; **DUPLIKAT ID'lar:** `47160`, `47913`
+- ID `47934`; manba manzil: `P.Maxmud 4/1`; qidiruv nomi: `P.Maxmud 4/1`; **DUPLIKAT ID'lar:** `47411`, `47934`
+- ID `47936`; manba manzil: `P.Maxmud 46/3`; qidiruv nomi: `P.Maxmud 46/3`; **DUPLIKAT ID'lar:** `47936`, `47937`
+- ID `47937`; manba manzil: `P.Maxmud 46/3`; qidiruv nomi: `P.Maxmud 46/3`; **DUPLIKAT ID'lar:** `47936`, `47937`
+- ID `47941`; manba manzil: `Аль-Хоразмий 100Е`; qidiruv nomi: `Al-Xorazmiy 100E`
+- ID `47942`; manba manzil: `П.Махмуд,3А`; qidiruv nomi: `P.Maxmud,3A`; **DUPLIKAT ID'lar:** `48077`, `47942`
+- ID `47943`; manba manzil: `P.Mahmud 46/4`; qidiruv nomi: `P.Mahmud 46/4`
+- ID `47944`; manba manzil: `П.Махмуд,3v`; qidiruv nomi: `P.Maxmud,3v`
+- ID `47945`; manba manzil: `П.Махмуд,3д`; qidiruv nomi: `P.Maxmud,3d`
+- ID `47946`; manba manzil: `П.Махмуд,3г2`; qidiruv nomi: `P.Maxmud,3g2`
+- ID `47947`; manba manzil: `И.Каримов,55`; qidiruv nomi: `I.Karimov,55`; **DUPLIKAT ID'lar:** `47966`, `47947`
+- ID `47949`; manba manzil: `П.Махмуд,17/1д`; qidiruv nomi: `P.Maxmud,17/1d`
+- ID `47950`; manba manzil: `Амударё 1/1а`; qidiruv nomi: `Amudaryo 1/1a`
+- ID `47969`; manba manzil: `К.Отаниёзов,61`; qidiruv nomi: `K.Otaniyozov,61`
+- ID `47971`; manba manzil: `Зарбулоқ,55/4`; qidiruv nomi: `Zarbuloq,55/4`; **DUPLIKAT ID'lar:** `47972`, `47971`
+- ID `47973`; manba manzil: `Хонқа,57`; qidiruv nomi: `Xonqa,57`; **DUPLIKAT ID'lar:** `47974`, `47973`
+- ID `47978`; manba manzil: `Хива пр4 дом 22`; qidiruv nomi: `Xiva pr4 dom 22`
+- ID `47979`; manba manzil: `Саёт 71`; qidiruv nomi: `Sayot 71`
+- ID `47980`; manba manzil: `Ёшлик,26В`; qidiruv nomi: `Yoshlik,26V`; **DUPLIKAT ID'lar:** `47810`, `47980`, `47981`
+- ID `47981`; manba manzil: `Ёшлик 26в`; qidiruv nomi: `Yoshlik 26v`; **DUPLIKAT ID'lar:** `47810`, `47980`, `47981`
+- ID `47983`; manba manzil: `Г.Гулом 15ф`; qidiruv nomi: `G.Gulom 15f`
+- ID `47984`; manba manzil: `Ж.Мангуберди,8Е`; qidiruv nomi: `J.Manguberdi,8E`
+- ID `47986`; manba manzil: `Аль Хоразмий 79ж`; qidiruv nomi: `Al Xorazmiy 79j`
+- ID `47987`; manba manzil: `Ханка 36`; qidiruv nomi: `Xanka 36`
+- ID `48050`; manba manzil: `Н Кубро 7/27`; qidiruv nomi: `N Kubro 7/27`
+- ID `48051`; manba manzil: `Г, Гаипов 41/3`; qidiruv nomi: `G, Gaipov 41/3`
+- ID `48065`; manba manzil: `Узбекистон 26`; qidiruv nomi: `Uzbekiston 26`
+- ID `48066`; manba manzil: `Янги Урганч 6`; qidiruv nomi: `Yangi Urganch 6`
+- ID `48067`; manba manzil: `Янги Урганч 9/1`; qidiruv nomi: `Yangi Urganch 9/1`
+- ID `48068`; manba manzil: `П.Махмуд 2/6`; qidiruv nomi: `P.Maxmud 2/6`
+- ID `48069`; manba manzil: `Наврўз,4`; qidiruv nomi: `Navro'z,4`
+- ID `48070`; manba manzil: `Байналминалчилар 20В`; qidiruv nomi: `Baynalminalchilar 20V`
+- ID `48071`; manba manzil: `Байналминалчилар`; qidiruv nomi: `Baynalminalchilar`
+- ID `48072`; manba manzil: `пр. Жаннатмакон 10, дом 67`; qidiruv nomi: `pr. Jannatmakon 10, dom 67`
+- ID `48073`; manba manzil: `3 -даха 9Б`; qidiruv nomi: `3 -daxa 9B`
+- ID `48076`; manba manzil: `3 даха 30`; qidiruv nomi: `3 daxa 30`
+- ID `48088`; manba manzil: `Ал-Хоразмий,17`; qidiruv nomi: `Al-Xorazmiy,17`; **DUPLIKAT ID'lar:** `47866`, `48088`
+- ID `48090`; manba manzil: `Хонқа,68/1`; qidiruv nomi: `Xonqa,68/1`; **DUPLIKAT ID'lar:** `47826`, `48090`
+- ID `48093`; manba manzil: `Хива,1`; qidiruv nomi: `Xiva,1`
+- ID `48084`; manba manzil: `Янгиариқ,13`; qidiruv nomi: `Yangiariq,13`
+- ID `48086`; manba manzil: `Тинчлик,2Б`; qidiruv nomi: `Tinchlik,2B`; **DUPLIKAT ID'lar:** `47666`, `48086`
+- ID `48091`; manba manzil: `А.Баходирхон,1/1`; qidiruv nomi: `A.Baxodirxon,1/1`; **DUPLIKAT ID'lar:** `47849`, `48091`
+- ID `48080`; manba manzil: `Ўзбекистон,26`; qidiruv nomi: `O'zbekiston,26`
+- ID `48085`; manba manzil: `Янгиариқ,9В`; qidiruv nomi: `Yangiariq,9V`
+- ID `48087`; manba manzil: `Зарбулоқ,17/2`; qidiruv nomi: `Zarbuloq,17/2`; **DUPLIKAT ID'lar:** `47216`, `48087`
+- ID `48089`; manba manzil: `Бухоро,14а`; qidiruv nomi: `Buxoro,14a`
+
+## Manba sifati bo'yicha eslatma
+
+CSV ichidagi yozuvlar avtomatik tuzatilmagan. Masalan, tinish belgisi yoki ko'cha nomi imlosi farq qilsa, manba qiymati saqlanadi; aniqlik bo'lmasa agent qo'shimcha savol beradi.
+

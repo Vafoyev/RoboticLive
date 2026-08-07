@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboticLive - Pure Voice AI Agent</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-robot"></i>
+            </div>
+            <div class="logo-text">
+                <h1>RoboticLive</h1>
+                <span>Pure Voice AI Agent</span>
+            </div>
+        </div>
+
+        <nav class="nav-tabs">
+            <button class="nav-btn active" onclick="switchTab('agent-tab')">
+                <i class="fa-solid fa-microphone-lines"></i> Ovozli AI Agent
+            </button>
+            <button class="nav-btn" onclick="switchTab('rag-tab')">
+                <i class="fa-solid fa-brain"></i> RAG Bilimlar Bazasi
+            </button>
+            <button class="nav-btn" onclick="switchTab('portal-tab')">
+                <i class="fa-solid fa-folder-open"></i> Murojaatlar Bazasi
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <!-- TAB 1: PURE VOICE AI AGENT STAGE -->
+        <section id="agent-tab" class="tab-content active">
+            <div class="live-agent-grid">
+                
+                <!-- Main Robot Stage -->
+                <div class="glass-panel robot-stage">
+                    <div class="stage-header">
+                        <div>
+                            <h3><i class="fa-solid fa-circle-dot" style="color: var(--accent-green);"></i> Urganch "Aqlli Yordamchi" AI</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Muloqotni boshlash uchun mikrofon tugmasini bosing</p>
+                        </div>
+                        <div class="live-badge" id="liveStatusBadge">
+                            <div class="pulse-dot"></div> READY
+                        </div>
+                    </div>
+
+                    <!-- Animated Robot Avatar & Big Central Mic Button -->
+                    <div class="robot-avatar-area">
+                        <div class="live-ring-visualizer" id="ringVisualizer"></div>
+                        
+                        <!-- Glowing Mic Button -->
+                        <button class="robot-mic-sphere" id="mainMicTrigger" onclick="togglePureVoiceMode()" title="Ovozli muloqotni boshlash">
+                            <i class="fa-solid fa-microphone" id="micIcon"></i>
+                        </button>
+
+                        <!-- Audio Waveform visualizer -->
+                        <div class="sound-waves" id="soundWaves">
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                        </div>
+
+                        <p class="mic-status-label" id="micStatusLabel">Mikrofonni bosing va gapiring</p>
+                    </div>
+
+                    <!-- Live Subtitle / Chat Transcript -->
+                    <div class="chat-history" id="chatHistory">
+                        <div class="message-bubble assistant">
+                            Assalomu alaykum! Men Urganch shahrining <strong>"Aqlli Yordamchi"</strong> AI tizimiman. Ovozli muloqotni boshlash uchun markazdagi mikrofon tugmasini bosing.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Actions -->
+                <div class="sidebar-panel">
+                    <div class="glass-panel" style="padding: 20px;">
+                        <h4 class="section-title"><i class="fa-solid fa-bolt" style="color: var(--accent-pink);"></i> Tezkor Xizmatlar</h4>
+                        
+                        <div class="action-card" onclick="openSubmissionModal('shikoyat')">
+                            <div class="action-icon icon-shikoyat">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div class="action-text">
+                                <h4>Shikoyat yuborish</h4>
+                                <p>Kommunal, obodonlashtirish muammolari</p>
+                            </div>
+                        </div>
+
+                        <div class="action-card" onclick="openSubmissionModal('murojaat')" style="margin-top: 12px;">
+                            <div class="action-icon icon-murojaat">
+                                <i class="fa-solid fa-envelope-open-text"></i>
+                            </div>
+                            <div class="action-text">
+                                <h4>Rasmiy Murojaat</h4>
+                                <p>Tashkiliy va ma'muriy masalalar</p>
+                            </div>
+                        </div>
+
+                        <div class="action-card" onclick="openSubmissionModal('taklif')" style="margin-top: 12px;">
+                            <div class="action-icon icon-taklif">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
+                            <div class="action-text">
+                                <h4>Taklif bildirish</h4>
+                                <p>Mahallani rivojlantirish g'oyalari</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel" style="padding: 20px;">
+                        <h4 class="section-title"><i class="fa-solid fa-circle-info" style="color: var(--accent-blue);"></i> Tizim Holati</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+                            • <strong>Rejim:</strong> Faqat Ovozli Muloqot (Pure Voice)<br>
+                            • <strong>Model:</strong> Gemini 2.5 Flash<br>
+                            • <strong>Ovoz:</strong> Qizlar ovozi (TTS)<br>
+                            • <strong>RAG Engine:</strong> 222 bilimlar bloki
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 2: RAG KNOWLEDGE BASE MANAGER -->
+        <section id="rag-tab" class="tab-content">
+            <div class="glass-panel" style="padding: 30px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <div>
+                        <h2><i class="fa-solid fa-brain" style="color: var(--accent-purple);"></i> RAG Bilimlar Bazasi</h2>
+                        <p style="color: var(--text-muted);">Urganch va Mahalla haqidagi barcha rasmiy hujjatlar</p>
+                    </div>
+                    <button class="btn-primary" onclick="openRAGModal()">
+                        <i class="fa-solid fa-plus"></i> Yangi Bilim Qo'shish
+                    </button>
+                </div>
+
+                <div id="ragDocsContainer" class="form-grid">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: CITIZEN SUBMISSIONS PORTAL -->
+        <section id="portal-tab" class="tab-content">
+            <div class="glass-panel" style="padding: 30px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div>
+                        <h2><i class="fa-solid fa-folder-open" style="color: var(--accent-green);"></i> Murojaatlar Bazasi</h2>
+                        <p style="color: var(--text-muted);">Kelib tushgan shikoyatlar va takliflar ro'yxati</p>
+                    </div>
+                    <button class="btn-primary" onclick="loadSubmissions()">
+                        <i class="fa-solid fa-rotate-right"></i> Yangilash
+                    </button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Turi</th>
+                            <th>F.I.SH & Telefon</th>
+                            <th>Mahalla / Manzil</th>
+                            <th>Mavzu & Mazmuni</th>
+                            <th>Holati</th>
+                            <th>Vaqt</th>
+                        </tr>
+                    </thead>
+                    <tbody id="submissionsTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL 1: SUBMISSION FORM -->
+    <div class="modal-backdrop" id="submissionModal">
+        <div class="glass-panel modal-body">
+            <div class="modal-header">
+                <h3 id="modalFormTitle">Shikoyat Yuborish</h3>
+                <button class="close-btn" onclick="closeSubmissionModal()">&times;</button>
+            </div>
+            
+            <form id="submissionForm" onsubmit="submitForm(event)">
+                <input type="hidden" id="subType" value="shikoyat">
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>F.I.SH (Ism Sharifingiz)</label>
+                        <input type="text" id="subFullName" required placeholder="Masalan: Alisher Navoiy">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Telefon raqamingiz</label>
+                        <input type="text" id="subPhone" required placeholder="+998 90 123 45 67">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mahallangiz nomi</label>
+                        <input type="text" id="subMahalla" required placeholder="Masalan: Olimpiya MFY">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Aniq manzil</label>
+                        <input type="text" id="subAddress" placeholder="Ko'cha, uy raqami">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Mavzu</label>
+                        <input type="text" id="subTopic" required placeholder="Qisqacha mazmuni">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Batafsil tasviri</label>
+                        <textarea id="subDescription" rows="4" required placeholder="Muammo yoki murojaat haqida batafsil yozing..."></textarea>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px; text-align: right;">
+                    <button type="button" class="btn-icon" style="display:inline-flex; width:auto; padding:0 20px;" onclick="closeSubmissionModal()">Bekor qilish</button>
+                    <button type="submit" class="btn-primary">Yuborish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: ADD RAG DOC -->
+    <div class="modal-backdrop" id="ragModal">
+        <div class="glass-panel modal-body">
+            <div class="modal-header">
+                <h3>RAG Bilimlar Bazasiga Ma'lumot Qo'shish</h3>
+                <button class="close-btn" onclick="closeRAGModal()">&times;</button>
+            </div>
+            
+            <form id="ragForm" onsubmit="submitRAGDoc(event)">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Sarlavha (Title)</label>
+                    <input type="text" id="ragTitle" required placeholder="Masalan: Urganch shahri yangi xizmatlari">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Kategoriya</label>
+                    <select id="ragCategory" required>
+                        <option value="shahar">Shahar ma'lumotlari</option>
+                        <option value="mahalla">Mahalla va MFY</option>
+                        <option value="rahbarlar">Rahbarlar</option>
+                        <option value="umumiy">Umumiy</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label>Matn (Content)</label>
+                    <textarea id="ragContent" rows="6" required placeholder="AI foydalanishi uchun ma'lumot kiriting..."></textarea>
+                </div>
+
+                <div style="text-align: right;">
+                    <button type="submit" class="btn-primary">Saqlash va Indekslash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/main.js"></script>
+</body>
+</html>

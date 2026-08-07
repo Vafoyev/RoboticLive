@@ -1,0 +1,176 @@
+import asyncio
+import base64
+import json
+import websockets
+from typing import Optional, Callable
+from backend.config import get_gemini_api_key, BASE_DIR
+from backend.rag_engine import search_rag_context
+
+MODEL = "models/gemini-3.1-flash-live-preview"
+
+def load_system_instruction(user_query_hint: str = "") -> str:
+    prompt_path = BASE_DIR / "rag" / "ai agent .md fayllar uchun " / "system-prompt.txt"
+    system_rules = ""
+    if prompt_path.exists():
+        try:
+            with open(prompt_path, 'r', encoding='utf-8', errors='ignore') as f:
+                system_rules = f.read().strip()[:2500]
+        except Exception as e:
+            print(f"Error reading system prompt file: {e}")
+
+    rag_context = search_rag_context(user_query_hint) if user_query_hint else ""
+
+    instruction = (
+        "Siz Urganch shahri va mahallasida o'rnatilgan 'Aqlli Yordamchi' sun'iy intellekt AI yordamchisisiz. "
+        "Siz ayol kishisiz va nihoyatda nazokatli, samimiy, bilag'on va xushmuomala ayol kishi ovozida gapirasiz.\n\n"
+        "O'ZBEK ADABIY TILI TALAFUZ VA FONETIKA QOIDALARI (JUSA MUHIM):\n"
+        "1. Siz O'zbek adabiy tilining barcha kelishik va qo'shimchalarini (kelishik: -ning, -ga, -ni, -da, -dan; egalik va nisbat suffikslarini) dona-dona, tiniq va benuqson talaffuz qilasiz.\n"
+        "2. O'zbek alifbosidagi 'O' va 'O'', 'Q' va 'K', 'G' va 'G'' harflarini so'z tarkibida juda aniq va to'g'ri ayting. So'z oxiridagi tovushlarni qisqartirmasdan aniq va ravon eshittiring.\n"
+        "3. Urg'u va intonatsiyani o'zbek adabiy tili me'yorlariga qat'iy rioya qilgan holda, samimiy va jozibador bering.\n"
+        "4. Salomlashuvni ravon, baland va jozibali qilib: \"Assalomu alaykum! Men Urganch shahrining 'Aqlli Yordamchi' AI tizimiman. Qanday murojaatingiz bor?\" deb aytasiz.\n"
+        "5. Har doim o'rta me'yordagi insoniy sur'atda, dona-dona va tushunarli gapirasiz.\n\n"
+        "Muloqot tartibi va moslashuvchanlik:\n"
+        "- AGAR TASHRIFCHI MUROJAAT/MUAMMO AYTSA (suv, gaz, chiroq, shikoyat, kommunal, obodonlashtirish):\n"
+        "  Murojaatni tinglab tushunganingni bildir va murojaatni rasmiylashtirish uchun ma'lumotlarini (Ismi va familiyasi, Xonadon raqami, Telefon raqami) muloyimlik bilan so'rab ol.\n"
+        "- AGAR TASHRIFCHI ODDIY SAVOL BERSA (Urganch shahri, Mahalla yettiligi, hokim, yoshlar yetakchisi, Olimpiya mahallasi, soliqlar yoki ma'lumotlar haqida):\n"
+        "  Savolga darhol to'liq, aniq, aqlli va mazmunli javob ber! Shaxsiy ma'lumotlarini so'rab majburlama, savoliga samimiy javob berib muloqot qil.\n\n"
+    )
+
+    if system_rules:
+        instruction += f"=== QO'SHIMCHA PROMPT QOIDALARI ===\n{system_rules}\n\n"
+    if rag_context:
+        instruction += f"=== RASMIY BILIMLAR BAZASI (RAG CONTEXT) ===\n{rag_context}\n\n"
+
+    return instruction
+
+class GeminiLiveSession:
+    def __init__(
+        self,
+        on_audio_chunk,
+        on_input_transcript,
+        on_output_transcript,
+        on_turn_complete,
+        on_interrupted=None,
+        query_hint=""
+    ):
+        self._ws = None
+        self._recv_task = None
+        self.on_audio_chunk = on_audio_chunk
+        self.on_input_transcript = on_input_transcript
+        self.on_output_transcript = on_output_transcript
+        self.on_turn_complete = on_turn_complete
+        self.on_interrupted = on_interrupted
+        self.query_hint = query_hint
+
+    async def connect(self):
+        api_key = get_gemini_api_key()
+        ws_uri = (
+            "wss://generativelanguage.googleapis.com/ws/"
+            "google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent"
+            f"?key={api_key}"
+        )
+
+        print("[Gemini 3.1 Live] WebSocket'ga ulanilmoqda...")
+        last_err = None
+        for attempt in range(1, 4):
+            try:
+                self._ws = await websockets.connect(ws_uri, max_size=None, open_timeout=8)
+                break
+            except Exception as e:
+                last_err = e
+                print(f"[Gemini 3.1 Live] Ulanish urinishi {attempt}/3 ({e}), qayta urinilmoqda...")
+                await asyncio.sleep(0.5)
+        else:
+            raise last_err
+
+        system_prompt = load_system_instruction(self.query_hint)
+
+        setup_msg = {
+            "setup": {
+                "model": MODEL,
+                "generationConfig": {
+                    "responseModalities": ["AUDIO"],
+                    "speechConfig": {
+                        "voiceConfig": {
+                            "prebuiltVoiceConfig": {
+                                "voiceName": "Aoede"
+                            }
+                        }
+                    }
+                },
+                "systemInstruction": {"parts": [{"text": system_prompt}]},
+                "inputAudioTranscription": {},
+                "outputAudioTranscription": {},
+            }
+        }
+        await self._ws.send(json.dumps(setup_msg))
+        response = json.loads(await self._ws.recv())
+        if "setupComplete" not in response:
+            raise RuntimeError(f"Gemini Live sozlash muvaffaqiyatsiz: {response}")
+
+        print("[Gemini 3.1 Live] Ulanildi, O'zbek adabiy fonetika qoidalari bilan Aoede sozlandi")
+        self._recv_task = asyncio.create_task(self._receive_loop())
+
+    async def send_text_turn(self, text):
+        msg = {
+            "clientContent": {
+                "turns": [{"role": "user", "parts": [{"text": text}]}],
+                "turnComplete": True,
+            }
+        }
+        if self._ws:
+            await self._ws.send(json.dumps(msg))
+
+    async def send_audio_chunk(self, pcm16k_bytes):
+        msg = {
+            "realtimeInput": {
+                "audio": {
+                    "data": base64.b64encode(pcm16k_bytes).decode("ascii"),
+                    "mimeType": "audio/pcm;rate=16000",
+                }
+            }
+        }
+        if self._ws:
+            await self._ws.send(json.dumps(msg))
+
+    async def _receive_loop(self):
+        try:
+            async for message in self._ws:
+                data = json.loads(message)
+                server_content = data.get("serverContent")
+                if not server_content:
+                    continue
+
+                if server_content.get("interrupted") and self.on_interrupted:
+                    await self.on_interrupted()
+
+                model_turn = server_content.get("modelTurn")
+                if model_turn:
+                    for part in model_turn.get("parts", []):
+                        inline = part.get("inlineData")
+                        if inline:
+                            await self.on_audio_chunk(base64.b64decode(inline["data"]))
+
+                if "inputTranscription" in server_content:
+                    text = server_content["inputTranscription"].get("text", "")
+                    if text and self.on_input_transcript:
+                        await self.on_input_transcript(text)
+
+                if "outputTranscription" in server_content:
+                    text = server_content["outputTranscription"].get("text", "")
+                    if text and self.on_output_transcript:
+                        await self.on_output_transcript(text)
+
+                if server_content.get("turnComplete") and self.on_turn_complete:
+                    await self.on_turn_complete()
+        except websockets.exceptions.ConnectionClosed as e:
+            print(f"[Gemini 3.1 Live] Ulanish yopildi: {e}")
+        except Exception as e:
+            print(f"[Gemini 3.1 Live] Receive loop error: {e}")
+
+    async def close(self):
+        if self._recv_task:
+            self._recv_task.cancel()
+        if self._ws:
+            await self._ws.close()
+        print("[Gemini 3.1 Live] Sessiya yopildi")

@@ -1,0 +1,125 @@
+{
+  "type": "webhook",
+  "name": "yangi_ariza_yaratish",
+  "description": "Fuqaroning ismi, telefon raqami, manzili (ko'cha nomi va uy raqami) hamda muammo tavsifi to'liq olingandan so'ng yangi murojaat yaratish uchun ishlatiladi.\n\nBarcha zaruriy maydonlar: fullName, phoneNumber, streetName, apartmentNumber va problem to'planmaguncha bu tool chaqirilmasin.\n\norderTypeId tanlash qoidasi:\nAgent fuqaro aytgan muammo mazmunini Knowledge Base'dagi order_type_catalog.md hujjatidan topilgan murojaat yo'nalishi bilan moslashtirsin. Katalogdagi qulay nom faqat tushunish va suhbat uchun ishlatiladi, webhook payload'iga esa faqat uning raqamli orderTypeId qiymati yuboriladi.\n\nKnowledge Base'dagi kanonik murojaat yo'nalishlari:\n46415 — Issiqlik ta'minoti muammosi\n57683 — Boshqa xizmatlar bo'yicha murojaat\n31344 — Uy-joy boshqaruvi va BSK\n31363 — Chiqindi va hudud tozaligi\n31274 — Suv ta'minoti muammosi\n31345 — Bandlik va ishga joylashish\n31342 — Elektr ta'minoti muammosi\n31352 — MSP tozaligi muammosi\n31346 — Nasos va suv bosimi muammosi\n31343 — Gaz ta'minoti muammosi\n41818 — Obodonlashtirish va ko'kalamzorlashtirish\n64401 — Avtobus va jamoat transporti\n\nFaqat order_type_catalog.md'dagi mavjud ID qiymatidan foydalanilsin. Muammo ikki yo'nalishga mos kelsa, bitta aniqlashtiruvchi savol berilsin. ID taxmin qilinmasin va fuqaroning o'zidan ID so'ralmasin.\n\nfrontObjectId tanlash qoidasi:\nAgent fuqaro aytgan streetName va apartmentNumber'ni Knowledge Base'dagi front_object_catalog.md hujjatidan aniq qidirsin. Ushbu hujjat frontObjects.csv asosidagi barcha manzil yozuvlarini o'z ichiga oladi. Eski yoki qisqartirilgan webhook ro'yxatidan foydalanilmasin.\n\nFaqat ko'cha, uy/xonadon raqami va zarur bo'lsa harf yoki qiya chiziq bilan yagona mos keladigan frontObjectId yuborilsin. Bir nechta ID mos kelsa, qo'shimcha aniqlashtiruvchi savol berilsin. Katalogda mos yozuv bo'lmasa, ID taxmin qilinmasin va tool chaqirilmasin. Fuqaro frontObjectId raqamini aytishi shart emas.",
+  "disable_interruptions": false,
+  "interruption_mode": "allow",
+  "force_pre_tool_speech": false,
+  "pre_tool_speech": "auto",
+  "tool_call_sound": null,
+  "tool_call_sound_behavior": "auto",
+  "tool_error_handling_mode": "auto",
+  "execution_mode": "immediate",
+  "api_schema": {
+    "url": "https://app.urganchshahar.uz/api/ai/integration/order/request",
+    "method": "POST",
+    "path_params_schema": [],
+    "query_params_schema": [],
+    "request_body_schema": {
+      "id": "body",
+      "type": "object",
+      "description": "Yangi murojaat yaratish uchun yuboriladigan ma'lumotlar.\n\nAgent suhbat davomida fuqaroning to'liq ismi, telefon raqami, muammo tavsifi, ko'cha nomi va uy yoki xonadon raqamini aniqlashi kerak.\n\nfullName, phoneNumber, problem, streetName va apartmentNumber maydonlaridan biri olinmagan yoki noaniq bo'lsa, webhook chaqirilmasin. Avval fuqarodan yetishmayotgan ma'lumot so'ralsin.\n\norderTypeId order_type_catalog.md'dagi mos murojaat yo'nalishidan, frontObjectId esa front_object_catalog.md'dagi yagona mos manzildan aniqlanadi. conditionId doimiy qiymat sifatida yuboriladi.",
+      "properties": [
+        {
+          "id": "fullName",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "Fuqaroning to'liq familiyasi va ismi. Masalan: Rahimov Aziz. Faqat ism yoki faqat familiya aytilgan bo'lsa, yetishmayotgan qismini aniqlashtiring.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        },
+        {
+          "id": "phoneNumber",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "Fuqaroning telefon raqami. Raqam +998 formatida yuborilsin. Masalan: +998901234567. Telefon raqami noto'liq bo'lsa, fuqarodan aniqlashtiring.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        },
+        {
+          "id": "problem",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "Fuqaro bildirgan muammo yoki murojaatning to'liq mazmuni. Muammo nima ekanligi va zarur bo'lsa qayerda yuz bergani aniq yozilsin. Juda qisqa yoki noaniq javob bo'lsa, aniqlashtiruvchi savol bering.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        },
+        {
+          "id": "streetName",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "Muammo joylashgan ko'chaning to'liq nomi. Masalan: Al-Xorazmiy ko'chasi. Ko'cha nomi noaniq yoki noto'liq bo'lsa, fuqarodan qayta aniqlashtiring.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        },
+        {
+          "id": "apartmentNumber",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "Muammo joylashgan uy yoki xonadon raqami. Qiymat raqam, harf yoki kasr ko'rinishida bo'lishi mumkin. Masalan: 12, 45A yoki 7/2.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        },
+        {
+          "id": "orderTypeId",
+          "type": "number",
+          "value_type": "llm_prompt",
+          "description": "Fuqaro bildirgan muammoga mos ichki buyurtma turi identifikatori.\n\nAgent muammo mazmunini order_type_catalog.md'dagi qulay nomlar bilan moslashtirib, o'sha yozuvdagi raqamli orderTypeId qiymatini yuboradi. Katalogdagi qulay nom fuqaro bilan suhbatda ishlatilishi mumkin, lekin payload'ga faqat raqam yuboriladi.\n\nFaqat katalogdagi quyidagi ID qiymatlaridan foydalanilsin: 46415 — Issiqlik ta'minoti muammosi; 57683 — Boshqa xizmatlar bo'yicha murojaat; 31344 — Uy-joy boshqaruvi va BSK; 31363 — Chiqindi va hudud tozaligi; 31274 — Suv ta'minoti muammosi; 31345 — Bandlik va ishga joylashish; 31342 — Elektr ta'minoti muammosi; 31352 — MSP tozaligi muammosi; 31346 — Nasos va suv bosimi muammosi; 31343 — Gaz ta'minoti muammosi; 41818 — Obodonlashtirish va ko'kalamzorlashtirish; 64401 — Avtobus va jamoat transporti.\n\nMuammo turi aniq bo'lmasa, bitta aniqlashtiruvchi savol berilsin. ID taxmin qilinmasin va fuqaroning o'zidan ID so'ralmasin.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        },
+        {
+          "id": "frontObjectId",
+          "type": "number",
+          "value_type": "llm_prompt",
+          "description": "Fuqaro aytgan manzilga mos ichki frontObjectId identifikatori.\n\nAgent streetName va apartmentNumber qiymatlarini front_object_catalog.md'dagi to'liq manzil katalogidan qidirsin. Katalog frontObjects.csv asosidagi barcha manzil yozuvlarini o'z ichiga oladi; webhook description'dagi eski qisqa ro'yxat kanonik manba emas.\n\nFaqat ko'cha nomi, uy/xonadon raqami va kerak bo'lsa harf yoki qiya chiziq bilan yagona mos keladigan ID yuborilsin. Bir nechta yozuv mos kelsa, fuqaroning mo'ljali yoki qo'shimcha manzil ma'lumotini so'rang. Mos yozuv topilmasa, ID taxmin qilinmasin va tool chaqirilmasin. Fuqaro frontObjectId raqamini aytishi shart emas.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        },
+        {
+          "id": "conditionId",
+          "type": "integer",
+          "value_type": "constant",
+          "description": "",
+          "dynamic_variable": "",
+          "constant_value": "8",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        }
+      ],
+      "required": false,
+      "value_type": "llm_prompt"
+    },
+    "request_headers": [],
+    "content_type": "application/json",
+    "auth_connection": null
+  },
+  "assignments": [],
+  "response_timeout_secs": 20,
+  "dynamic_variables": {
+    "dynamic_variable_placeholders": {}
+  },
+  "response_mocks": []
+}
