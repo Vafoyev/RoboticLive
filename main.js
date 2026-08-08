@@ -1,6 +1,3 @@
-// Dual-Engine Audio Player (HTML5 /api/tts + SpeechSynthesis Fallback)
-let currentAudioElement = null;
-
 function speakNativeText(text) {
     if (!text || !text.trim()) return;
     
@@ -17,39 +14,37 @@ function speakNativeText(text) {
         
     if (!cleanText) return;
 
-    // 1. Primary: HTML5 Audio Stream via Server /api/tts (Crystal clear, loud, natural in all browsers)
-    try {
-        if (currentAudioElement) {
-            currentAudioElement.pause();
-            currentAudioElement = null;
-        }
-        
-        const audioUrl = `/api/tts?text=${encodeURIComponent(cleanText.substring(0, 480))}`;
-        currentAudioElement = new Audio(audioUrl);
-        
-        currentAudioElement.onplay = () => {
+    const audioEl = document.getElementById('appAudioPlayer');
+    const statusText = document.getElementById('audioStatusText');
+    const audioUrl = `/api/tts?text=${encodeURIComponent(cleanText.substring(0, 480))}`;
+
+    if (statusText) statusText.innerText = "Ovoz yangramoqda (Speaking)...";
+
+    if (audioEl) {
+        audioEl.src = audioUrl;
+        audioEl.onplay = () => {
             isAIPlayingAudio = true;
             document.getElementById('soundWaves')?.classList.add('active');
+            if (statusText) statusText.innerText = "Gapirmoqda (Playing Audio)...";
         };
-        
-        currentAudioElement.onended = () => {
+        audioEl.onended = () => {
             isAIPlayingAudio = false;
             document.getElementById('soundWaves')?.classList.remove('active');
+            if (statusText) statusText.innerText = "Tayyor (Ready)";
             resumeListeningAfterAI();
         };
-
-        currentAudioElement.onerror = () => {
+        audioEl.onerror = () => {
             fallbackToSpeechSynthesis(cleanText);
         };
-
-        const playPromise = currentAudioElement.play();
+        
+        const playPromise = audioEl.play();
         if (playPromise !== undefined) {
             playPromise.catch(err => {
-                console.log("HTML5 Audio play prompt:", err);
+                console.log("Direct play caught:", err);
                 fallbackToSpeechSynthesis(cleanText);
             });
         }
-    } catch (e) {
+    } else {
         fallbackToSpeechSynthesis(cleanText);
     }
 }
