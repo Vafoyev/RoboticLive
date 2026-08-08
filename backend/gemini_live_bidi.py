@@ -1,7 +1,9 @@
+import os
 import asyncio
 import json
 import base64
 import websockets
+from pathlib import Path
 from typing import AsyncGenerator, Dict, Any
 from backend.config import get_gemini_api_key, BASE_DIR
 from backend.rag_engine import search_rag_context
@@ -9,7 +11,12 @@ from backend.rag_engine import search_rag_context
 GEMINI_BIDI_WS_URL = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent"
 
 def load_system_prompt_rules() -> str:
-    prompt_path = BASE_DIR / "rag" / "ai agent .md fayllar uchun " / "system-prompt.txt"
+    prompt_path = BASE_DIR / "rag" / "ai agent .md fayllar uchun" / "system-prompt.txt"
+    if not prompt_path.exists():
+        for root, dirs, files in os.walk(BASE_DIR / "rag"):
+            if "system-prompt.txt" in files:
+                prompt_path = Path(root) / "system-prompt.txt"
+                break
     if prompt_path.exists():
         try:
             with open(prompt_path, 'r', encoding='utf-8', errors='ignore') as f:

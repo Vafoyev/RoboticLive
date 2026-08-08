@@ -41,7 +41,12 @@ def seed_initial_knowledge():
     count = cursor.fetchone()[0]
     
     if count == 0:
-        rag_dir = BASE_DIR / "rag" / "ai agent .md fayllar uchun "
+        rag_dir = BASE_DIR / "rag" / "ai agent .md fayllar uchun"
+        if not rag_dir.exists():
+            for d in (BASE_DIR / "rag").iterdir():
+                if d.is_dir() and "ai agent" in d.name.lower():
+                    rag_dir = d
+                    break
         if rag_dir.exists():
             md_files = list(rag_dir.glob("*.md")) + list(rag_dir.glob("*.txt"))
             

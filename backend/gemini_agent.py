@@ -5,10 +5,10 @@ from typing import Dict, Any, List
 from backend.config import get_gemini_api_key, BASE_DIR
 from backend.rag_engine import search_rag_context
 
-GEMINI_MODEL_VERSION = "gemini-2.5-flash"
+GEMINI_MODEL_VERSION = "gemini-2.0-flash"
 
 def load_system_prompt_guidelines() -> str:
-    prompt_path = BASE_DIR / "rag" / "ai agent .md fayllar uchun " / "system-prompt.txt"
+    prompt_path = BASE_DIR / "rag" / "ai agent .md fayllar uchun" / "system-prompt.txt"
     if not prompt_path.exists():
         for root, dirs, files in os.walk(BASE_DIR / "rag"):
             if "system-prompt.txt" in files:

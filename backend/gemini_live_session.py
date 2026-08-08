@@ -1,15 +1,22 @@
+import os
 import asyncio
 import base64
 import json
 import websockets
+from pathlib import Path
 from typing import Optional, Callable
 from backend.config import get_gemini_api_key, BASE_DIR
 from backend.rag_engine import search_rag_context
 
-MODEL = "models/gemini-3.1-flash-live-preview"
+MODEL = "models/gemini-2.0-flash-exp"
 
 def load_system_instruction(user_query_hint: str = "") -> str:
-    prompt_path = BASE_DIR / "rag" / "ai agent .md fayllar uchun " / "system-prompt.txt"
+    prompt_path = BASE_DIR / "rag" / "ai agent .md fayllar uchun" / "system-prompt.txt"
+    if not prompt_path.exists():
+        for root, dirs, files in os.walk(BASE_DIR / "rag"):
+            if "system-prompt.txt" in files:
+                prompt_path = Path(root) / "system-prompt.txt"
+                break
     system_rules = ""
     if prompt_path.exists():
         try:
