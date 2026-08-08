@@ -8,7 +8,7 @@ from typing import Optional, Callable
 from backend.config import get_gemini_api_key, BASE_DIR
 from backend.rag_engine import search_rag_context
 
-MODEL = "models/gemini-2.0-flash-exp"
+MODEL = "models/gemini-2.5-flash-native-audio-latest"
 
 def load_system_instruction(user_query_hint: str = "") -> str:
     prompt_path = BASE_DIR / "rag" / "ai agent .md fayllar uchun" / "system-prompt.txt"
@@ -77,7 +77,7 @@ class GeminiLiveSession:
         api_key = get_gemini_api_key()
         ws_uri = (
             "wss://generativelanguage.googleapis.com/ws/"
-            "google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent"
+            "google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent"
             f"?key={api_key}"
         )
 
