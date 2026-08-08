@@ -1,4 +1,4 @@
-// RoboticLive - Dynamic RAG Gemini 3.1 Live Client Controller
+// Urganch "Aqlli Yordamchi" - Pure Emotional Conversational AI Controller
 
 let isVoiceActive = false;
 let liveWebSocket = null;
@@ -18,90 +18,10 @@ function initAudioContext() {
     }
 }
 
-let currentVoicePersona = 'Puck'; // Default: Fast, energetic, emotional Puck voice
-
-function setVoicePersona(voiceName) {
-    currentVoicePersona = voiceName;
-    document.querySelectorAll('.voice-chip').forEach(btn => btn.classList.remove('active'));
-    const activeBtn = document.getElementById(`voice${voiceName}`);
-    if (activeBtn) activeBtn.classList.add('active');
-
-    const emotionBadge = document.getElementById('robotEmotionBadge');
-    if (emotionBadge) {
-        emotionBadge.innerHTML = `<i class="fa-solid fa-microphone-lines"></i> VOICE: ${voiceName.toUpperCase()}`;
-    }
-
-    if (liveWebSocket && liveWebSocket.readyState === WebSocket.OPEN) {
-        liveWebSocket.send(JSON.stringify({
-            event: 'switch_voice',
-            voice: voiceName
-        }));
-    }
-}
-
-function updateRobotEmotion(emotion) {
-    const emotionBadge = document.getElementById('robotEmotionBadge');
-    const leftEye = document.getElementById('leftEye');
-    const rightEye = document.getElementById('rightEye');
-    const mouth = document.getElementById('robotMouth');
-
-    if (!emotionBadge) return;
-
-    if (emotion === 'happy') {
-        emotionBadge.innerHTML = `<i class="fa-solid fa-face-smile"></i> EMOTION: HAPPY 😊`;
-        emotionBadge.style.color = 'var(--accent-green)';
-        leftEye?.classList.add('happy');
-        rightEye?.classList.add('happy');
-        mouth?.classList.remove('talking');
-    } else if (emotion === 'talking') {
-        emotionBadge.innerHTML = `<i class="fa-solid fa-comment-dots"></i> EMOTION: SPEAKING 🗣️`;
-        emotionBadge.style.color = 'var(--accent-pink)';
-        leftEye?.classList.remove('happy');
-        rightEye?.classList.remove('happy');
-        mouth?.classList.add('talking');
-        animateMotorsActive();
-    } else if (emotion === 'listening') {
-        emotionBadge.innerHTML = `<i class="fa-solid fa-headphones"></i> EMOTION: LISTENING 🎧`;
-        emotionBadge.style.color = 'var(--accent-blue)';
-        leftEye?.classList.remove('happy');
-        rightEye?.classList.remove('happy');
-        mouth?.classList.remove('talking');
-    } else if (emotion === 'thinking') {
-        emotionBadge.innerHTML = `<i class="fa-solid fa-brain"></i> EMOTION: THINKING 🧠`;
-        emotionBadge.style.color = 'var(--accent-purple)';
-        leftEye?.classList.add('thinking');
-        rightEye?.classList.add('thinking');
-        mouth?.classList.remove('talking');
-    }
-}
-
-function animateMotorsActive() {
-    const m1 = Math.floor(Math.random() * 40 - 20);
-    const m2 = Math.floor(Math.random() * 30 + 10);
-    const m3 = Math.floor(Math.random() * 60 + 20);
-    const m4 = Math.floor(Math.random() * 60 + 20);
-
-    const m1El = document.getElementById('m1Val');
-    const m2El = document.getElementById('m2Val');
-    const m3El = document.getElementById('m3Val');
-    const m4El = document.getElementById('m4Val');
-
-    if (m1El) m1El.innerText = `${m1}°`;
-    if (m2El) m2El.innerText = `${m2}°`;
-    if (m3El) m3El.innerText = `${m3}°`;
-    if (m4El) m4El.innerText = `${m4}°`;
-
-    const m1B = document.getElementById('m1Bar');
-    const m2B = document.getElementById('m2Bar');
-    if (m1B) m1B.style.width = `${Math.abs(m1) + 40}%`;
-    if (m2B) m2B.style.width = `${m2 + 30}%`;
-}
-
-// Play PCM 24kHz Audio Chunks with Jitter Buffering to Prevent Stuttering & Echo
+// Play PCM 24kHz Audio Chunks with Jitter Buffering
 function playGeminiPCM24kAudio(base64PCM) {
     initAudioContext();
     pauseListeningForEchoPrevention();
-    updateRobotEmotion('talking');
 
     try {
         const rawBinary = atob(base64PCM);
@@ -134,7 +54,7 @@ function playGeminiPCM24kAudio(base64PCM) {
 
         document.getElementById('soundWaves')?.classList.add('active');
         const statusText = document.getElementById('audioStatusText');
-        if (statusText) statusText.innerText = `Jonli Robot (${currentVoicePersona})...`;
+        if (statusText) statusText.innerText = "Jonli Notiq Gapirmoqda...";
 
         source.onended = () => {
             if (audioContext.currentTime >= nextAudioStartTime - 0.05) {
@@ -142,8 +62,7 @@ function playGeminiPCM24kAudio(base64PCM) {
                     if (!isAIPlayingAudio && isVoiceActive) {
                         resumeListeningAfterAI();
                     }
-                    if (statusText) statusText.innerText = "Tayyor (Ready)";
-                    updateRobotEmotion('happy');
+                    if (statusText) statusText.innerText = "Tayyor";
                 }, 200);
             }
         };
@@ -157,7 +76,7 @@ function speakNativeText(text) {
     if (!text || !text.trim()) return;
     
     // Clean markdown, symbols, and IDs for natural speech
-    const cleanText = text
+    let cleanText = text
         .replace(/[#*`_📌🔹⚠️✉️💡]/g, '')
         .replace(/---/g, ' ')
         .replace(/UH-\d+/g, '')
@@ -167,13 +86,20 @@ function speakNativeText(text) {
         .replace(/\n+/g, ' ')
         .trim();
         
+    // Phonetic Guard (Prevents O -> A reduction)
+    cleanText = cleanText
+        .replace(/\bbera alaman\b/gi, 'bera olaman')
+        .replace(/\bbera alamanmi\b/gi, 'bera olamanmi')
+        .replace(/\balaman\b/gi, 'olaman')
+        .replace(/\balamanmi\b/gi, 'olamanmi');
+
     if (!cleanText) return;
 
     const audioEl = document.getElementById('appAudioPlayer');
     const statusText = document.getElementById('audioStatusText');
-    const audioUrl = `/api/tts?text=${encodeURIComponent(cleanText.substring(0, 480))}`;
+    const audioUrl = `/api/tts?text=${encodeURIComponent(cleanText.substring(0, 500))}`;
 
-    if (statusText) statusText.innerText = "Ovoz yangramoqda (Speaking)...";
+    if (statusText) statusText.innerText = "Ovoz yangramoqda...";
 
     if (audioEl) {
         audioEl.src = audioUrl;
@@ -185,7 +111,7 @@ function speakNativeText(text) {
         audioEl.onended = () => {
             isAIPlayingAudio = false;
             document.getElementById('soundWaves')?.classList.remove('active');
-            if (statusText) statusText.innerText = "Tayyor (Ready)";
+            if (statusText) statusText.innerText = "Tayyor";
             resumeListeningAfterAI();
         };
         audioEl.onerror = () => {
@@ -210,7 +136,7 @@ function fallbackToSpeechSynthesis(cleanText) {
         const utterance = new SpeechSynthesisUtterance(cleanText);
         utterance.lang = 'uz-UZ';
         utterance.rate = 1.0;
-        utterance.pitch = 1.1; // Clear, pleasant female tone
+        utterance.pitch = 1.1;
         
         utterance.onstart = () => {
             isAIPlayingAudio = true;
@@ -228,8 +154,8 @@ function fallbackToSpeechSynthesis(cleanText) {
 
 function testSpeakerVoice() {
     initAudioContext();
-    const testText = "Assalomu alaykum! Men Urganch shahrining 'Aqlli Yordamchi' sun'iy intellekt tizimiman. Ovoz va barcha xizmatlar a'lo darajada ishlamoqda.";
-    appendMessage('assistant', testText, true, 'Gemini 3.1 Live Aoede');
+    const testText = "Assalomu alaykum! Men Urganch shahrining 'Aqlli Yordamchi' sun'iy intellekt suhbatdoshiman. Sizga qanday yordam bera olaman?";
+    appendMessage('assistant', testText, true, 'Aoede / Madina Neural');
     speakNativeText(testText);
 }
 
@@ -259,7 +185,6 @@ function resumeListeningAfterAI() {
 
 // Instant Audio Interruption (Barge-In) Function
 function stopAllAudioImmediately(reason = "To'xtatildi") {
-    // 1. Instantly stop HTML5 Audio Player
     const audioEl = document.getElementById('appAudioPlayer');
     if (audioEl) {
         audioEl.pause();
@@ -267,12 +192,10 @@ function stopAllAudioImmediately(reason = "To'xtatildi") {
         audioEl.removeAttribute('src');
     }
     
-    // 2. Instantly cancel Web SpeechSynthesis
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
     }
     
-    // 3. Instantly suspend and reset Web Audio PCM
     if (audioContext) {
         try {
             audioContext.suspend().then(() => {
@@ -284,12 +207,10 @@ function stopAllAudioImmediately(reason = "To'xtatildi") {
     
     isAIPlayingAudio = false;
     
-    // 4. Update UI visualizers immediately
     document.getElementById('soundWaves')?.classList.remove('active');
     const statusText = document.getElementById('audioStatusText');
-    if (statusText) statusText.innerText = "To'xtatildi (Stopped)";
+    if (statusText) statusText.innerText = "To'xtatildi";
     
-    // 5. Notify server over WebSocket to immediately abort generation
     if (liveWebSocket && liveWebSocket.readyState === WebSocket.OPEN) {
         liveWebSocket.send(JSON.stringify({
             event: 'client_interrupted'
@@ -317,7 +238,7 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         const transcript = event.results[lastIndex][0].transcript.trim();
         const lower = transcript.toLowerCase();
 
-        // 1. Instant Barge-In Stop Keywords (To'xta, Stop, Bo'ldi, Jim, Yetar, Shart emas, Bas)
+        // 1. Instant Barge-In Stop Keywords
         if (lower.includes("to'xta") || lower.includes("toxta") || lower.includes("stop") || 
             lower.includes("bo'ldi") || lower.includes("boldi") || lower.includes("jim") || 
             lower.includes("yetar") || lower.includes("shart emas") || lower.includes("to'xtang") ||
@@ -329,7 +250,7 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             return;
         }
 
-        // If user says anything while audio was playing, immediately interrupt previous speech
+        // If user speaks while audio was playing, immediately interrupt previous speech
         if (isAIPlayingAudio) {
             stopAllAudioImmediately();
         }
@@ -389,10 +310,9 @@ function togglePureVoiceMode() {
 
         micSphere.classList.remove('listening');
         micIcon.className = 'fa-solid fa-microphone';
-        statusLabel.innerText = "Mikrofonni bosing va gapiring";
+        statusLabel.innerText = "Mikrofonni bosing va gapiring (to'xtatish uchun \"To'xta\" deng)";
         ring.classList.remove('active');
-        badge.classList.remove('active-mic');
-        badge.innerHTML = '<div class="pulse-dot"></div> READY';
+        badge.innerHTML = '<div class="pulse-dot"></div> TAYYOR';
 
     } else {
         isVoiceActive = true;
@@ -410,10 +330,9 @@ function togglePureVoiceMode() {
 
         micSphere.classList.add('listening');
         micIcon.className = 'fa-solid fa-microphone-slash';
-        statusLabel.innerText = "Dynamic RAG Gemini 3.1 Live Stream Faol — Gapirishingiz mumkin...";
+        statusLabel.innerText = "Jonli Suhbat Faol — Bemalol gapirishingiz mumkin...";
         ring.classList.add('active');
-        badge.classList.add('active-mic');
-        badge.innerHTML = '<div class="pulse-dot" style="background:var(--accent-pink);"></div> DYNAMIC RAG 24KHZ LIVE';
+        badge.innerHTML = '<div class="pulse-dot" style="background:var(--accent-pink);"></div> JONLI SUHBATDOSH';
 
         startListeningState();
     }
@@ -475,9 +394,9 @@ function updateOrCreateAssistantMessage(text, ragUsed = false) {
     
     let content = text.replace(/\n/g, '<br>');
     if (ragUsed) {
-        content += `<br><span class="rag-tag"><i class="fa-solid fa-brain"></i> RAG Ishlatildi</span>`;
+        content += `<br><span class="rag-tag"><i class="fa-solid fa-brain"></i> RAG Ma'lumot</span>`;
     }
-    content += `<span class="rag-tag" style="margin-left: 6px; background: rgba(255, 95, 175, 0.15); color: var(--accent-pink);"><i class="fa-solid fa-venus"></i> Aoede Ovoz (Adabiy Fonetika)</span>`;
+    content += `<span class="rag-tag" style="margin-left: 6px; background: rgba(255, 51, 102, 0.15); color: var(--accent-pink);"><i class="fa-solid fa-venus"></i> Ayol Notiq (Aoede)</span>`;
     
     lastBubble.innerHTML = content;
     chatHistory.scrollTop = chatHistory.scrollHeight;
@@ -533,7 +452,7 @@ async function sendRESTMessage(message) {
         const tempMsg = document.getElementById('tempLoading');
         if (tempMsg) tempMsg.remove();
 
-        appendMessage('assistant', data.text, data.rag_used, data.model_used);
+        appendMessage('assistant', data.text, data.rag_used, 'Aqlli Yordamchi');
         speakNativeText(data.text);
     } catch (err) {
         console.error(err);
@@ -550,10 +469,10 @@ function appendMessage(sender, text, ragUsed = false, modelUsed = null) {
     
     let content = text.replace(/\n/g, '<br>');
     if (ragUsed) {
-        content += `<br><span class="rag-tag"><i class="fa-solid fa-brain"></i> RAG Ishlatildi</span>`;
+        content += `<br><span class="rag-tag"><i class="fa-solid fa-brain"></i> RAG Ma'lumot</span>`;
     }
     if (modelUsed) {
-        content += `<span class="rag-tag" style="margin-left: 6px; background: rgba(146, 95, 255, 0.15); color: var(--accent-purple);"><i class="fa-solid fa-microchip"></i> ${modelUsed}</span>`;
+        content += `<span class="rag-tag" style="margin-left: 6px; background: rgba(255, 51, 102, 0.15); color: var(--accent-pink);"><i class="fa-solid fa-venus"></i> ${modelUsed}</span>`;
     }
     
     bubble.innerHTML = content;

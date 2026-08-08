@@ -38,11 +38,18 @@ async def text_to_speech(text: str):
     if not text or not text.strip():
         raise HTTPException(status_code=400, detail="Text is required")
 
-    # Clean text from markdown and numbers formatting
-    clean_text = re.sub(r'[*_#📌🔹⚠️✉️💡]', '', text).replace('---', ' ').replace('UH-', ' ').replace('YT-', ' ').replace('ST-', ' ').strip()[:700]
+    # Clean text from markdown and symbols
+    clean_text = re.sub(r'[*_#📌🔹⚠️✉️💡]', '', text).replace('---', ' ').replace('UH-', ' ').replace('YT-', ' ').replace('ST-', ' ').strip()[:800]
+
+    # Explicit Uzbek Phonetic Guard (Prevents O -> A reduction)
+    clean_text = re.sub(r'\bbera alaman\b', 'bera olaman', clean_text, flags=re.IGNORECASE)
+    clean_text = re.sub(r'\bbera alamanmi\b', 'bera olamanmi', clean_text, flags=re.IGNORECASE)
+    clean_text = re.sub(r'\balaman\b', 'olaman', clean_text, flags=re.IGNORECASE)
+    clean_text = re.sub(r'\balamanmi\b', 'olamanmi', clean_text, flags=re.IGNORECASE)
 
     try:
         import edge_tts
+        # Official Microsoft Uzbek Female Voice (100% natural, eloquent, empathetic orator)
         communicate = edge_tts.Communicate(clean_text, 'uz-UZ-MadinaNeural', rate='+0%', pitch='+0Hz')
         audio_data = bytearray()
         async for chunk in communicate.stream():
@@ -52,7 +59,7 @@ async def text_to_speech(text: str):
         if len(audio_data) > 0:
             return Response(content=bytes(audio_data), media_type="audio/mpeg")
     except Exception as e:
-        logger.warning(f"EdgeTTS fallback to gTTS: {e}")
+        logger.warning(f"EdgeTTS fallback: {e}")
 
     try:
         from gtts import gTTS

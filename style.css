@@ -188,207 +188,163 @@ main.container {
     font-weight: 600;
 }
 
-/* Voice Persona Chips */
-.voice-chip {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    color: var(--text-muted);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.25s ease;
+/* High-End Conversational AI Voice Orb Stage */
+.orator-stage {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
-.voice-chip:hover {
-    border-color: var(--accent-blue);
-    color: var(--text-main);
-    transform: translateY(-1px);
-}
-
-.voice-chip.active {
-    background: linear-gradient(135deg, rgba(0, 210, 255, 0.2), rgba(146, 95, 255, 0.25));
-    border-color: var(--accent-blue);
-    color: #ffffff;
-    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
-}
-
-/* Futuristic Robot Face & Screen */
-.robot-head {
-    width: 140px;
-    height: 120px;
-    background: linear-gradient(145deg, #161f36, #0e1424);
-    border: 2px solid rgba(0, 210, 255, 0.4);
-    border-radius: 24px;
-    position: relative;
-    margin-bottom: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 210, 255, 0.2);
+.voice-orb-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    animation: floatHead 4s ease-in-out infinite;
-}
-
-@keyframes floatHead {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-}
-
-.robot-antenna {
-    position: absolute;
-    top: -18px;
-    width: 4px;
-    height: 18px;
-    background: var(--accent-blue);
-    border-radius: 2px;
-}
-
-.antenna-bulb {
-    position: absolute;
-    top: -8px;
-    left: -4px;
-    width: 12px;
-    height: 12px;
-    background: var(--accent-pink);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--accent-pink);
-    animation: blinkAntenna 2s infinite;
-}
-
-@keyframes blinkAntenna {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-}
-
-.robot-screen {
-    width: 110px;
-    height: 80px;
-    background: #060911;
-    border-radius: 16px;
-    border: 1px solid rgba(0, 210, 255, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    padding: 40px 20px;
     position: relative;
-    overflow: hidden;
+    background: radial-gradient(circle at center, rgba(255, 51, 102, 0.08) 0%, transparent 70%);
 }
 
-.robot-eyes {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    margin-top: 6px;
-}
-
-.robot-eye {
-    width: 22px;
-    height: 22px;
-    background: var(--accent-blue);
+.voice-glow-ring {
+    position: absolute;
+    width: 170px;
+    height: 170px;
     border-radius: 50%;
-    box-shadow: 0 0 14px var(--accent-blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    animation: eyeGlow 3s infinite alternate;
+    border: 2px dashed rgba(255, 51, 102, 0.3);
+    animation: spinRing 14s linear infinite;
+    pointer-events: none;
 }
 
-.robot-eye.happy {
-    border-radius: 22px 22px 0 0;
-    height: 14px;
-    background: var(--accent-green);
-    box-shadow: 0 0 14px var(--accent-green);
+.voice-glow-ring.active {
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 45px rgba(255, 51, 102, 0.6);
+    animation: spinRing 3s linear infinite;
 }
 
-.robot-eye.thinking {
-    border-radius: 50%;
-    animation: eyeSpin 1s infinite linear;
-}
-
-@keyframes eyeSpin {
+@keyframes spinRing {
     100% { transform: rotate(360deg); }
 }
 
-.eye-pupil {
-    width: 8px;
-    height: 8px;
-    background: #ffffff;
+/* Central Glowing Voice Orb Button */
+.voice-orb-btn {
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-}
-
-.robot-cheeks {
+    background: linear-gradient(135deg, #ff3366 0%, #925fff 50%, #00d2ff 100%);
+    border: none;
     display: flex;
-    gap: 46px;
-    position: absolute;
-    bottom: 22px;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #ffffff;
+    box-shadow: 0 10px 40px rgba(255, 51, 102, 0.4);
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
 }
 
-.cheek {
-    width: 8px;
-    height: 5px;
-    background: rgba(255, 51, 102, 0.6);
-    border-radius: 4px;
+.voice-orb-btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 15px 50px rgba(255, 51, 102, 0.6);
 }
 
-.robot-mouth {
-    margin-top: 10px;
-    width: 30px;
-    height: 6px;
-    background: rgba(0, 210, 255, 0.5);
-    border-radius: 6px;
-    transition: all 0.15s ease;
+.voice-orb-btn.listening {
+    animation: orbPulse 1.4s infinite;
+    background: linear-gradient(135deg, #00e6a8 0%, #00d2ff 100%);
+    box-shadow: 0 0 50px rgba(0, 230, 168, 0.6);
 }
 
-.robot-mouth.talking {
-    animation: mouthTalk 0.25s infinite alternate;
-    background: var(--accent-pink);
-    box-shadow: 0 0 10px var(--accent-pink);
+@keyframes orbPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 230, 168, 0.7); }
+    70% { transform: scale(1.08); box-shadow: 0 0 0 22px rgba(0, 230, 168, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 230, 168, 0); }
 }
 
-@keyframes mouthTalk {
-    0% { height: 4px; width: 20px; border-radius: 4px; }
-    100% { height: 14px; width: 34px; border-radius: 50%; }
-}
-
-/* 10-Motor Telemetry Cards */
-.motor-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 8px 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.motor-label {
-    font-size: 0.72rem;
+.mic-status-label {
+    margin-top: 24px;
+    font-size: 0.95rem;
     color: var(--text-muted);
     font-weight: 500;
 }
 
-.motor-val {
+/* Audio Player Card */
+.audio-player-card {
+    margin: 15px 0 12px 0;
+    background: rgba(12, 18, 30, 0.6);
+    padding: 12px 18px;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+}
+
+.audio-player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.audio-label {
     font-size: 0.85rem;
+    color: var(--accent-pink);
+    font-weight: 600;
+}
+
+.audio-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.audio-ready-text {
+    font-size: 0.8rem;
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+.btn-danger-stop {
+    padding: 5px 12px;
+    font-size: 0.75rem;
     font-weight: 700;
-    color: #ffffff;
-    font-family: monospace;
+    border-radius: 8px;
+    background: rgba(255, 60, 60, 0.2);
+    border: 1px solid #ff4444;
+    color: #ff6666;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.motor-bar {
+.btn-danger-stop:hover {
+    background: rgba(255, 60, 60, 0.4);
+    transform: scale(1.02);
+}
+
+.btn-danger-round {
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: rgba(255, 60, 60, 0.2);
+    border: 1px solid #ff4444;
+    color: #ff6666;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.btn-danger-round:hover {
+    background: rgba(255, 60, 60, 0.4);
+}
+
+.native-audio-player {
     width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
-    overflow: hidden;
+    height: 38px;
+    border-radius: 8px;
+    outline: none;
 }
 
-.bar-fill {
-    height: 100%;
-    background: var(--accent-blue);
-    transition: width 0.3s ease;
+.chat-input-field {
+    flex: 1;
+    padding: 14px 20px;
+    border-radius: 14px;
+    font-size: 0.95rem;
 }
     box-shadow: 0 0 50px rgba(0, 210, 255, 0.5);
     position: relative;
