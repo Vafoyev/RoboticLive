@@ -1,34 +1,77 @@
-// Play Native Female Voice Text-to-Speech using Browser Speech Synthesis & Audio
+// Dual-Engine Audio Player (HTML5 /api/tts + SpeechSynthesis Fallback)
+let currentAudioElement = null;
+
 function speakNativeText(text) {
     if (!text || !text.trim()) return;
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
+    
+    // Clean markdown, symbols, and IDs
+    const cleanText = text
+        .replace(/[#*`_📌🔹⚠️✉️💡]/g, '')
+        .replace(/---/g, ' ')
+        .replace(/UH-\d+/g, '')
+        .replace(/YT-\d+/g, '')
+        .replace(/ST-\d+/g, '')
+        .replace(/SOL-\d+/g, '')
+        .replace(/\n+/g, ' ')
+        .trim();
         
-        // Strip markdown and metadata tags
-        const cleanText = text.replace(/[#*`_📌🔹]/g, '').replace(/---/g, ' ').replace(/UH-\d+/g, '').replace(/YT-\d+/g, '').replace(/ST-\d+/g, '').trim();
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.lang = 'uz-UZ';
-        utterance.rate = 1.0;
-        utterance.pitch = 1.1; // Soothing, clear female tone
-        
-        // Find best available female voice
-        const voices = window.speechSynthesis.getVoices();
-        const femaleVoice = voices.find(v => (v.lang.includes('uz') || v.lang.includes('tr') || v.lang.includes('ru')) && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('yelda') || v.name.toLowerCase().includes('milena') || v.name.toLowerCase().includes('google')));
-        if (femaleVoice) {
-            utterance.voice = femaleVoice;
-        }
+    if (!cleanText) return;
 
-        utterance.onstart = () => {
+    // 1. Primary: HTML5 Audio Stream via Server /api/tts (Crystal clear, loud, natural in all browsers)
+    try {
+        if (currentAudioElement) {
+            currentAudioElement.pause();
+            currentAudioElement = null;
+        }
+        
+        const audioUrl = `/api/tts?text=${encodeURIComponent(cleanText.substring(0, 480))}`;
+        currentAudioElement = new Audio(audioUrl);
+        
+        currentAudioElement.onplay = () => {
             isAIPlayingAudio = true;
             document.getElementById('soundWaves')?.classList.add('active');
         };
-
-        utterance.onend = () => {
+        
+        currentAudioElement.onended = () => {
             isAIPlayingAudio = false;
             document.getElementById('soundWaves')?.classList.remove('active');
             resumeListeningAfterAI();
         };
 
+        currentAudioElement.onerror = () => {
+            fallbackToSpeechSynthesis(cleanText);
+        };
+
+        const playPromise = currentAudioElement.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(err => {
+                console.log("HTML5 Audio play prompt:", err);
+                fallbackToSpeechSynthesis(cleanText);
+            });
+        }
+    } catch (e) {
+        fallbackToSpeechSynthesis(cleanText);
+    }
+}
+
+function fallbackToSpeechSynthesis(cleanText) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'uz-UZ';
+        utterance.rate = 1.0;
+        utterance.pitch = 1.1;
+        
+        utterance.onstart = () => {
+            isAIPlayingAudio = true;
+            document.getElementById('soundWaves')?.classList.add('active');
+        };
+        utterance.onend = () => {
+            isAIPlayingAudio = false;
+            document.getElementById('soundWaves')?.classList.remove('active');
+            resumeListeningAfterAI();
+        };
+        
         window.speechSynthesis.speak(utterance);
     }
 }
@@ -64,7 +107,7 @@ function resumeListeningAfterAI() {
     }
 }
 
-// Speech Recognition setup
+// Speech Recognition setup with adaptive language fallback
 if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = new SpeechRecognition();
@@ -94,7 +137,13 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     };
 
     recognition.onerror = (event) => {
-        console.log('Speech stream note:', event.error);
+        console.log('Speech recognition notice:', event.error);
+        if (event.error === 'language-not-supported') {
+            recognition.lang = 'tr-TR';
+            if (isVoiceActive && !isAIPlayingAudio) {
+                try { recognition.start(); } catch(e) {}
+            }
+        }
     };
 
     recognition.onend = () => {
