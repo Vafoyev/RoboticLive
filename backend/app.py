@@ -200,6 +200,11 @@ async def websocket_gemini_live_proxy(websocket: WebSocket):
                 if raw_pcm:
                     await gemini_session.send_audio_chunk(raw_pcm)
 
+            elif event_type == "switch_voice":
+                new_voice = payload.get("voice", "Puck")
+                print(f"[WS Live] Switching voice profile to: {new_voice}")
+                gemini_session.voice_name = new_voice
+
     except WebSocketDisconnect:
         print("[WS Live] Browser client disconnected")
     except Exception as e:

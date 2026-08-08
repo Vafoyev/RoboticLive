@@ -65,7 +65,8 @@ class GeminiLiveSession:
         on_output_transcript,
         on_turn_complete,
         on_interrupted=None,
-        query_hint=""
+        query_hint="",
+        voice_name="Puck"
     ):
         self._ws = None
         self._recv_task = None
@@ -75,6 +76,7 @@ class GeminiLiveSession:
         self.on_turn_complete = on_turn_complete
         self.on_interrupted = on_interrupted
         self.query_hint = query_hint
+        self.voice_name = voice_name if voice_name in ["Puck", "Aoede", "Charon", "Fenrir", "Kore"] else "Puck"
 
     async def connect(self):
         api_key = get_gemini_api_key()
@@ -84,7 +86,7 @@ class GeminiLiveSession:
             f"?key={api_key}"
         )
 
-        print("[Gemini 3.1 Live] WebSocket'ga ulanilmoqda...")
+        print(f"[Gemini 3.1 Live] WebSocket'ga ulanilmoqda ({self.voice_name} ovozi)...")
         last_err = None
         for attempt in range(1, 4):
             try:
@@ -107,7 +109,7 @@ class GeminiLiveSession:
                     "speechConfig": {
                         "voiceConfig": {
                             "prebuiltVoiceConfig": {
-                                "voiceName": "Aoede"
+                                "voiceName": self.voice_name
                             }
                         }
                     }
@@ -122,7 +124,7 @@ class GeminiLiveSession:
         if "setupComplete" not in response:
             raise RuntimeError(f"Gemini Live sozlash muvaffaqiyatsiz: {response}")
 
-        print("[Gemini 3.1 Live] Ulanildi, O'zbek adabiy fonetika qoidalari bilan Aoede sozlandi")
+        print(f"[Gemini 3.1 Live] Ulanildi, {self.voice_name} emotsional ovozi sozlandi")
         self._recv_task = asyncio.create_task(self._receive_loop())
 
     async def send_text_turn(self, text):

@@ -18,10 +18,90 @@ function initAudioContext() {
     }
 }
 
+let currentVoicePersona = 'Puck'; // Default: Fast, energetic, emotional Puck voice
+
+function setVoicePersona(voiceName) {
+    currentVoicePersona = voiceName;
+    document.querySelectorAll('.voice-chip').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.getElementById(`voice${voiceName}`);
+    if (activeBtn) activeBtn.classList.add('active');
+
+    const emotionBadge = document.getElementById('robotEmotionBadge');
+    if (emotionBadge) {
+        emotionBadge.innerHTML = `<i class="fa-solid fa-microphone-lines"></i> VOICE: ${voiceName.toUpperCase()}`;
+    }
+
+    if (liveWebSocket && liveWebSocket.readyState === WebSocket.OPEN) {
+        liveWebSocket.send(JSON.stringify({
+            event: 'switch_voice',
+            voice: voiceName
+        }));
+    }
+}
+
+function updateRobotEmotion(emotion) {
+    const emotionBadge = document.getElementById('robotEmotionBadge');
+    const leftEye = document.getElementById('leftEye');
+    const rightEye = document.getElementById('rightEye');
+    const mouth = document.getElementById('robotMouth');
+
+    if (!emotionBadge) return;
+
+    if (emotion === 'happy') {
+        emotionBadge.innerHTML = `<i class="fa-solid fa-face-smile"></i> EMOTION: HAPPY 😊`;
+        emotionBadge.style.color = 'var(--accent-green)';
+        leftEye?.classList.add('happy');
+        rightEye?.classList.add('happy');
+        mouth?.classList.remove('talking');
+    } else if (emotion === 'talking') {
+        emotionBadge.innerHTML = `<i class="fa-solid fa-comment-dots"></i> EMOTION: SPEAKING 🗣️`;
+        emotionBadge.style.color = 'var(--accent-pink)';
+        leftEye?.classList.remove('happy');
+        rightEye?.classList.remove('happy');
+        mouth?.classList.add('talking');
+        animateMotorsActive();
+    } else if (emotion === 'listening') {
+        emotionBadge.innerHTML = `<i class="fa-solid fa-headphones"></i> EMOTION: LISTENING 🎧`;
+        emotionBadge.style.color = 'var(--accent-blue)';
+        leftEye?.classList.remove('happy');
+        rightEye?.classList.remove('happy');
+        mouth?.classList.remove('talking');
+    } else if (emotion === 'thinking') {
+        emotionBadge.innerHTML = `<i class="fa-solid fa-brain"></i> EMOTION: THINKING 🧠`;
+        emotionBadge.style.color = 'var(--accent-purple)';
+        leftEye?.classList.add('thinking');
+        rightEye?.classList.add('thinking');
+        mouth?.classList.remove('talking');
+    }
+}
+
+function animateMotorsActive() {
+    const m1 = Math.floor(Math.random() * 40 - 20);
+    const m2 = Math.floor(Math.random() * 30 + 10);
+    const m3 = Math.floor(Math.random() * 60 + 20);
+    const m4 = Math.floor(Math.random() * 60 + 20);
+
+    const m1El = document.getElementById('m1Val');
+    const m2El = document.getElementById('m2Val');
+    const m3El = document.getElementById('m3Val');
+    const m4El = document.getElementById('m4Val');
+
+    if (m1El) m1El.innerText = `${m1}°`;
+    if (m2El) m2El.innerText = `${m2}°`;
+    if (m3El) m3El.innerText = `${m3}°`;
+    if (m4El) m4El.innerText = `${m4}°`;
+
+    const m1B = document.getElementById('m1Bar');
+    const m2B = document.getElementById('m2Bar');
+    if (m1B) m1B.style.width = `${Math.abs(m1) + 40}%`;
+    if (m2B) m2B.style.width = `${m2 + 30}%`;
+}
+
 // Play PCM 24kHz Audio Chunks with Jitter Buffering to Prevent Stuttering & Echo
 function playGeminiPCM24kAudio(base64PCM) {
     initAudioContext();
     pauseListeningForEchoPrevention();
+    updateRobotEmotion('talking');
 
     try {
         const rawBinary = atob(base64PCM);
@@ -37,7 +117,6 @@ function playGeminiPCM24kAudio(base64PCM) {
             float32[i] = pcm16[i] / 32768.0;
         }
 
-        // Resample/render 24kHz buffer cleanly
         const buffer = audioContext.createBuffer(1, float32.length, 24000);
         buffer.getChannelData(0).set(float32);
 
@@ -47,7 +126,7 @@ function playGeminiPCM24kAudio(base64PCM) {
 
         const currentTime = audioContext.currentTime;
         if (nextAudioStartTime < currentTime + 0.03) {
-            nextAudioStartTime = currentTime + 0.03; // 30ms smooth jitter buffer
+            nextAudioStartTime = currentTime + 0.03;
         }
 
         source.start(nextAudioStartTime);
@@ -55,7 +134,7 @@ function playGeminiPCM24kAudio(base64PCM) {
 
         document.getElementById('soundWaves')?.classList.add('active');
         const statusText = document.getElementById('audioStatusText');
-        if (statusText) statusText.innerText = "Jonli Gemini Aoede Ovozida...";
+        if (statusText) statusText.innerText = `Jonli Robot (${currentVoicePersona})...`;
 
         source.onended = () => {
             if (audioContext.currentTime >= nextAudioStartTime - 0.05) {
@@ -64,6 +143,7 @@ function playGeminiPCM24kAudio(base64PCM) {
                         resumeListeningAfterAI();
                     }
                     if (statusText) statusText.innerText = "Tayyor (Ready)";
+                    updateRobotEmotion('happy');
                 }, 200);
             }
         };
