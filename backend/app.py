@@ -3,20 +3,22 @@ import asyncio
 import io
 import base64
 import re
-import traceback
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect, UploadFile, File
+import logging
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, FileResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict, Any
-from pathlib import Path
 
 from backend.config import BASE_DIR
-from backend.models import CitizenSubmission, KnowledgeDocument, ChatMessage
+from backend.models import CitizenSubmission, KnowledgeDocument
 from backend.citizen_services import save_submission, get_all_submissions, update_submission_status
 from backend.rag_engine import add_knowledge_doc, get_all_knowledge_docs, delete_knowledge_doc, seed_initial_knowledge, search_rag_context
 from backend.gemini_agent import generate_ai_response
 from backend.gemini_live_session import GeminiLiveSession
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logger = logging.getLogger("RoboticLive")
 
 app = FastAPI(title="RoboticLive - Dynamic RAG Gemini 3.1 Live Server", version="6.0.0")
 
