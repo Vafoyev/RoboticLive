@@ -76,8 +76,19 @@
                     <!-- Live Subtitle / Chat Transcript -->
                     <div class="chat-history" id="chatHistory">
                         <div class="message-bubble assistant">
-                            Assalomu alaykum! Men Urganch shahrining <strong>"Aqlli Yordamchi"</strong> AI tizimiman. Ovozli muloqotni boshlash uchun markazdagi mikrofon tugmasini bosing.
+                            Assalomu alaykum! Men Urganch shahrining <strong>"Aqlli Yordamchi"</strong> AI tizimiman. Ovozli muloqotni boshlash uchun markazdagi mikrofon tugmasini bosing yoki quyida savolingizni yozing.
                         </div>
+                    </div>
+
+                    <!-- Interactive Chat Input & Voice Controls -->
+                    <div class="chat-input-container" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+                        <input type="text" id="userTextInput" class="form-control" style="flex: 1; padding: 12px 18px; border-radius: 12px; font-size: 0.95rem;" placeholder="Savolingizni yozing (masalan: Urganch hokimi kim?)..." onkeypress="if(event.key==='Enter') sendManualTextMessage()">
+                        <button class="btn btn-primary" onclick="sendManualTextMessage()" style="padding: 12px 20px; border-radius: 12px; font-size: 0.95rem;">
+                            <i class="fa-solid fa-paper-plane"></i> Yuborish
+                        </button>
+                        <button class="btn btn-secondary" onclick="testSpeakerVoice()" title="Ovozni sinash (Audio Test)" style="padding: 12px 16px; border-radius: 12px;">
+                            <i class="fa-solid fa-volume-high"></i> Ovozni sinash
+                        </button>
                     </div>
                 </div>
 

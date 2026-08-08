@@ -1,71 +1,53 @@
-// RoboticLive - Dynamic RAG Gemini 3.1 Live Client Controller
+// Play Native Female Voice Text-to-Speech using Browser Speech Synthesis & Audio
+function speakNativeText(text) {
+    if (!text || !text.trim()) return;
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        
+        // Strip markdown and metadata tags
+        const cleanText = text.replace(/[#*`_📌🔹]/g, '').replace(/---/g, ' ').replace(/UH-\d+/g, '').replace(/YT-\d+/g, '').replace(/ST-\d+/g, '').trim();
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'uz-UZ';
+        utterance.rate = 1.0;
+        utterance.pitch = 1.1; // Soothing, clear female tone
+        
+        // Find best available female voice
+        const voices = window.speechSynthesis.getVoices();
+        const femaleVoice = voices.find(v => (v.lang.includes('uz') || v.lang.includes('tr') || v.lang.includes('ru')) && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('yelda') || v.name.toLowerCase().includes('milena') || v.name.toLowerCase().includes('google')));
+        if (femaleVoice) {
+            utterance.voice = femaleVoice;
+        }
 
-let isVoiceActive = false;
-let liveWebSocket = null;
-let recognition = null;
-let audioContext = null;
-let currentOutputText = "";
-let isAIPlayingAudio = false;
-let nextAudioStartTime = 0;
-let lastRAGUsed = false;
+        utterance.onstart = () => {
+            isAIPlayingAudio = true;
+            document.getElementById('soundWaves')?.classList.add('active');
+        };
 
-function initAudioContext() {
-    if (!audioContext) {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 24000 });
-    }
-    if (audioContext.state === 'suspended') {
-        audioContext.resume();
+        utterance.onend = () => {
+            isAIPlayingAudio = false;
+            document.getElementById('soundWaves')?.classList.remove('active');
+            resumeListeningAfterAI();
+        };
+
+        window.speechSynthesis.speak(utterance);
     }
 }
 
-// Play PCM 24kHz Audio Chunks in Seamless Sequential Order (Prevents Overlapping Dual-Voice Bug)
-function playGeminiPCM24kAudio(base64PCM) {
+function testSpeakerVoice() {
     initAudioContext();
-    pauseListeningForEchoPrevention();
+    const testText = "Assalomu alaykum! Men Urganch shahrining 'Aqlli Yordamchi' sun'iy intellekt tizimiman. Ovoz va barcha xizmatlar a'lo darajada ishlamoqda.";
+    appendMessage('assistant', testText, true, 'Gemini 3.1 Live Aoede');
+    speakNativeText(testText);
+}
 
-    try {
-        const rawBinary = atob(base64PCM);
-        const len = rawBinary.length;
-        const pcm16 = new Int16Array(len / 2);
-        
-        for (let i = 0; i < len; i += 2) {
-            pcm16[i / 2] = (rawBinary.charCodeAt(i + 1) << 8) | rawBinary.charCodeAt(i);
-        }
-
-        const float32 = new Float32Array(pcm16.length);
-        for (let i = 0; i < pcm16.length; i++) {
-            float32[i] = pcm16[i] / 32768.0;
-        }
-
-        const buffer = audioContext.createBuffer(1, float32.length, 24000);
-        buffer.getChannelData(0).set(float32);
-
-        const source = audioContext.createBufferSource();
-        source.buffer = buffer;
-        source.connect(audioContext.destination);
-
-        const currentTime = audioContext.currentTime;
-        if (nextAudioStartTime < currentTime) {
-            nextAudioStartTime = currentTime;
-        }
-
-        source.start(nextAudioStartTime);
-        nextAudioStartTime += buffer.duration;
-
-        document.getElementById('soundWaves').classList.add('active');
-
-        source.onended = () => {
-            if (audioContext.currentTime >= nextAudioStartTime - 0.08) {
-                setTimeout(() => {
-                    if (!isAIPlayingAudio && isVoiceActive) {
-                        resumeListeningAfterAI();
-                    }
-                }, 200);
-            }
-        };
-    } catch (err) {
-        console.error("PCM Audio decode error:", err);
-    }
+function sendManualTextMessage() {
+    const input = document.getElementById('userTextInput');
+    const text = input ? input.value.trim() : "";
+    if (!text) return;
+    
+    input.value = "";
+    appendMessage('user', text);
+    sendRESTMessage(text);
 }
 
 function pauseListeningForEchoPrevention() {
@@ -152,6 +134,16 @@ function togglePureVoiceMode() {
 
     } else {
         isVoiceActive = true;
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    console.log("Microphone permission granted");
+                })
+                .catch(err => {
+                    console.warn("Microphone permission needed:", err);
+                });
+        }
+
         connectGemini31LiveWebSocket();
 
         micSphere.classList.add('listening');
@@ -277,6 +269,7 @@ async function sendRESTMessage(message) {
         if (tempMsg) tempMsg.remove();
 
         appendMessage('assistant', data.text, data.rag_used, data.model_used);
+        speakNativeText(data.text);
     } catch (err) {
         console.error(err);
         const tempMsg = document.getElementById('tempLoading');
