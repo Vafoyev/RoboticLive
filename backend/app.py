@@ -32,22 +32,36 @@ app.add_middleware(
 
 seed_initial_knowledge()
 
-# Audio REST fallback
+# Native Uzbek Neural Voice Engine (uz-UZ-MadinaNeural)
 @app.get("/api/tts")
 async def text_to_speech(text: str):
     if not text or not text.strip():
         raise HTTPException(status_code=400, detail="Text is required")
 
-    clean_text = re.sub(r'[*_#📌🔹]', '', text).replace('---', ' ').strip()[:500]
+    # Clean text from markdown and numbers formatting
+    clean_text = re.sub(r'[*_#📌🔹⚠️✉️💡]', '', text).replace('---', ' ').replace('UH-', ' ').replace('YT-', ' ').replace('ST-', ' ').strip()[:700]
+
+    try:
+        import edge_tts
+        communicate = edge_tts.Communicate(clean_text, 'uz-UZ-MadinaNeural', rate='+0%', pitch='+0Hz')
+        audio_data = bytearray()
+        async for chunk in communicate.stream():
+            if chunk['type'] == 'audio':
+                audio_data.extend(chunk['data'])
+        
+        if len(audio_data) > 0:
+            return Response(content=bytes(audio_data), media_type="audio/mpeg")
+    except Exception as e:
+        logger.warning(f"EdgeTTS fallback to gTTS: {e}")
 
     try:
         from gtts import gTTS
-        tts = gTTS(text=clean_text, lang='tr', slow=False)
+        tts = gTTS(text=clean_text, lang='ru', slow=False)
         fp = io.BytesIO()
         tts.write_to_fp(fp)
         return Response(content=fp.getvalue(), media_type="audio/mpeg")
     except Exception as e:
-        print(f"TTS Error: {e}")
+        logger.error(f"TTS Total Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/chat")
