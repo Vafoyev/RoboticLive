@@ -1,7 +1,82 @@
+// RoboticLive - Dynamic RAG Gemini 3.1 Live Client Controller
+
+let isVoiceActive = false;
+let liveWebSocket = null;
+let recognition = null;
+let audioContext = null;
+let currentOutputText = "";
+let isAIPlayingAudio = false;
+let nextAudioStartTime = 0;
+let lastRAGUsed = false;
+
+function initAudioContext() {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+}
+
+// Play PCM 24kHz Audio Chunks with Jitter Buffering to Prevent Stuttering & Echo
+function playGeminiPCM24kAudio(base64PCM) {
+    initAudioContext();
+    pauseListeningForEchoPrevention();
+
+    try {
+        const rawBinary = atob(base64PCM);
+        const len = rawBinary.length;
+        const pcm16 = new Int16Array(len / 2);
+        
+        for (let i = 0; i < len; i += 2) {
+            pcm16[i / 2] = (rawBinary.charCodeAt(i + 1) << 8) | rawBinary.charCodeAt(i);
+        }
+
+        const float32 = new Float32Array(pcm16.length);
+        for (let i = 0; i < pcm16.length; i++) {
+            float32[i] = pcm16[i] / 32768.0;
+        }
+
+        // Resample/render 24kHz buffer cleanly
+        const buffer = audioContext.createBuffer(1, float32.length, 24000);
+        buffer.getChannelData(0).set(float32);
+
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        source.connect(audioContext.destination);
+
+        const currentTime = audioContext.currentTime;
+        if (nextAudioStartTime < currentTime + 0.03) {
+            nextAudioStartTime = currentTime + 0.03; // 30ms smooth jitter buffer
+        }
+
+        source.start(nextAudioStartTime);
+        nextAudioStartTime += buffer.duration;
+
+        document.getElementById('soundWaves')?.classList.add('active');
+        const statusText = document.getElementById('audioStatusText');
+        if (statusText) statusText.innerText = "Jonli Gemini Aoede Ovozida...";
+
+        source.onended = () => {
+            if (audioContext.currentTime >= nextAudioStartTime - 0.05) {
+                setTimeout(() => {
+                    if (!isAIPlayingAudio && isVoiceActive) {
+                        resumeListeningAfterAI();
+                    }
+                    if (statusText) statusText.innerText = "Tayyor (Ready)";
+                }, 200);
+            }
+        };
+    } catch (err) {
+        console.error("PCM Audio decode error:", err);
+    }
+}
+
+// Dual-Engine Audio Player (HTML5 /api/tts + SpeechSynthesis Fallback)
 function speakNativeText(text) {
     if (!text || !text.trim()) return;
     
-    // Clean markdown, symbols, and IDs
+    // Clean markdown, symbols, and IDs for natural speech
     const cleanText = text
         .replace(/[#*`_📌🔹⚠️✉️💡]/g, '')
         .replace(/---/g, ' ')
@@ -55,7 +130,7 @@ function fallbackToSpeechSynthesis(cleanText) {
         const utterance = new SpeechSynthesisUtterance(cleanText);
         utterance.lang = 'uz-UZ';
         utterance.rate = 1.0;
-        utterance.pitch = 1.1;
+        utterance.pitch = 1.1; // Clear, pleasant female tone
         
         utterance.onstart = () => {
             isAIPlayingAudio = true;
@@ -102,7 +177,54 @@ function resumeListeningAfterAI() {
     }
 }
 
-// Speech Recognition setup with adaptive language fallback
+// Instant Audio Interruption (Barge-In) Function
+function stopAllAudioImmediately(reason = "To'xtatildi") {
+    // 1. Instantly stop HTML5 Audio Player
+    const audioEl = document.getElementById('appAudioPlayer');
+    if (audioEl) {
+        audioEl.pause();
+        audioEl.currentTime = 0;
+        audioEl.removeAttribute('src');
+    }
+    
+    // 2. Instantly cancel Web SpeechSynthesis
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+    }
+    
+    // 3. Instantly suspend and reset Web Audio PCM
+    if (audioContext) {
+        try {
+            audioContext.suspend().then(() => {
+                if (audioContext) audioContext.resume();
+            });
+        } catch (e) {}
+        nextAudioStartTime = 0;
+    }
+    
+    isAIPlayingAudio = false;
+    
+    // 4. Update UI visualizers immediately
+    document.getElementById('soundWaves')?.classList.remove('active');
+    const statusText = document.getElementById('audioStatusText');
+    if (statusText) statusText.innerText = "To'xtatildi (Stopped)";
+    
+    // 5. Notify server over WebSocket to immediately abort generation
+    if (liveWebSocket && liveWebSocket.readyState === WebSocket.OPEN) {
+        liveWebSocket.send(JSON.stringify({
+            event: 'client_interrupted'
+        }));
+    }
+}
+
+// Global Escape Key to Stop Voice Instantly
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        stopAllAudioImmediately("Escape tugmasi bilan to'xtatildi");
+    }
+});
+
+// Speech Recognition setup with adaptive language fallback and Instant Barge-In
 if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = new SpeechRecognition();
@@ -111,10 +233,26 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     recognition.lang = 'uz-UZ';
 
     recognition.onresult = (event) => {
-        if (isAIPlayingAudio) return;
-
         const lastIndex = event.results.length - 1;
         const transcript = event.results[lastIndex][0].transcript.trim();
+        const lower = transcript.toLowerCase();
+
+        // 1. Instant Barge-In Stop Keywords (To'xta, Stop, Bo'ldi, Jim, Yetar, Shart emas, Bas)
+        if (lower.includes("to'xta") || lower.includes("toxta") || lower.includes("stop") || 
+            lower.includes("bo'ldi") || lower.includes("boldi") || lower.includes("jim") || 
+            lower.includes("yetar") || lower.includes("shart emas") || lower.includes("to'xtang") ||
+            lower.includes("toxtang") || lower.includes("bas")) {
+            
+            console.log("Instant Barge-In Stop triggered by user keyword:", transcript);
+            stopAllAudioImmediately("Foydalanuvchi to'xtatdi");
+            appendMessage('user', `🛑 ${transcript} (Ovoz darhol to'xtatildi)`);
+            return;
+        }
+
+        // If user says anything while audio was playing, immediately interrupt previous speech
+        if (isAIPlayingAudio) {
+            stopAllAudioImmediately();
+        }
 
         if (transcript) {
             appendMessage('user', transcript);
@@ -232,6 +370,9 @@ function connectGemini31LiveWebSocket() {
         }
 
         if (payload.event === 'turn_complete') {
+            if (currentOutputText && !isAIPlayingAudio) {
+                speakNativeText(currentOutputText);
+            }
             currentOutputText = "";
             resumeListeningAfterAI();
         }
@@ -256,21 +397,21 @@ function updateOrCreateAssistantMessage(text, ragUsed = false) {
     if (ragUsed) {
         content += `<br><span class="rag-tag"><i class="fa-solid fa-brain"></i> RAG Ishlatildi</span>`;
     }
-    content += `<span class="rag-tag" style="margin-left: 6px; background: rgba(255, 95, 175, 0.15); color: var(--accent-pink);"><i class="fa-solid fa-venus"></i> gemini-3.1-flash (Aoede Ayol Ovoz)</span>`;
+    content += `<span class="rag-tag" style="margin-left: 6px; background: rgba(255, 95, 175, 0.15); color: var(--accent-pink);"><i class="fa-solid fa-venus"></i> Aoede Ovoz (Adabiy Fonetika)</span>`;
     
     lastBubble.innerHTML = content;
     chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 
 function startListeningState() {
-    document.getElementById('soundWaves').classList.add('active');
+    document.getElementById('soundWaves')?.classList.add('active');
     try {
-        recognition.start();
+        if (recognition) recognition.start();
     } catch(e) {}
 }
 
 function stopListeningState() {
-    document.getElementById('soundWaves').classList.remove('active');
+    document.getElementById('soundWaves')?.classList.remove('active');
 }
 
 function switchTab(tabId) {
