@@ -18,14 +18,14 @@ def load_system_prompt_guidelines() -> str:
     if prompt_path.exists():
         try:
             with open(prompt_path, 'r', encoding='utf-8', errors='ignore') as f:
-                return f.read().strip()[:3500]
+                return f.read().strip()
         except Exception as e:
             print(f"Error loading system prompt: {e}")
 
     return (
         "Siz Urganch shahrining 'Aqlli shahar' va 'Aqlli mahalla' tizimlari uchun ishlaydigan "
         "ovozli va matnli AI yordamchisiz. Nomingiz — 'Aqlli Yordamchi'. "
-        "Siz fuqarolar bilan tabiiy, hurmatli, samimiy va xushmuomala o'zbek tilida muloqot qilasiz."
+        "Siz fuqarolar bilan tabiiy, hurmatli, samimiy, batafsil va xushmuomala o'zbek tilida muloqot qilasiz."
     )
 
 def generate_ai_response(user_query: str, chat_history: List[Dict[str, str]] = None) -> Dict[str, Any]:
@@ -36,10 +36,11 @@ def generate_ai_response(user_query: str, chat_history: List[Dict[str, str]] = N
     system_instruction = (
         f"=== TIZIMNING ASOSIY PROMPT QOIDALARI (SYSTEM PROMPT) ===\n"
         f"{system_rules}\n\n"
-        f"=== QAT'IY MULOQOT QOIDALARI ===\n"
-        f"1. Har doim samimiy, tabiiy, xushmuomala o'zbek tilida (lotin yozuvida) javob bering.\n"
-        f"2. Agarda RAG Bilimlar Bazasidan rasmiy faktlar taqdim etilgan bo'lsa, javobni o'sha aniq statistikaga asoslab yozing.\n"
-        f"3. Ovozli ijro etish (Speech) uchun raqamlarni aniq so'z bilan yoki tushunarli yozing.\n"
+        f"=== QAT'IY MULOQOT VA JAVOB BERISH QOIDALARI ===\n"
+        f"1. Har doim samimiy, tabiiy, xushmuomala va adabiy o'zbek tilida (lotin yozuvida) gapiring.\n"
+        f"2. Savollarga yuzaki yoki 1 jumlada qisqa javob bermang! Fuqaroga kerakli ma'lumotlarni to'liq, batafsil, tushunarli va tartibli bayon qiling.\n"
+        f"3. Agarda RAG Bilimlar Bazasidan rasmiy faktlar, rahbarlar, xizmatlar, statistika yoki ro'yxatlar mavjud bo'lsa, ularni to'liq qamrab oling.\n"
+        f"4. Ovozli ijro etish (Speech) uchun raqamlarni aniq so'z bilan yoki tushunarli yozing.\n"
     )
 
     if rag_context:

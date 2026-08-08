@@ -20,10 +20,14 @@ def load_system_prompt_rules() -> str:
     if prompt_path.exists():
         try:
             with open(prompt_path, 'r', encoding='utf-8', errors='ignore') as f:
-                return f.read().strip()[:3000]
+                return f.read().strip()
         except Exception as e:
             print(f"Error reading system prompt: {e}")
-    return "Siz Urganch shahrining 'Aqlli Yordamchi' AI agentisiz. Xushmuomala o'zbek tilida muloqot qilasiz."
+    return (
+        "Siz Urganch shahrining 'Aqlli Yordamchi' sun'iy intellekt AI agentisiz. "
+        "Siz ayol kishisiz va nihoyatda nazokatli, samimiy, bilag'on va xushmuomala ayol kishi ovozida (Aoede) gapirasiz. "
+        "Savollarga hech qachon yuzaki emas, to'liq, batafsil, tushunarli va barcha faktlarni erinmasdan bayon qilgan holda javob bering."
+    )
 
 async def gemini_live_bidi_stream(user_text: str) -> AsyncGenerator[Dict[str, Any], None]:
     """

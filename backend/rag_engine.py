@@ -179,9 +179,9 @@ def search_rag_context(query: str, limit: int = 4) -> str:
     if not top_rows:
         return ""
 
-    formatted_context = "=== ANIQ RASMIY BILIMLAR BAZASI MA'LUMOTLARI ===\n"
+    formatted_context = "=== ANIQ VA TO'LIQ RASMIY BILIMLAR BAZASI MA'LUMOTLARI ===\n"
     for idx, r in enumerate(top_rows, 1):
-        formatted_context += f"\n[{idx}] MANBA: {r['title']} ({r['category']})\n{r['content'][:1200]}\n"
+        formatted_context += f"\n[{idx}] HUJJAT MANBASI: {r['title']} (Kategoriya: {r['category']})\n{r['content'][:3500]}\n"
 
     return formatted_context.strip()
 
